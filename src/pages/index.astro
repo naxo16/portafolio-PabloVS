@@ -6,7 +6,7 @@ import CasesCarousel from '../components/CasesCarousel.astro';
 import ContactForm from '../components/ContactForm.astro';
 ---
 
-<Layout title="Desarrollador Backend Junior & Soluciones TI" description="Desarrollador Backend Junior (Python, FastAPI, PostgreSQL) buscando mi primer empleo formal. También ofrezco desarrollo a medida y automatización para negocios B2B.">
+<Layout title="Desarrollador Backend Junior | Portafolio Web" description="Portafolio oficial de Pablo Valdés. Desarrollador Backend Junior (Python, FastAPI, PostgreSQL) y Analista Programador con enfoque analítico en arquitectura y resolución de problemas.">
   <Header />
   
   <main class="pt-20">
@@ -16,48 +16,60 @@ import ContactForm from '../components/ContactForm.astro';
         <div class="relative z-10 max-w-4xl text-center">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary mb-8 animate-pulse shadow-[0_0_15px_rgba(137,206,255,0.2)]">
                 <span class="material-symbols-outlined notranslate text-[14px]" translate="no">code</span>
-                <span class="font-code-sm text-code-sm uppercase tracking-wider">Desarrollador Backend Junior | Soluciones TI</span>
+                <span class="font-code-sm text-code-sm uppercase tracking-wider">Desarrollador Backend Junior | Portafolio Web</span>
             </div>
             
             <h1 class="font-display-lg text-display-lg-mobile md:text-[56px] text-on-surface mb-6 leading-tight drop-shadow-[0_0_30px_rgba(137,206,255,0.15)]">
-                Desarrollador Backend construyendo <br/> <span class="text-primary hover:text-white transition-colors duration-300 hover:drop-shadow-[0_0_15px_var(--color-primary)]">soluciones reales</span>
+                Desarrollador Backend construyendo <br/> <span class="text-primary hover:text-white transition-colors duration-300 hover:drop-shadow-[0_0_15px_var(--color-primary)]">software con propósito</span>
             </h1>
             
             <p class="font-body-lg text-[20px] text-on-surface-variant mb-12 max-w-3xl mx-auto leading-relaxed">
-                Transformo cuellos de botella en sistemas eficientes. Ya sea automatizando y estructurando procesos para tu negocio B2B, o aportando valor de ingeniería de software en tu equipo técnico.
+                Especializado en Python, FastAPI y PostgreSQL. Resuelvo problemas de lógica, persistencia y arquitectura limpia con un enfoque analítico riguroso. En búsqueda activa de mi primer empleo formal en desarrollo de software.
             </p>
             
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <!-- Bloom Effect Button -->
-                <a href="/#contact" class="w-full sm:w-auto bg-primary text-on-primary px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 group transition-all duration-300 hover:shadow-[0_0_30px_rgba(137,206,255,0.6)] hover:bg-white hover:text-primary-container">
-                    Solicitar evaluación inicial
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <!-- Primary CTA: Casos -->
+                <a href="/casos" class="w-full sm:w-auto bg-primary text-on-primary px-7 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 group transition-all duration-300 hover:shadow-[0_0_30px_rgba(137,206,255,0.6)] hover:bg-white hover:text-primary-container">
+                    Ver casos de estudio
                     <span class="material-symbols-outlined notranslate group-hover:translate-x-1 transition-transform" translate="no">arrow_forward</span>
                 </a>
-                <a href="/casos" class="w-full sm:w-auto border border-outline-variant text-on-surface px-8 py-4 rounded-xl font-bold hover:bg-surface-variant hover:border-primary/50 hover:shadow-[0_0_15px_rgba(137,206,255,0.2)] transition-all flex items-center justify-center gap-2">
-                    Ver casos de estudio
+                <!-- CTA 1: Descargar CV -->
+                <a href="/cv-pablo-valdes.pdf" target="_blank" class="w-full sm:w-auto bg-surface-container-high border border-primary/40 text-primary px-6 py-3.5 rounded-xl font-bold hover:bg-primary hover:text-on-primary hover:shadow-[0_0_20px_rgba(137,206,255,0.4)] transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined notranslate text-[20px]" translate="no">description</span>
+                    Descargar CV
+                </a>
+                <!-- CTA 2: Enviar Correo -->
+                <a href="mailto:pablovaldescontacto@gmail.com" class="w-full sm:w-auto border border-outline-variant text-on-surface px-6 py-3.5 rounded-xl font-bold hover:bg-surface-variant hover:border-primary/50 hover:shadow-[0_0_15px_rgba(137,206,255,0.2)] transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined notranslate text-[20px]" translate="no">mail</span>
+                    Enviar Correo
+                </a>
+                <!-- Secondary CTA: Perfil -->
+                <a href="/career" class="w-full sm:w-auto text-on-surface-variant hover:text-primary px-5 py-3.5 rounded-xl font-medium transition-all flex items-center justify-center gap-1.5">
+                    <span class="material-symbols-outlined notranslate text-[20px]" translate="no">badge</span>
+                    Perfil Profesional
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Bifurcación / Dual Journey -->
+    <!-- Portfolio Highlights / Rutas del Portafolio -->
     <section class="py-12 px-gutter max-w-container-max mx-auto animate-on-scroll">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Path 1: B2B -->
-            <a href="/servicios" class="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:border-primary/50 transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(137,206,255,0.15)] relative overflow-hidden">
+            <!-- Path 1: Proyectos -->
+            <a href="/casos" class="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:border-primary/50 transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(137,206,255,0.15)] relative overflow-hidden">
                 <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <span class="material-symbols-outlined notranslate text-[48px] text-primary mb-4" translate="no">domain</span>
-                <h2 class="font-headline-md text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">¿Buscas desarrollo a medida para tu negocio?</h2>
-                <p class="text-on-surface-variant font-body-md mb-6">Auditoría, automatización y soluciones digitales B2B.</p>
-                <span class="font-bold text-primary flex items-center gap-2 mt-auto">Ver servicios <span class="material-symbols-outlined notranslate" translate="no">arrow_forward</span></span>
+                <span class="material-symbols-outlined notranslate text-[48px] text-primary mb-4" translate="no">terminal</span>
+                <h2 class="font-headline-md text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">Casos de Estudio & Proyectos Reales</h2>
+                <p class="text-on-surface-variant font-body-md mb-6">Soluciones desarrolladas de punta a punta, analizando el contexto, arquitectura y resultado técnico.</p>
+                <span class="font-bold text-primary flex items-center gap-2 mt-auto">Explorar proyectos <span class="material-symbols-outlined notranslate" translate="no">arrow_forward</span></span>
             </a>
 
-            <!-- Path 2: Recruiters -->
+            <!-- Path 2: Perfil Profesional -->
             <a href="/career" class="glass-card p-8 rounded-2xl flex flex-col items-center text-center group hover:border-primary/50 transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(137,206,255,0.15)] relative overflow-hidden">
                 <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <span class="material-symbols-outlined notranslate text-[48px] text-primary mb-4" translate="no">badge</span>
-                <h2 class="font-headline-md text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">¿Eres reclutador o headhunter evaluando mi perfil?</h2>
-                <p class="text-on-surface-variant font-body-md mb-6">Backend Developer Junior (Python, FastAPI, PostgreSQL).</p>
+                <h2 class="font-headline-md text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">Perfil Profesional & Fact Sheet</h2>
+                <p class="text-on-surface-variant font-body-md mb-6">Stack técnico (Python, FastAPI, SQL), formación académica y experiencia práctica demostrable.</p>
                 <span class="font-bold text-primary flex items-center gap-2 mt-auto">Ver perfil profesional <span class="material-symbols-outlined notranslate" translate="no">arrow_forward</span></span>
             </a>
         </div>
@@ -134,8 +146,8 @@ import ContactForm from '../components/ContactForm.astro';
             <!-- Contact Details -->
             <div class="flex flex-col justify-between py-8">
                 <div>
-                    <h2 class="font-display-lg text-display-lg-mobile md:text-[40px] mb-6 leading-tight">¿Tienes un reto técnico?<br/><span class="text-primary">Hablemos de ello.</span></h2>
-                    <p class="text-on-surface-variant text-body-lg mb-12 max-w-md">Si buscas optimizar tu flujo de trabajo, construir una solución digital sólida, o buscas sumar un Desarrollador Backend Junior a tu equipo, estoy a un mensaje de distancia.</p>
+                    <h2 class="font-display-lg text-display-lg-mobile md:text-[40px] mb-6 leading-tight">¿Tienes una vacante o reto técnico?<br/><span class="text-primary">Conversemos.</span></h2>
+                    <p class="text-on-surface-variant text-body-lg mb-12 max-w-md">Si buscas sumar un Desarrollador Backend Junior analítico a tu equipo o te interesa consultar sobre mis proyectos, estoy a un mensaje de distancia.</p>
                     
                     <div class="space-y-6">
                         <a class="flex items-center gap-6 p-6 glass-card rounded-2xl group hover:border-primary/50 hover:bg-surface-container-low transition-all" href="mailto:pablovaldescontacto@gmail.com">
@@ -147,16 +159,16 @@ import ContactForm from '../components/ContactForm.astro';
                                 <p class="font-headline-md text-body-lg text-on-surface group-hover:text-primary transition-colors">pablovaldescontacto@gmail.com</p>
                             </div>
                         </a>
-                        <a class="flex items-center gap-6 p-6 glass-card rounded-2xl group hover:border-primary/50 hover:bg-surface-container-low transition-all" href="https://www.instagram.com/renkaidev/" target="_blank" rel="noopener noreferrer">
-                            <div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center text-[#E1306C] group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined notranslate text-[28px]" translate="no">photo_camera</span>
+                        <a class="flex items-center gap-6 p-6 glass-card rounded-2xl group hover:border-primary/50 hover:bg-surface-container-low transition-all" href="https://github.com/naxo16" target="_blank" rel="noopener noreferrer">
+                            <div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined notranslate text-[28px]" translate="no">code</span>
                             </div>
                             <div>
-                                <p class="font-code-sm text-[12px] text-on-surface-variant uppercase">Instagram</p>
-                                <p class="font-headline-md text-body-lg text-on-surface group-hover:text-primary transition-colors">@renkaidev</p>
+                                <p class="font-code-sm text-[12px] text-on-surface-variant uppercase">GitHub Profile</p>
+                                <p class="font-headline-md text-body-lg text-on-surface group-hover:text-primary transition-colors">github.com/naxo16</p>
                             </div>
                         </a>
-                        <a class="flex items-center gap-6 p-6 glass-card rounded-2xl group hover:border-primary/50 hover:bg-surface-container-low transition-all" href="https://www.linkedin.com/in/pablo-vald%C3%A9s-6a4b0930b/" target="_blank" rel="noopener noreferrer">
+                        <a class="flex items-center gap-6 p-6 glass-card rounded-2xl group hover:border-primary/50 hover:bg-surface-container-low transition-all" href="https://www.linkedin.com/in/pablo-vald%C3%A9s-7a4445430/" target="_blank" rel="noopener noreferrer">
                             <div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center text-[#0077B5] group-hover:scale-110 transition-transform">
                                 <span class="material-symbols-outlined notranslate text-[28px]" translate="no">work</span>
                             </div>

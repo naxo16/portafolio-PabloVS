@@ -1,7 +1,7 @@
-# Arquitectura del Sistema - RenkaiDev Web
+# Arquitectura del Sistema - Portafolio Pablo Valdés
 
 ## 1. Visión General
-El proyecto "RenkaiDev Web" es un sitio web de portafolio y servicios de consultoría tecnológica diseñado para operar bajo los principios de **Zero-Backend** (cero dependencias de servidor) y **Static Site Generation (SSG)**. 
+El proyecto es el portafolio web profesional de desarrollo de software y fact sheet técnico de Pablo Valdés, diseñado para operar bajo los principios de **Zero-Backend** (cero dependencias de servidor) y **Static Site Generation (SSG)**. 
 Su propósito es ofrecer máxima velocidad, seguridad intrínseca y cero costos de mantenimiento de infraestructura (Hosteado en entornos Edge como Cloudflare Pages).
 
 ## 2. Decisiones Tecnológicas (Stack)

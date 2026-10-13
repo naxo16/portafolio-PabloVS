@@ -68,6 +68,20 @@ const { Content } = await render(study);
               ))}
             </div>
           )}
+
+          {study.data.url && (
+            <div class="mt-8">
+              <a 
+                href={study.data.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-bold hover:shadow-[0_0_25px_rgba(137,206,255,0.6)] hover:bg-white hover:text-primary-container transition-all group"
+              >
+                <span class="material-symbols-outlined notranslate text-[20px]" translate="no">open_in_new</span>
+                <span>Ver vista previa en vivo ({study.data.url.replace(/^https?:\/\//, '')})</span>
+              </a>
+            </div>
+          )}
         </header>
 
         <div class="markdown-content relative z-10">

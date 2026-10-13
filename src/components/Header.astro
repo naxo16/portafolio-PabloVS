@@ -3,9 +3,8 @@ const currentPath = Astro.url.pathname;
 
 const mainLinks = [
   { href: '/', label: 'Inicio' },
-  { href: '/servicios', label: 'Servicios' },
-  { href: '/metodologia', label: 'Metodología' },
   { href: '/casos', label: 'Casos de Estudio' },
+  { href: '/metodologia', label: 'Metodología' },
 ];
 
 const careerLink = { href: '/career', label: 'Perfil Profesional' };
@@ -18,7 +17,7 @@ const isActive = (href: string) => {
 <header class="fixed top-0 w-full z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant/10 transition-all duration-300" id="main-header">
     <nav class="flex justify-between items-center px-gutter h-20 max-w-container-max mx-auto relative">
         <div class="flex items-center gap-2 z-50">
-            <a href="/" aria-label="Volver al inicio" class="font-headline-md text-headline-md font-bold text-on-surface hover:text-primary transition-colors">RenkaiDev</a>
+            <a href="/" aria-label="Volver al inicio" class="font-headline-md text-headline-md font-bold text-on-surface hover:text-primary transition-colors">Pablo Valdés</a>
         </div>
         
         <!-- Desktop Menu -->
@@ -48,8 +47,23 @@ const isActive = (href: string) => {
                 {careerLink.label}
             </a>
         </div>
-        <div class="hidden md:flex items-center gap-4">
+        <div class="hidden md:flex items-center gap-3">
             <div class="gtranslate_wrapper"></div>
+            <a 
+                href="/cv-pablo-valdes.pdf" 
+                target="_blank"
+                class="bg-surface-container border border-outline-variant/40 text-on-surface hover:border-primary/50 hover:text-primary px-3.5 py-2 rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all"
+            >
+                <span class="material-symbols-outlined notranslate text-[18px]" translate="no">description</span>
+                CV
+            </a>
+            <a 
+                href="mailto:pablovaldescontacto@gmail.com" 
+                class="bg-primary/10 border border-primary/30 text-primary hover:bg-primary hover:text-on-primary px-3.5 py-2 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(137,206,255,0.15)] hover:shadow-[0_0_20px_rgba(137,206,255,0.4)]"
+            >
+                <span class="material-symbols-outlined notranslate text-[18px]" translate="no">mail</span>
+                Correo
+            </a>
         </div>
 
         <!-- Mobile Menu Button -->
@@ -91,8 +105,23 @@ const isActive = (href: string) => {
             <span class="material-symbols-outlined notranslate" translate="no">badge</span>
             {careerLink.label}
         </a>
-        <div class="mt-4 flex flex-col items-center gap-4">
-            <div class="gtranslate_wrapper"></div>
+        <div class="mt-4 flex flex-col gap-3">
+            <a 
+                href="/cv-pablo-valdes.pdf" 
+                target="_blank"
+                class="w-full text-center bg-surface-container-highest border border-primary/40 text-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2"
+            >
+                <span class="material-symbols-outlined notranslate text-[20px]" translate="no">description</span>
+                Descargar CV
+            </a>
+            <a 
+                href="mailto:pablovaldescontacto@gmail.com" 
+                class="w-full text-center bg-primary text-on-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(137,206,255,0.4)]"
+            >
+                <span class="material-symbols-outlined notranslate text-[20px]" translate="no">mail</span>
+                Enviar Correo
+            </a>
+            <div class="gtranslate_wrapper flex justify-center mt-2"></div>
         </div>
     </div>
 </div>

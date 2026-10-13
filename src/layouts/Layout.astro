@@ -11,7 +11,7 @@ interface Props {
 
 const { 
   title, 
-  description = "RenkaiDev: Desarrollo de software a medida y páginas web por Pablo Valdés Sandoval. Consultoría tecnológica presencial en Cauquenes, Chile, y servicios remotos a nivel global.",
+  description = "Portafolio profesional de Pablo Valdés, Desarrollador Backend Junior (Python, FastAPI, PostgreSQL) y Analista Programador. Enfoque analítico, arquitectura de software limpia y buenas prácticas de ingeniería.",
   image = "/og-image.png" 
 } = Astro.props;
 ---
@@ -26,20 +26,20 @@ const {
     
     <!-- Primary Meta Tags -->
     <meta name="google-site-verification" content="TK4Ee5u5B10s5oS6m74gxg1jf6Vw6A_vLyg2dki1iwI" />
-    <title>{title} | RenkaiDev</title>
-    <meta name="title" content={`${title} | RenkaiDev`} />
+    <title>{title} | Pablo Valdés</title>
+    <meta name="title" content={`${title} | Pablo Valdés`} />
     <meta name="description" content={description} />
-    <meta name="author" content="Pablo Valdés Sandoval" />
+    <meta name="author" content="Pablo Valdés" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={`${title} | RenkaiDev`} />
+    <meta property="og:title" content={`${title} | Pablo Valdés`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.url)} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content={`${title} | RenkaiDev`} />
+    <meta property="twitter:title" content={`${title} | Pablo Valdés`} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
     
@@ -54,51 +54,39 @@ const {
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 
-    <!-- JSON-LD Structured Data for Local Business / Professional Service -->
+    <!-- JSON-LD Structured Data for Developer Portfolio / ProfilePage -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "RenkaiDev",
-      "image": new URL(image, Astro.url).toString(),
-      "description": description,
-      "url": Astro.site ? Astro.site.toString() : Astro.url.origin,
-      "founder": {
+      "@type": "ProfilePage",
+      "mainEntity": {
         "@type": "Person",
-        "name": "Pablo Valdés Sandoval"
-      },
-      "sameAs": [
-        "https://www.linkedin.com/in/pablo-vald%C3%A9s-6a4b0930b/",
-        "https://www.instagram.com/renkaidev/"
-      ],
-      "knowsAbout": [
-        "Desarrollo de Software", 
-        "Desarrollo de Páginas Web", 
-        "Consultoría Tecnológica", 
-        "Arquitectura de Software", 
-        "Desarrollo Web Full Stack"
-      ],
-      "keywords": "renkaidev developer, renkaidev, desarrollo de software, desarrollo de páginas web, pablo valdés sandoval, cauquenes, remoto, chile",
-      "priceRange": "$$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Cauquenes",
-        "addressRegion": "Maule",
-        "addressCountry": "CL"
-      },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "Cauquenes"
-        },
-        {
-          "@type": "Country",
-          "name": "Chile"
-        },
-        {
-          "@type": "Place",
-          "name": "Worldwide"
+        "name": "Pablo Valdés",
+        "jobTitle": "Backend Developer Junior",
+        "image": new URL(image, Astro.url).toString(),
+        "description": description,
+        "url": Astro.site ? Astro.site.toString() : Astro.url.origin,
+        "sameAs": [
+          "https://www.linkedin.com/in/pablo-vald%C3%A9s-7a4445430/",
+          "https://github.com/naxo16"
+        ],
+        "knowsAbout": [
+          "Python",
+          "FastAPI",
+          "PostgreSQL",
+          "Astro",
+          "TypeScript",
+          "Docker",
+          "Ingeniería de Software",
+          "Arquitectura Limpia",
+          "Principios SOLID"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Cauquenes",
+          "addressRegion": "Maule",
+          "addressCountry": "CL"
         }
-      ]
+      }
     })} />
   </head>
   <body class="font-body-md text-body-md overflow-x-hidden antialiased selection:bg-primary/30 selection:text-primary-fixed cursor-default">

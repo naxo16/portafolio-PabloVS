@@ -5,7 +5,12 @@ year: 2026
 status: "En Producción"
 role: "Desarrollo Frontend y UI/UX"
 tags: ["Astro", "Tailwind CSS v4", "GSAP", "SEO Local", "Landing Page", "CI/CD"]
+url: "https://jpvs.cl"
 ---
+
+## Vista Previa en Vivo
+El proyecto se encuentra actualmente desplegado y operativo en producción:
+- **Sitio web:** [jpvs.cl](https://jpvs.cl)
 
 ## Problema
 JPVS necesitaba profesionalizar su presencia digital para servicios técnicos integrales (gasfitería, soldadura, electricidad y construcción). Requerían generar confianza inmediata, exponer una metodología clara y facilitar el contacto directo mediante WhatsApp y llamadas telefónicas en un nicho muy competitivo a nivel local.
@@ -24,3 +29,4 @@ La arquitectura frontal se basó en los siguientes pilares de rendimiento:
 - **Framework**: Astro (SSG)
 - **Estilos**: Tailwind CSS v4
 - **Interactividad**: GSAP y ScrollTrigger
+- **Infraestructura**: Despliegue en producción en [jpvs.cl](https://jpvs.cl)

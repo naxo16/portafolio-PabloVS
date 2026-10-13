@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content';
 
 const caseStudies = await getCollection('casos-estudio');
 
-const otherProjectIds = ['intelligent-agenda-automation', 'jpvs-web', 'renkaidev-web'];
+const otherProjectIds = ['intelligent-agenda-automation', 'portafolio-web'];
 let mainCases = caseStudies.filter(study => !otherProjectIds.includes(study.id));
 let otherCases = caseStudies.filter(study => otherProjectIds.includes(study.id));
 
@@ -17,7 +17,7 @@ mainCases.sort((a, b) => {
 });
 ---
 
-<Layout title="Casos de Estudio | RenkaiDev" description="Explora casos de estudio reales sobre consultoría técnica, arquitectura de software y optimización de infraestructura por Pablo Valdés Sandoval.">
+<Layout title="Casos de Estudio | Pablo Valdés" description="Explora casos de estudio y proyectos de software reales desarrollados por Pablo Valdés. Análisis de problemas, arquitectura e implementación.">
   <Header />
   
   <main class="pt-20">
@@ -25,7 +25,7 @@ mainCases.sort((a, b) => {
     <section class="py-section-gap px-gutter max-w-container-max mx-auto relative overflow-hidden animate-on-scroll">
       <div class="relative z-10 text-center space-y-4">
         <span class="font-code-sm text-code-sm text-primary bg-primary/10 px-3 py-1 rounded-full uppercase tracking-wider">
-          Portafolio de Soluciones
+          Portafolio de Proyectos
         </span>
         <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface max-w-3xl mx-auto">
           Casos de Estudio
@@ -51,9 +51,18 @@ mainCases.sort((a, b) => {
                 </span>
               </div>
               
-              <h2 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors">
+              <h2 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">
                 {study.data.title}
               </h2>
+
+              {study.data.url && (
+                <div class="mb-4">
+                  <span class="inline-flex items-center gap-1.5 font-code-sm text-xs text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-md">
+                    <span class="material-symbols-outlined notranslate text-[14px]" translate="no">public</span>
+                    {study.data.url.replace(/^https?:\/\//, '')}
+                  </span>
+                </div>
+              )}
               
               <p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">
                 {study.data.description}
@@ -94,9 +103,18 @@ mainCases.sort((a, b) => {
                     </span>
                   </div>
                   
-                  <h2 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors">
+                  <h2 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">
                     {study.data.title}
                   </h2>
+
+                  {study.data.url && (
+                    <div class="mb-4">
+                      <span class="inline-flex items-center gap-1.5 font-code-sm text-xs text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-md">
+                        <span class="material-symbols-outlined notranslate text-[14px]" translate="no">public</span>
+                        {study.data.url.replace(/^https?:\/\//, '')}
+                      </span>
+                    </div>
+                  )}
                   
                   <p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-grow">
                     {study.data.description}

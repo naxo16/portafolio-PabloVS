@@ -2,10 +2,12 @@
 title: "Del Valle Construcciones"
 description: "Desarrollo de plataforma web comercial y sistema de captación de leads para potenciar la presencia digital y estructurar el proceso comercial."
 year: 2026
-status: "En Desarrollo"
+status: "Pendiente de Lanzamiento"
 role: "Desarrollo End-to-End"
 tags: ["Transformación Digital", "Automatización", "Next.js", "FastAPI", "PostgreSQL"]
 ---
+
+> **Nota de Contexto:** El lanzamiento a producción de esta plataforma integral quedó pendiente debido a tiempos operativos y prioridades comerciales de la empresa. Para cubrir de inmediato la necesidad de captación digital, se optó por desplegar una landing page ligera en producción ([ver caso Del Valle Construcciones - Presencia Digital](/casos/del-valle-construcciones-landing)).
 
 ## Problema
 Del Valle Construcciones carecía casi por completo de presencia digital. Su estrategia comercial dependía del "boca a boca" y de un perfil personal en Facebook. No existía un proceso estructurado para la captación de leads, las solicitudes de los clientes carecían de trazabilidad y el proceso de cotización dependía de un trabajo 100% manual.

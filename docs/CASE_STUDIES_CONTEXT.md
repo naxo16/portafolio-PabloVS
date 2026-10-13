@@ -2,11 +2,11 @@
 
 # Purpose
 
-This document provides context about the real projects completed by RenkaiDev.
+This document provides context about the real projects completed by Pablo Valdés.
 
 Its purpose is NOT to generate a portfolio or résumé.
 
-Its purpose is to help AI assistants create and maintain the "Case Studies" section of the RenkaiDev services website.
+Its purpose is to help AI assistants create and maintain the "Case Studies" section of the portfolio website.
 
 Every case study should demonstrate problem solving, business understanding and technical execution instead of simply listing technologies.
 

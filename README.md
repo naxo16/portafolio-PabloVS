@@ -1,10 +1,8 @@
-# RenkaiDev Web
+# Portafolio Web - Pablo Valdés
 
-Sitio web oficial de **RenkaiDev**, la plataforma dual de Pablo Valdés Sandoval (Solo Developer). El sitio sirve a dos propósitos (Dual Journey) sin superponerlos:
-1. Operar como portafolio y Fact Sheet Técnico en la **búsqueda activa del primer empleo formal** como Backend Developer Junior.
-2. Presentar servicios freelance de consultoría, desarrollo de software y automatización para negocios B2B.
+Sitio web oficial y portafolio profesional de **Pablo Valdés** (Backend Developer Junior / Analista Programador). El sitio opera exclusivamente como portafolio web y Fact Sheet Técnico en la **búsqueda activa de empleo formal** como Backend Developer Junior (Python, FastAPI, PostgreSQL).
 
-El objetivo del proyecto es ofrecer una experiencia rápida, accesible y profesional, transmitiendo una propuesta de valor centrada en resolver problemas reales mediante un enfoque analítico.
+El objetivo del proyecto es ofrecer una experiencia rápida, accesible y profesional, transmitiendo una propuesta de valor centrada en resolver problemas reales mediante un enfoque analítico riguroso y arquitectura limpia.
 
 ## Características
 
@@ -81,12 +79,12 @@ La aplicación está preparada para ejecutarse en **Cloudflare Pages**, aprovech
 
 ## Casos de Estudio
 
-Los casos de estudio muestran proyectos reales desarrollados de forma independiente por RenkaiDev. Se detalla explícitamente que estos trabajos fueron realizados sin cobro, en colaboración con negocios que no podían costear desarrollos tradicionales, a cambio de adquirir **experiencia práctica real** previo a la búsqueda de empleo formal.
+Los casos de estudio muestran proyectos reales desarrollados de forma independiente por Pablo Valdés. Se detalla explícitamente que estos trabajos fueron realizados sin cobro, en colaboración con negocios que no podían costear desarrollos tradicionales, a cambio de adquirir **experiencia práctica real** previo a la búsqueda de empleo formal.
 
 Su propósito es demostrar el proceso de trabajo, la honestidad del perfil, y el impacto de las soluciones técnicas implementadas en entornos de producción.
 
 ## Licencia
 
-Este repositorio corresponde al sitio web oficial de RenkaiDev.
+Este repositorio corresponde al sitio web oficial y portafolio de Pablo Valdés.
 
-Salvo que se indique expresamente lo contrario, el código fuente, el contenido y el material gráfico son propiedad de RenkaiDev y no pueden ser utilizados, distribuidos o reproducidos sin autorización previa por escrito.
+Salvo que se indique expresamente lo contrario, el código fuente, el contenido y el material gráfico son propiedad de Pablo Valdés y no pueden ser utilizados, distribuidos o reproducidos sin autorización previa por escrito.

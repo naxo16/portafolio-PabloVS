@@ -10,6 +10,7 @@ const casosEstudioCollection = defineCollection({
     status: z.string(),
     role: z.string().optional(),
     tags: z.array(z.string()).optional(),
+    url: z.string().optional(),
   })
 });
 
