@@ -4,28 +4,59 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Perfil Profesional | Pablo Valdés">
+<Layout 
+  title="Pablo Valdés Sandoval | Backend Developer Junior (Python, FastAPI)"
+  description="Fact Sheet técnico y perfil profesional de Pablo Valdés Sandoval. Backend Developer Junior especializado en Python, FastAPI, PostgreSQL y despliegue de sistemas de punta a punta. Abierto a oportunidades."
+>
   <Header />
   
   <main class="pt-20">
-    <!-- Intro Section -->
+    <!-- Intro / Hero Section -->
     <section class="py-section-gap px-gutter border-b border-outline-variant/10 bg-surface-container-lowest relative overflow-hidden">
         <div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
         <div class="max-w-container-max mx-auto relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
             <div class="md:col-span-8 animate-on-scroll">
-                <span class="font-code-sm text-code-sm text-primary uppercase tracking-widest mb-4 inline-block">Fact Sheet Técnico</span>
-                <h1 class="font-display-lg text-display-lg-mobile md:text-5xl mb-4">
-                    Pablo Valdés
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary mb-4 font-code-sm text-code-sm uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    Fact Sheet Técnico · Abierto a Oportunidades
+                </div>
+                
+                <h1 class="font-display-lg text-display-lg-mobile md:text-5xl mb-3 text-on-surface">
+                    Pablo Valdés Sandoval
                 </h1>
-                <h2 class="font-headline-md text-headline-md text-on-surface-variant mb-2">
-                    Backend Developer | Python, FastAPI, PostgreSQL
+                
+                <h2 class="font-headline-md text-xl md:text-2xl text-primary font-bold mb-3 leading-snug">
+                    Backend Developer Junior. Llevo sistemas de punta a punta: API, base de datos, despliegue y mantención.
                 </h2>
-                <h3 class="font-bold text-lg text-primary mb-6">
-                    Técnico de Nivel Superior en Analista Programador
-                </h3>
-                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8">
-                    Backend Developer Junior especializado en Python, FastAPI y PostgreSQL. Construyo esta base a través de práctica profesional y proyectos independientes reales, en búsqueda de mi primer empleo formal en desarrollo de software.
+                
+                <p class="font-code-sm text-sm text-on-surface-variant mb-5">
+                    🎓 Técnico de Nivel Superior en Analista Programador
                 </p>
+
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-6 leading-relaxed">
+                    Especializado en Python, FastAPI y PostgreSQL. Resuelvo problemas de lógica, persistencia y arquitectura limpia con base analítica. Construyo soluciones end-to-end a través de proyectos reales aplicados a negocios, en búsqueda activa de mi primer empleo formal en la industria tecnológica.
+                </p>
+
+                <!-- Status & Availability Strip -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl bg-surface-container-low border border-outline-variant/30 mb-8 max-w-2xl text-sm">
+                    <div class="flex items-center gap-2.5 text-on-surface">
+                        <span class="material-symbols-outlined notranslate text-primary text-[20px]" translate="no">location_on</span>
+                        <span><strong>Ubicación:</strong> Cauquenes / Maule, Chile</span>
+                    </div>
+                    <div class="flex items-center gap-2.5 text-on-surface">
+                        <span class="material-symbols-outlined notranslate text-primary text-[20px]" translate="no">schedule</span>
+                        <span><strong>Disponibilidad:</strong> Inmediata · Full-Time</span>
+                    </div>
+                    <div class="flex items-center gap-2.5 text-on-surface">
+                        <span class="material-symbols-outlined notranslate text-primary text-[20px]" translate="no">laptop_mac</span>
+                        <span><strong>Modalidad:</strong> Remoto (Chile/Latam) o Híbrido</span>
+                    </div>
+                    <div class="flex items-center gap-2.5 text-on-surface">
+                        <span class="material-symbols-outlined notranslate text-primary text-[20px]" translate="no">verified</span>
+                        <span><strong>Foco:</strong> Backend · APIs REST · SQL · CI/CD</span>
+                    </div>
+                </div>
+
                 <div class="flex flex-wrap gap-4">
                     <a href="/cv-pablo-valdes.pdf" target="_blank" class="bg-primary text-on-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-white hover:text-primary-container transition-all shadow-[0_0_20px_rgba(137,206,255,0.4)]">
                         <span class="material-symbols-outlined notranslate text-[20px]" translate="no">description</span>
@@ -46,84 +77,337 @@ import Footer from '../components/Footer.astro';
                 </div>
             </div>
             <div class="md:col-span-4 flex justify-center animate-on-scroll">
-                <div class="w-full max-w-xs aspect-square rounded-3xl overflow-hidden border border-outline-variant/30 shadow-[0_0_30px_rgba(137,206,255,0.1)]">
-                    <img src="/images/pvs-formal.jpg" alt="Pablo Valdés" class="w-full h-full object-cover" />
+                <div class="w-full max-w-xs aspect-square rounded-3xl overflow-hidden border border-outline-variant/30 shadow-[0_0_30px_rgba(137,206,255,0.1)] relative group">
+                    <img src="/images/pvs-formal.jpg" alt="Pablo Valdés Sandoval" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stack and Core Skills -->
-    <section class="py-section-gap px-gutter bg-surface-container-low animate-on-scroll">
+    <!-- Evidence & Real Projects Section (Demuestra en 30 segundos) -->
+    <section class="py-section-gap px-gutter bg-surface-container-low border-b border-outline-variant/10 animate-on-scroll">
         <div class="max-w-container-max mx-auto">
-            <h2 class="font-headline-md text-headline-md mb-4 text-center">Stack Tecnológico y Capacidades Técnicas</h2>
-            <div class="max-w-3xl mx-auto text-center mb-12">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="font-code-sm text-code-sm text-primary uppercase tracking-widest mb-3 inline-block">Evidencia de Ingeniería en 30 Segundos</span>
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-4">Proyectos Reales y Arquitectura Demostrable</h2>
+                <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    Menos afirmaciones teóricas y más evidencia verificable. Así es como aplico el backend en problemas operativos concretos:
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
+                <!-- Flagship Project: Fiscalis -->
+                <div class="lg:col-span-7 glass-card p-8 md:p-10 rounded-3xl border border-primary/30 flex flex-col justify-between relative overflow-hidden group hover:border-primary/60 transition-all shadow-[0_0_30px_rgba(137,206,255,0.08)]">
+                    <div class="relative z-10">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                            <span class="font-code-sm text-xs px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/40 font-bold uppercase tracking-wider">
+                                Proyecto Insignia · Backend End-to-End
+                            </span>
+                            <span class="font-code-sm text-xs text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full">
+                                2026 · MVP en Pruebas
+                            </span>
+                        </div>
+
+                        <h3 class="font-headline-md text-2xl md:text-3xl text-on-surface font-bold mb-3">
+                            Fiscalis: Digitalización y Trazabilidad Operativa en Terreno
+                        </h3>
+                        <p class="font-body-md text-on-surface-variant mb-6 leading-relaxed">
+                            <strong>El problema real:</strong> La empresa sufría una redundancia operativa crítica. Los operadores registraban los mismos datos tres veces (cuadernos de papel, mensajes de WhatsApp y digitación manual en el ERP), generando retrasos y errores continuos de transcripción.
+                        </p>
+
+                        <div class="space-y-4 mb-8">
+                            <h4 class="font-label-caps text-xs text-primary uppercase tracking-widest">Solución Técnica y Arquitectura</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                                <div class="p-3.5 rounded-xl bg-surface-container-highest/60 border border-outline-variant/30">
+                                    <p class="font-bold text-on-surface mb-1 flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined notranslate text-primary text-[18px]" translate="no">api</span>
+                                        API RESTful (FastAPI)
+                                    </p>
+                                    <p class="text-on-surface-variant text-xs">Endpoints asíncronos para ingesta directa desde terreno con validación estricta de payloads vía esquemas Pydantic.</p>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-surface-container-highest/60 border border-outline-variant/30">
+                                    <p class="font-bold text-on-surface mb-1 flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined notranslate text-primary text-[18px]" translate="no">database</span>
+                                        PostgreSQL Normalizado
+                                    </p>
+                                    <p class="text-on-surface-variant text-xs">Modelo relacional en 3FN garantizando integridad referencial, transaccionalidad e índices para consulta rápida.</p>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-surface-container-highest/60 border border-outline-variant/30">
+                                    <p class="font-bold text-on-surface mb-1 flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined notranslate text-primary text-[18px]" translate="no">devices</span>
+                                        Cliente Móvil (Flutter)
+                                    </p>
+                                    <p class="text-on-surface-variant text-xs">Captura en terreno consumiendo los servicios backend, eliminando el uso de papel y mensajería informal.</p>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-surface-container-highest/60 border border-outline-variant/30">
+                                    <p class="font-bold text-on-surface mb-1 flex items-center gap-1.5">
+                                        <span class="material-symbols-outlined notranslate text-primary text-[18px]" translate="no">deployed_code</span>
+                                        Docker & CI/CD
+                                    </p>
+                                    <p class="text-on-surface-variant text-xs">Contenerización reproducible y automatización de despliegue continuo mediante GitHub Actions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 pt-6 border-t border-outline-variant/20 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex flex-wrap gap-2">
+                            {['FastAPI', 'Python', 'PostgreSQL', 'Flutter', 'Docker', 'CI/CD'].map((tech) => (
+                                <span class="font-code-sm text-xs px-2.5 py-1 rounded bg-surface-container text-on-surface-variant border border-outline-variant/30">{tech}</span>
+                            ))}
+                        </div>
+                        <a href="/casos/fiscalis" class="inline-flex items-center gap-2 text-primary font-bold hover:text-white transition-colors">
+                            Ver caso completo <span class="material-symbols-outlined notranslate text-[18px]" translate="no">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Secondary Projects Column -->
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    <!-- Project 2: Viña Gran Hidalgo -->
+                    <div class="glass-card p-6 rounded-3xl border border-outline-variant/20 hover:border-primary/40 transition-all flex flex-col justify-between flex-1">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="font-code-sm text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold">
+                                    Backend & SQL
+                                </span>
+                                <span class="font-code-sm text-xs text-on-surface-variant">En Desarrollo</span>
+                            </div>
+                            <h4 class="font-headline-md text-xl font-bold text-on-surface mb-2">
+                                Viña Gran Hidalgo: Modelado de Datos y ERP
+                            </h4>
+                            <p class="text-on-surface-variant font-body-md text-sm mb-4 leading-relaxed">
+                                Diseño del modelo entidad-relación para trazabilidad agrícola de lote a botella, gestión de órdenes de trabajo y control de inventario de insumos vitivinícolas en PostgreSQL.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                {['Python', 'FastAPI', 'PostgreSQL', 'Modelado 3FN'].map(t => (
+                                    <span class="font-code-sm text-xs px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{t}</span>
+                                ))}
+                            </div>
+                        </div>
+                        <a href="/casos/vina-gran-hidalgo-erp" class="text-sm font-bold text-primary flex items-center gap-1.5 hover:text-white transition-colors">
+                            Detalles del modelo y lógica <span class="material-symbols-outlined notranslate text-[16px]" translate="no">arrow_forward</span>
+                        </a>
+                    </div>
+
+                    <!-- Project 3: Despliegues en Producción (JPVS & Del Valle) -->
+                    <div class="glass-card p-6 rounded-3xl border border-outline-variant/20 hover:border-primary/40 transition-all flex flex-col justify-between flex-1">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="font-code-sm text-xs px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 font-bold">
+                                    Sistemas en Producción
+                                </span>
+                                <span class="font-code-sm text-xs text-on-surface-variant">Uptime 100%</span>
+                            </div>
+                            <h4 class="font-headline-md text-xl font-bold text-on-surface mb-2">
+                                Despliegue Real y CI/CD Continuo
+                            </h4>
+                            <p class="text-on-surface-variant font-body-md text-sm mb-4 leading-relaxed">
+                                Evidencia comprobable de plataformas desplegadas públicamente con Core Web Vitals en verde (95-100) y automatización CI/CD activa:
+                            </p>
+                            <div class="flex flex-col gap-2 mb-4 text-xs font-code-sm">
+                                <a href="https://jpvs.cl" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-2 rounded-lg bg-surface-container hover:bg-surface-container-highest transition-colors text-on-surface">
+                                    <span class="flex items-center gap-1.5 text-primary">
+                                        <span class="material-symbols-outlined notranslate text-[16px]" translate="no">language</span>
+                                        jpvs.cl
+                                    </span>
+                                    <span class="text-on-surface-variant flex items-center gap-1">En producción <span class="material-symbols-outlined notranslate text-[14px]" translate="no">open_in_new</span></span>
+                                </a>
+                                <a href="https://delvalleconstrucciones.cl" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-2 rounded-lg bg-surface-container hover:bg-surface-container-highest transition-colors text-on-surface">
+                                    <span class="flex items-center gap-1.5 text-primary">
+                                        <span class="material-symbols-outlined notranslate text-[16px]" translate="no">language</span>
+                                        delvalleconstrucciones.cl
+                                    </span>
+                                    <span class="text-on-surface-variant flex items-center gap-1">En producción <span class="material-symbols-outlined notranslate text-[14px]" translate="no">open_in_new</span></span>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="/casos" class="text-sm font-bold text-primary flex items-center gap-1.5 hover:text-white transition-colors">
+                            Ver todos los casos de estudio <span class="material-symbols-outlined notranslate text-[16px]" translate="no">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stack Tecnológico Estructurado -->
+    <section class="py-section-gap px-gutter bg-surface-container-lowest animate-on-scroll border-b border-outline-variant/10">
+        <div class="max-w-container-max mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="font-code-sm text-code-sm text-primary uppercase tracking-widest mb-3 inline-block">Habilidades Técnicas Jerarquizadas</span>
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-4">Stack Tecnológico con Foco Backend</h2>
                 <p class="font-body-lg text-on-surface-variant text-lg leading-relaxed">
-                    <strong>Enfoque Analítico:</strong> Mi prioridad es la arquitectura y la solución del problema, no la herramienta en sí. Selecciono la tecnología en función del contexto operativo y los requerimientos del negocio. Sin embargo, mi <em>core stack</em> habitual, aplicado en proyectos reales, en práctica profesional y de forma independiente, se compone de las siguientes tecnologías:
+                    Mi postulación y fortaleza principal es el <strong>Backend</strong>. Distingo claramente entre mis tecnologías core de trabajo diario, mis habilidades de infraestructura para entrega end-to-end y las herramientas complementarias que uso para integrar interfaces.
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Backend & APIs -->
-                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all">
-                    <h3 class="font-bold text-lg text-primary mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined notranslate" translate="no">dns</span>
-                        Backend & Bases de Datos
-                    </h3>
-                    <ul class="space-y-2 text-on-surface-variant font-code-sm">
-                        <li>• FastAPI (Python)</li>
-                        <li>• Diseño de APIs RESTful</li>
-                        <li>• SQL (PostgreSQL, MySQL)</li>
-                        <li>• Modelado de Datos y Normalización</li>
-                    </ul>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 1. Core Stack: Backend -->
+                <div class="glass-card p-6 rounded-2xl border-2 border-primary/40 relative flex flex-col justify-between shadow-[0_0_25px_rgba(137,206,255,0.1)]">
+                    <div>
+                        <div class="inline-block px-2.5 py-1 rounded bg-primary/20 text-primary font-code-sm text-xs font-bold uppercase mb-4">
+                            Foco Core Principal
+                        </div>
+                        <h3 class="font-bold text-xl text-on-surface mb-3 flex items-center gap-2">
+                            <span class="material-symbols-outlined notranslate text-primary" translate="no">dns</span>
+                            Backend & Bases de Datos
+                        </h3>
+                        <p class="text-xs text-on-surface-variant mb-4 font-body-md">
+                            Dominio principal de lógica, validación y persistencia de datos:
+                        </p>
+                        <ul class="space-y-2.5 text-on-surface-variant font-code-sm text-sm">
+                            <li class="flex items-center gap-2 text-on-surface font-semibold">• Python (FastAPI, AsyncIO)</li>
+                            <li>• Validación de Esquemas (Pydantic)</li>
+                            <li>• PostgreSQL, MySQL (SQL relacional)</li>
+                            <li>• Modelado Entidad-Relación (3FN)</li>
+                            <li>• Diseño de APIs RESTful y contratos</li>
+                            <li>• Autenticación (JWT, API Keys)</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-outline-variant/20">
+                        <span class="font-code-sm text-xs text-primary font-semibold">Nivel: Principal de Postulación</span>
+                    </div>
                 </div>
 
-                <!-- Frontend -->
-                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all">
-                    <h3 class="font-bold text-lg text-primary mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined notranslate" translate="no">web</span>
-                        Frontend & UI/UX
-                    </h3>
-                    <ul class="space-y-2 text-on-surface-variant font-code-sm">
-                        <li>• Astro, React, TypeScript</li>
-                        <li>• Tailwind CSS, CSS Arquitecture</li>
-                        <li>• Core Web Vitals Optimization</li>
-                        <li>• Responsive Design & Accesibilidad</li>
-                    </ul>
+                <!-- 2. Infraestructura & DevOps -->
+                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="inline-block px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-code-sm text-xs font-bold uppercase mb-4">
+                            Perfil End-to-End
+                        </div>
+                        <h3 class="font-bold text-xl text-on-surface mb-3 flex items-center gap-2">
+                            <span class="material-symbols-outlined notranslate text-primary" translate="no">cloud</span>
+                            Despliegue & Operaciones
+                        </h3>
+                        <p class="text-xs text-on-surface-variant mb-4 font-body-md">
+                            Capacidad para llevar el backend a producción sin bloqueos:
+                        </p>
+                        <ul class="space-y-2.5 text-on-surface-variant font-code-sm text-sm">
+                            <li>• Docker (Contenerización de servicios)</li>
+                            <li>• Git & GitHub Actions (CI/CD)</li>
+                            <li>• Linux / Bash (Gestión de servidores)</li>
+                            <li>• Cloudflare Pages / Workers</li>
+                            <li>• Despliegue en VPS & Hardening básico</li>
+                            <li>• Monitoreo de logs y endpoints</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-outline-variant/20">
+                        <span class="font-code-sm text-xs text-on-surface-variant">Nivel: Operativo / Producción</span>
+                    </div>
                 </div>
 
-                <!-- Infra & DevOps -->
-                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all">
-                    <h3 class="font-bold text-lg text-primary mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined notranslate" translate="no">cloud</span>
-                        Cloud, DevOps & Herramientas
-                    </h3>
-                    <ul class="space-y-2 text-on-surface-variant font-code-sm">
-                        <li>• Cloudflare / Workers, Vercel</li>
-                        <li>• Supabase, VPS</li>
-                        <li>• Git, CI/CD Pipeline</li>
-                        <li>• Linux, Bash, Hardening Básico</li>
-                        <li>• Docker</li>
-                    </ul>
+                <!-- 3. Frontend & Complementarios -->
+                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="inline-block px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-code-sm text-xs font-bold uppercase mb-4">
+                            Complementario
+                        </div>
+                        <h3 class="font-bold text-xl text-on-surface mb-3 flex items-center gap-2">
+                            <span class="material-symbols-outlined notranslate text-primary" translate="no">web</span>
+                            Frontend & UI
+                        </h3>
+                        <p class="text-xs text-on-surface-variant mb-4 font-body-md">
+                            Herramientas para probar, integrar y consumir APIs:
+                        </p>
+                        <ul class="space-y-2.5 text-on-surface-variant font-code-sm text-sm">
+                            <li>• TypeScript & JavaScript moderno</li>
+                            <li>• Astro & componentes React</li>
+                            <li>• Tailwind CSS & Arquitectura CSS modular</li>
+                            <li>• Consumo de APIs REST (Fetch / Axios)</li>
+                            <li>• Optimización Core Web Vitals</li>
+                            <li>• Accesibilidad & Responsive Design</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-outline-variant/20">
+                        <span class="font-code-sm text-xs text-on-surface-variant">Nivel: Soporte & Integración</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Professional Approach -->
+    <!-- Enfoque Profesional Demostrable (Sin clichés repetidos) -->
+    <section class="py-section-gap px-gutter bg-surface-container-low animate-on-scroll border-b border-outline-variant/10">
+        <div class="max-w-container-max mx-auto max-w-4xl">
+            <div class="text-center mb-12">
+                <span class="font-code-sm text-code-sm text-primary uppercase tracking-widest mb-3 inline-block">Criterio de Trabajo</span>
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-4">Cómo Trabajo en un Equipo de Ingeniería</h2>
+                <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    Más allá de las herramientas, estos son los principios prácticos que aplico en cada entrega:
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-outlined notranslate text-primary text-2xl" translate="no">architecture</span>
+                        <h3 class="font-bold text-lg text-on-surface">Análisis previo al código</h3>
+                    </div>
+                    <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">
+                        Mi formación como Analista Programador me enseñó que el código es la última etapa. Antes de crear un endpoint, modelo los flujos de datos, defino las restricciones de negocio y normalizo la base de datos para evitar reescrituras costosas.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-outlined notranslate text-primary text-2xl" translate="no">layers</span>
+                        <h3 class="font-bold text-lg text-on-surface">Arquitectura desacoplada en FastAPI</h3>
+                    </div>
+                    <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">
+                        Estructuro mis aplicaciones separando routers, esquemas Pydantic de validación en frontera, servicios con lógica de negocio y persistencia en base de datos. Esto garantiza código testeable y mantenible por cualquier miembro del equipo.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-outlined notranslate text-primary text-2xl" translate="no">rocket_launch</span>
+                        <h3 class="font-bold text-lg text-on-surface">Criterio de Producción & CI/CD</h3>
+                    </div>
+                    <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">
+                        Una solución no termina en `localhost:8000`. Me aseguro de que el proyecto sea reproducible con Docker, se versionen las migraciones y cuente con pipelines de CI/CD para automatizar pruebas y despliegues sin fricción.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border border-outline-variant/20 hover:border-primary/40 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="material-symbols-outlined notranslate text-primary text-2xl" translate="no">trending_up</span>
+                        <h3 class="font-bold text-lg text-on-surface">Velocidad de aprendizaje y autonomía</h3>
+                    </div>
+                    <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">
+                        En dos años pasé de cero conocimientos técnicos a construir APIs asíncronas, modelar bases de datos y desplegar sistemas reales a producción. Estudio la documentación oficial, adopto buenas prácticas y aplico retroalimentación técnica de inmediato.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recruiter Direct CTA Section -->
     <section class="py-section-gap px-gutter bg-surface-container-lowest animate-on-scroll">
-        <div class="max-w-container-max mx-auto max-w-3xl">
-            <h2 class="font-headline-md text-headline-md mb-8 text-center">Enfoque Profesional</h2>
-            <div class="space-y-6 text-on-surface-variant font-body-lg">
-                <p>
-                    <strong>Enfoque Analítico:</strong> La tecnología es un medio, no el fin. Mi proceso inicia analizando profundamente las restricciones operativas y de negocio antes de escribir la primera línea de código para luego escoger las herramientas adecuadas.
+        <div class="max-w-4xl mx-auto glass-card p-8 md:p-12 rounded-3xl border border-primary/40 text-center relative overflow-hidden shadow-[0_0_40px_rgba(137,206,255,0.15)]">
+            <div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+            <div class="relative z-10">
+                <span class="material-symbols-outlined notranslate text-primary text-5xl mb-4" translate="no">handshake</span>
+                <h2 class="font-display-lg text-2xl md:text-4xl text-on-surface font-bold mb-4">
+                    ¿Buscas sumar un Backend Junior analítico a tu equipo?
+                </h2>
+                <p class="text-on-surface-variant font-body-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+                    Estoy disponible para incorporación inmediata en jornada completa (Full-Time), en modalidad remota para cualquier lugar de Chile o el extranjero, o híbrida/presencial en la Región del Maule.
                 </p>
-                <p>
-                    <strong>Product-Minded:</strong> Poseo una visión holística del desarrollo. No solo me enfoco en la ejecución técnica, sino en el impacto que el software tendrá en los usuarios finales y en la eficiencia de la organización (mejoras operativas, automatización).
-                </p>
-                <p>
-                    <strong>Calidad de Código:</strong> Aplicación de principios SOLID, Clean Code y arquitectura estructurada para asegurar mantenibilidad y escalabilidad a largo plazo.
-                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="mailto:pablovaldescontacto@gmail.com" class="bg-primary text-on-primary px-8 py-3.5 rounded-xl font-bold flex items-center gap-2 hover:bg-white hover:text-primary-container transition-all shadow-[0_0_20px_rgba(137,206,255,0.4)]">
+                        <span class="material-symbols-outlined notranslate text-[20px]" translate="no">mail</span>
+                        Enviar Correo Directo
+                    </a>
+                    <a href="/cv-pablo-valdes.pdf" target="_blank" class="bg-surface-container-high border border-primary/40 text-primary px-6 py-3.5 rounded-xl font-bold hover:bg-primary hover:text-on-primary transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined notranslate text-[20px]" translate="no">description</span>
+                        Descargar CV en PDF
+                    </a>
+                    <a href="https://www.linkedin.com/in/pablo-vald%C3%A9s-7a4445430/" target="_blank" rel="noopener noreferrer" class="bg-[#0077B5] text-white px-6 py-3.5 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all">
+                        <span class="material-symbols-outlined notranslate text-[20px]" translate="no">work</span>
+                        Conectar en LinkedIn
+                    </a>
+                </div>
             </div>
         </div>
     </section>

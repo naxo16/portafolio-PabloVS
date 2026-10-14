@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://renkaidev-web.pages.dev', // Cambia esto por tu dominio personalizado en Cloudflare
+  site: process.env.ASTRO_SITE || 'https://renkaidev-web.pages.dev', // Cambia esto por tu dominio personalizado en Cloudflare o asigna ASTRO_SITE en tu entorno
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]
