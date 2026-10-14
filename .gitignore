@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Contexto del proyecto para IAs (Privado)
 CONTEXTO_PROYECTO.md
+
+# wrangler
+.wrangler/
