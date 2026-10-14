@@ -104,6 +104,34 @@ const { Content } = await render(study);
     margin-bottom: 1.5rem;
   }
   
+  .markdown-content h3 {
+    font-family: 'Geist', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--color-on-surface, #E2E2E2);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .markdown-content blockquote {
+    border-left: 4px solid var(--color-primary, #89CEFF);
+    background: rgba(137, 206, 255, 0.05);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+    margin: 1.5rem 0 2rem 0;
+  }
+
+  .markdown-content blockquote p {
+    margin-bottom: 0.5rem;
+    color: var(--color-on-surface, #E2E2E2);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .markdown-content blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
   .markdown-content p {
     font-family: 'Inter', sans-serif;
     font-size: 1.125rem;
