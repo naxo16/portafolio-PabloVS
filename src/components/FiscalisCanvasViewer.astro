@@ -1,0 +1,476 @@
+---
+import { FISCALIS_MEDIA } from '../data/fiscalisMedia';
+
+// Default initial item is the 1m 28s complete walkthrough video
+const defaultItem = FISCALIS_MEDIA[0];
+---
+
+<section class="fiscalis-canvas-viewer my-12" id="fiscalis-interactive-viewer">
+  <div class="glass-card p-6 md:p-8 rounded-2xl border border-primary/20 relative overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+    
+    <!-- Ambient glow behind canvas -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- Header / Mode Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-outline-variant/20 pb-4 relative z-10">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="font-code-sm text-xs uppercase tracking-wider text-primary font-bold">Showcase Interactivo en Canvas</span>
+        </div>
+        <h2 class="text-xl md:text-2xl font-display font-bold text-on-surface">
+          Visualizador de Arquitectura y Operativa en Terreno
+        </h2>
+      </div>
+
+      <!-- Engine Badge -->
+      <div class="flex items-center gap-3">
+        <span id="canvas-engine-badge" class="font-code-sm text-xs px-3 py-1 rounded-full bg-surface-container-high border border-primary/30 text-primary flex items-center gap-1.5 shadow-sm">
+          <span class="material-symbols-outlined notranslate text-sm" translate="no">memory</span>
+          <span id="canvas-engine-text">PixiJS WebGL</span>
+        </span>
+        <button id="btn-fullscreen" aria-label="Pantalla completa" class="p-2 rounded-lg bg-surface-container hover:bg-primary/20 text-on-surface hover:text-primary transition-all border border-outline-variant/30" title="Pantalla Completa">
+          <span class="material-symbols-outlined notranslate text-lg" translate="no">fullscreen</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex flex-wrap gap-2 mb-6 relative z-10" role="tablist">
+      <button class="filter-tab px-4 py-1.5 rounded-lg font-code-sm text-xs transition-all bg-primary text-on-primary font-bold shadow-[0_0_15px_rgba(137,206,255,0.4)]" data-filter="all">
+        Todos ({FISCALIS_MEDIA.length})
+      </button>
+      <button class="filter-tab px-4 py-1.5 rounded-lg font-code-sm text-xs transition-all bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" data-filter="video">
+        Video Demostrativo (24s)
+      </button>
+      <button class="filter-tab px-4 py-1.5 rounded-lg font-code-sm text-xs transition-all bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" data-filter="mobile">
+        Capturas App Móvil (8)
+      </button>
+    </div>
+
+    <!-- Canvas Viewport Frame -->
+    <div id="canvas-container" class="relative w-full rounded-xl overflow-hidden border border-outline-variant/40 bg-[#07090e] shadow-2xl group cursor-pointer aspect-video max-h-[560px] flex items-center justify-center">
+      
+      <!-- HTML5 Canvas Element -->
+      <canvas id="fiscalis-canvas" class="w-full h-full block select-none touch-none"></canvas>
+
+      <!-- Center Big Play Button (overlay for video) -->
+      <div id="canvas-play-overlay" class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[2px] transition-opacity duration-300 pointer-events-none opacity-0">
+        <div class="w-20 h-20 rounded-full bg-primary/90 text-on-primary flex items-center justify-center shadow-[0_0_30px_rgba(137,206,255,0.7)] transform group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined notranslate text-4xl" translate="no">play_arrow</span>
+        </div>
+      </div>
+
+      <!-- Loading Spinner Overlay -->
+      <div id="canvas-loader" class="absolute inset-0 flex items-center justify-center bg-[#07090e]/80 transition-opacity duration-300 pointer-events-none opacity-0 z-20">
+        <div class="flex flex-col items-center gap-3">
+          <div class="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+          <span class="font-code-sm text-xs text-primary">Cargando frame en canvas...</span>
+        </div>
+      </div>
+
+      <!-- Watermark / HUD Overlay (Top) -->
+      <div class="absolute top-3 left-4 right-4 flex justify-between items-center pointer-events-none z-10 text-[11px] font-code-sm text-on-surface-variant/70">
+        <div class="flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1 rounded border border-white/10">
+          <span class="w-2 h-2 rounded-full bg-primary"></span>
+          <span id="canvas-item-badge">{defaultItem.badge}</span>
+        </div>
+        <div id="canvas-resolution-badge" class="bg-black/60 backdrop-blur-md px-3 py-1 rounded border border-white/10 text-primary">
+          1920x912 (Native)
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Playback Controls (only visible when video is active) -->
+    <div id="video-controls-bar" class="mt-4 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col gap-3 relative z-10 transition-all">
+      <!-- Scrubber Timeline -->
+      <div class="flex items-center gap-3">
+        <span id="time-current" class="font-code-sm text-xs text-primary min-w-[40px]">00:00</span>
+        <div class="relative flex-1 group/slider py-2 cursor-pointer" id="scrubber-track">
+          <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+            <div id="scrubber-progress" class="h-full bg-primary rounded-full transition-all duration-100" style="width: 0%;"></div>
+          </div>
+        </div>
+        <span id="time-duration" class="font-code-sm text-xs text-on-surface-variant min-w-[40px]">01:28</span>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button id="btn-play-pause" class="px-4 py-2 rounded-lg bg-primary text-on-primary font-bold font-code-sm text-xs flex items-center gap-2 hover:bg-white hover:text-primary-container transition-all shadow-[0_0_15px_rgba(137,206,255,0.4)]">
+            <span id="play-pause-icon" class="material-symbols-outlined notranslate text-base" translate="no">play_arrow</span>
+            <span id="play-pause-text">Reproducir</span>
+          </button>
+          <button id="btn-rewind" class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-all border border-outline-variant/30" title="Retroceder 5 segundos">
+            <span class="material-symbols-outlined notranslate text-base" translate="no">replay_5</span>
+          </button>
+          <button id="btn-forward" class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-all border border-outline-variant/30" title="Adelantar 5 segundos">
+            <span class="material-symbols-outlined notranslate text-base" translate="no">forward_5</span>
+          </button>
+          <span class="text-xs text-on-surface-variant/80 hidden sm:inline-block font-code-sm">
+            Audio removido • Rendimiento silencioso
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs font-code-sm text-on-surface-variant">
+          <span class="hidden md:inline">[Espacio]: Pausar/Play</span>
+          <span class="hidden md:inline">• [← / →]: Navegar</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Details Card (Synchronized with active media) -->
+    <div id="media-details-card" class="mt-6 p-6 rounded-xl bg-surface-container-low/80 border border-outline-variant/20 relative z-10 transition-all">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+        <h3 id="detail-title" class="text-lg md:text-xl font-display font-bold text-on-surface">
+          {defaultItem.title}
+        </h3>
+        <a id="btn-open-asset" href={defaultItem.src} target="_blank" rel="noopener noreferrer" class="font-code-sm text-xs text-primary hover:underline flex items-center gap-1">
+          <span>Abrir recurso original</span>
+          <span class="material-symbols-outlined notranslate text-sm" translate="no">open_in_new</span>
+        </a>
+      </div>
+      <p id="detail-description" class="text-sm md:text-base text-on-surface-variant font-body mb-4">
+        {defaultItem.description}
+      </p>
+      <div>
+        <h4 class="font-code-sm text-xs uppercase tracking-wider text-primary font-bold mb-2">
+          Puntos Clave de Arquitectura e Implementación:
+        </h4>
+        <ul id="detail-highlights" class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs md:text-sm text-on-surface-variant font-body">
+          {defaultItem.technicalHighlights.map(h => (
+            <li class="flex items-start gap-2 bg-surface-container/40 p-2.5 rounded-lg border border-outline-variant/15">
+              <span class="material-symbols-outlined notranslate text-primary text-base flex-shrink-0" translate="no">check_circle</span>
+              <span>{h}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Thumbnails Filmstrip Carousel -->
+    <div class="mt-8 relative z-10">
+      <div class="flex items-center justify-between mb-3">
+        <span class="font-code-sm text-xs uppercase tracking-wider text-on-surface-variant font-bold">
+          Galería de Recursos Renderizados en Canvas
+        </span>
+        <span class="font-code-sm text-xs text-primary">
+          Selecciona un elemento para cargarlo en el canvas
+        </span>
+      </div>
+
+      <div class="flex gap-3 overflow-x-auto pb-4 pt-1 snap-x scrollbar-thin" id="thumbnails-container">
+        {FISCALIS_MEDIA.map((item, idx) => (
+          <button
+            class={`thumbnail-card flex-shrink-0 w-36 md:w-44 rounded-xl overflow-hidden border transition-all text-left group/thumb snap-start ${idx === 0 ? 'border-primary ring-2 ring-primary/40 shadow-[0_0_15px_rgba(137,206,255,0.3)] scale-[1.02]' : 'border-outline-variant/30 hover:border-primary/60 opacity-80 hover:opacity-100'}`}
+            data-id={item.id}
+            data-category={item.category}
+            data-type={item.type}
+            aria-label={`Ver ${item.title}`}
+          >
+            <div class="h-24 md:h-28 bg-surface-container relative overflow-hidden flex items-center justify-center">
+              {item.type === 'video' ? (
+                <div class="w-full h-full flex flex-col items-center justify-center bg-surface-container-high group-hover/thumb:bg-primary/20 transition-colors">
+                  <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary text-primary flex items-center justify-center mb-1 group-hover/thumb:scale-110 transition-transform">
+                    <span class="material-symbols-outlined notranslate text-xl" translate="no">play_arrow</span>
+                  </div>
+                  <span class="font-code-sm text-[10px] text-primary">{item.badge.split('•')[1] || 'Video'}</span>
+                </div>
+              ) : (
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  class="w-full h-full object-cover object-top filter grayscale group-hover/thumb:grayscale-0 transition-all duration-300"
+                  loading="lazy"
+                />
+              )}
+              <div class="absolute top-1 right-1">
+                <span class="font-code-sm text-[9px] px-1.5 py-0.5 rounded bg-black/70 text-on-surface border border-white/10">
+                  {item.type === 'video' ? 'MP4' : 'JPG'}
+                </span>
+              </div>
+            </div>
+            <div class="p-2.5 bg-surface-container-low border-t border-outline-variant/20">
+              <span class="font-code-sm text-[10px] text-primary block truncate mb-0.5">{item.badge}</span>
+              <p class="font-display text-xs text-on-surface font-semibold truncate group-hover/thumb:text-primary transition-colors">
+                {item.title}
+              </p>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Client Script to bind Canvas Engine -->
+<script>
+  import { FISCALIS_MEDIA, getMediaById, formatTime } from '../data/fiscalisMedia';
+  import { FiscalisCanvasEngine } from '../utils/canvasRenderer';
+
+  const initViewer = () => {
+    const canvas = document.getElementById('fiscalis-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const playOverlay = document.getElementById('canvas-play-overlay');
+    const loaderOverlay = document.getElementById('canvas-loader');
+    const engineBadgeText = document.getElementById('canvas-engine-text');
+    const itemBadge = document.getElementById('canvas-item-badge');
+    const resolutionBadge = document.getElementById('canvas-resolution-badge');
+    const videoControls = document.getElementById('video-controls-bar');
+    const btnPlayPause = document.getElementById('btn-play-pause');
+    const playPauseIcon = document.getElementById('play-pause-icon');
+    const playPauseText = document.getElementById('play-pause-text');
+    const btnRewind = document.getElementById('btn-rewind');
+    const btnForward = document.getElementById('btn-forward');
+    const timeCurrent = document.getElementById('time-current');
+    const timeDuration = document.getElementById('time-duration');
+    const scrubberTrack = document.getElementById('scrubber-track');
+    const scrubberProgress = document.getElementById('scrubber-progress');
+    const btnFullscreen = document.getElementById('btn-fullscreen');
+    const canvasContainer = document.getElementById('canvas-container');
+
+    // Detail card elements
+    const detailTitle = document.getElementById('detail-title');
+    const detailDesc = document.getElementById('detail-description');
+    const detailHighlights = document.getElementById('detail-highlights');
+    const btnOpenAsset = document.getElementById('btn-open-asset') as HTMLAnchorElement;
+
+    const thumbCards = document.querySelectorAll('.thumbnail-card');
+    const filterTabs = document.querySelectorAll('.filter-tab');
+
+    let currentMediaId = FISCALIS_MEDIA[0].id;
+    let engine: FiscalisCanvasEngine | null = null;
+
+    // Initialize Engine
+    engine = new FiscalisCanvasEngine({
+      canvas,
+      onStateChange: (state) => {
+        // Update engine badge
+        if (engineBadgeText) {
+          engineBadgeText.textContent = state.rendererType === 'webgl' ? 'PixiJS WebGL' : 'Canvas 2D';
+        }
+
+        // Update loader
+        if (loaderOverlay) {
+          loaderOverlay.style.opacity = state.isLoading ? '1' : '0';
+        }
+
+        // Update Play/Pause UI
+        const isVideo = state.currentItem?.type === 'video';
+        if (isVideo) {
+          if (videoControls) videoControls.style.display = 'flex';
+          if (playOverlay) playOverlay.style.opacity = state.isPlaying ? '0' : '1';
+          if (playPauseIcon) playPauseIcon.textContent = state.isPlaying ? 'pause' : 'play_arrow';
+          if (playPauseText) playPauseText.textContent = state.isPlaying ? 'Pausar' : 'Reproducir';
+          if (timeCurrent) timeCurrent.textContent = formatTime(state.currentTime);
+          if (timeDuration) timeDuration.textContent = formatTime(state.duration);
+          
+          if (scrubberProgress && state.duration > 0) {
+            const pct = (state.currentTime / state.duration) * 100;
+            scrubberProgress.style.width = `${pct}%`;
+          }
+        } else {
+          if (videoControls) videoControls.style.display = 'none';
+          if (playOverlay) playOverlay.style.opacity = '0';
+        }
+      }
+    });
+
+    const selectMedia = async (id: string) => {
+      const item = getMediaById(id);
+      if (!item || !engine) return;
+
+      currentMediaId = id;
+
+      // Update thumbnails UI
+      thumbCards.forEach(c => {
+        const cardId = c.getAttribute('data-id');
+        if (cardId === id) {
+          c.classList.add('border-primary', 'ring-2', 'ring-primary/40', 'shadow-[0_0_15px_rgba(137,206,255,0.3)]', 'scale-[1.02]', 'opacity-100');
+          c.classList.remove('border-outline-variant/30', 'opacity-80');
+          c.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+          c.classList.remove('border-primary', 'ring-2', 'ring-primary/40', 'shadow-[0_0_15px_rgba(137,206,255,0.3)]', 'scale-[1.02]', 'opacity-100');
+          c.classList.add('border-outline-variant/30', 'opacity-80');
+        }
+      });
+
+      // Update HUD labels
+      if (itemBadge) itemBadge.textContent = item.badge;
+      if (resolutionBadge) {
+        resolutionBadge.textContent = item.type === 'video' ? '1920x912 (Canvas)' : (item.aspectRatio > 0.5 ? '1080x2388 (Mobile)' : '723x1600 (Mobile)');
+      }
+
+      // Update Details Card
+      if (detailTitle) detailTitle.textContent = item.title;
+      if (detailDesc) detailDesc.textContent = item.description;
+      if (btnOpenAsset) btnOpenAsset.href = item.src;
+      if (detailHighlights) {
+        detailHighlights.innerHTML = item.technicalHighlights.map(h => `
+          <li class="flex items-start gap-2 bg-surface-container/40 p-2.5 rounded-lg border border-outline-variant/15">
+            <span class="material-symbols-outlined notranslate text-primary text-base flex-shrink-0" translate="no">check_circle</span>
+            <span>${h}</span>
+          </li>
+        `).join('');
+      }
+
+      // Load into Canvas Engine
+      await engine.loadMedia(item);
+    };
+
+    // Initial load
+    selectMedia(currentMediaId);
+
+    // Canvas click toggles play if video
+    canvasContainer?.addEventListener('click', (e) => {
+      const state = engine?.getState();
+      if (state?.currentItem?.type === 'video') {
+        engine?.togglePlay();
+      }
+    });
+
+    // Play/Pause button
+    btnPlayPause?.addEventListener('click', () => {
+      engine?.togglePlay();
+    });
+
+    // Rewind / Forward
+    btnRewind?.addEventListener('click', () => {
+      engine?.seekRelative(-5);
+    });
+
+    btnForward?.addEventListener('click', () => {
+      engine?.seekRelative(5);
+    });
+
+    // Scrubber click
+    scrubberTrack?.addEventListener('click', (e) => {
+      const rect = scrubberTrack.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const pct = Math.max(0, Math.min(1, clickX / rect.width));
+      const state = engine?.getState();
+      if (state && state.duration > 0) {
+        engine?.seek(pct * state.duration);
+      }
+    });
+
+    // Fullscreen toggle
+    btnFullscreen?.addEventListener('click', () => {
+      if (!canvasContainer) return;
+      if (!document.fullscreenElement) {
+        canvasContainer.requestFullscreen?.().catch(console.warn);
+      } else {
+        document.exitFullscreen?.().catch(console.warn);
+      }
+    });
+
+    // Thumbnails click
+    thumbCards.forEach(c => {
+      c.addEventListener('click', () => {
+        const id = c.getAttribute('data-id');
+        if (id) selectMedia(id);
+      });
+    });
+
+    // Filter tabs
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const filter = tab.getAttribute('data-filter');
+        filterTabs.forEach(t => {
+          t.classList.remove('bg-primary', 'text-on-primary', 'font-bold', 'shadow-[0_0_15px_rgba(137,206,255,0.4)]');
+          t.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        tab.classList.add('bg-primary', 'text-on-primary', 'font-bold', 'shadow-[0_0_15px_rgba(137,206,255,0.4)]');
+        tab.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+        thumbCards.forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (filter === 'all' || cardCat === filter) {
+            (card as HTMLElement).style.display = 'block';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Keyboard controls
+    const onKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is in an input or textarea
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return;
+
+      if (e.code === 'Space') {
+        const state = engine?.getState();
+        if (state?.currentItem?.type === 'video') {
+          e.preventDefault();
+          engine?.togglePlay();
+        }
+      } else if (e.code === 'ArrowRight') {
+        const idx = FISCALIS_MEDIA.findIndex(m => m.id === currentMediaId);
+        const next = (idx + 1) % FISCALIS_MEDIA.length;
+        selectMedia(FISCALIS_MEDIA[next].id);
+      } else if (e.code === 'ArrowLeft') {
+        const idx = FISCALIS_MEDIA.findIndex(m => m.id === currentMediaId);
+        const prev = (idx - 1 + FISCALIS_MEDIA.length) % FISCALIS_MEDIA.length;
+        selectMedia(FISCALIS_MEDIA[prev].id);
+      } else if (e.code === 'KeyF') {
+        if (!canvasContainer) return;
+        if (!document.fullscreenElement) {
+          canvasContainer.requestFullscreen?.().catch(console.warn);
+        } else {
+          document.exitFullscreen?.().catch(console.warn);
+        }
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+
+    // Responsive resize listener
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const cr = entry.contentRect;
+        if (cr.width > 0) {
+          const h = Math.min(Math.round(cr.width * 0.58), 580);
+          engine?.resize(cr.width, Math.max(h, 400));
+        }
+      }
+    });
+
+    if (canvasContainer) {
+      resizeObserver.observe(canvasContainer);
+    }
+
+    // Cleanup on page navigate / unload
+    document.addEventListener('astro:before-swap', () => {
+      window.removeEventListener('keydown', onKeyDown);
+      resizeObserver.disconnect();
+      engine?.destroy();
+    }, { once: true });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initViewer);
+  } else {
+    initViewer();
+  }
+</script>
+
+<style>
+  /* Custom thin scrollbar for thumbnails */
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(137, 206, 255, 0.25);
+    border-radius: 9999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(137, 206, 255, 0.5);
+  }
+</style>

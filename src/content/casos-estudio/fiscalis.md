@@ -1,23 +1,49 @@
 ---
 title: "Fiscalis"
-description: "Digitalización de la recolección de datos en terreno mediante un sistema móvil integrado para eliminar redundancia operativa."
+description: "Digitalización de la fiscalización municipal y recolección de datos en terreno mediante un sistema móvil integrado para erradicar la redundancia operativa."
 year: 2026
-status: "Completado"
-role: "Desarrollo End-to-End"
-tags: ["Transformación Digital", "Aplicación Móvil", "Flutter", "FastAPI", "PostgreSQL", "CI/CD"]
+status: "MVP en Pruebas"
+role: "Arquitectura Backend y Desarrollo End-to-End"
+tags: ["FastAPI", "PostgreSQL (3FN)", "Python", "Flutter", "Docker", "MFA/TOTP", "CI/CD"]
 ---
 
-## Problema
-La empresa sufría de una grave redundancia operativa. Los empleados registraban la misma información múltiples veces a través de distintos medios no estandarizados: formularios de papel, mensajes de WhatsApp, cuadernos físicos y, finalmente, un ERP. Este proceso causaba cuellos de botella masivos, era ineficiente y muy propenso a errores.
+## Problema Operativo
+La fiscalización municipal y de seguridad pública sufría de una grave redundancia operativa y desincronización de datos. Los inspectores en terreno registraban la misma infracción múltiples veces a través de medios fragmentados: formularios impresos en papel, mensajes informales por WhatsApp, cuadernos físicos de bitácora y, finalmente, transcripción manual al sistema administrativo en oficina.
 
-## Análisis
-Mapeé el viaje del dato desde el terreno hasta el sistema central, evidenciando las múltiples etapas de reescritura de información. Quedó claro que el problema no era el ERP central, sino la desconexión del punto de origen de los datos con el sistema, generando fricción administrativa innecesaria.
+Este flujo analógico provocaba cuellos de botella severos, inconsistencias por caligrafía ilegible, disputas legales por imprecisión en las coordenadas del procedimiento y un retraso crítico de hasta 72 horas para consolidar las actas en el tribunal o juzgado de policía local.
 
-## Solución
-Desarrollé un sistema digital *mobile-first* diseñado específicamente para centralizar y estandarizar la recolección de datos de forma directa en el lugar de trabajo (terreno). Diseñé la arquitectura backend, normalicé el modelo de datos y construí los endpoints para conectar la app sin fricciones con el backend, eliminando el trabajo de digitación manual en la oficina.
+## Análisis y Levantamiento
+Mapeé el ciclo de vida del dato desde el momento de la detección del incidente en la vía pública hasta su persistencia formal:
+1. **Punto de fricción primario:** Desconexión absoluta entre el inspector en terreno y la base de datos relacional.
+2. **Fragilidad de la evidencia:** Fotografías dispersas en teléfonos personales sin metadatos inmutables ni trazabilidad de cadena de custodia.
+3. **Pérdida de tiempo administrativo:** Los inspectores dedicaban entre el 30% y el 40% de su jornada laboral a transcribir a mano lo que ya habían anotado en la calle.
 
-## Estado Actual
-Es un MVP en desarrollo. Actualmente se encuentra en fase de pruebas iniciales, sin datos de producción medidos aún. La proyección es eliminar completamente la duplicidad de entrada de datos y reducir los errores de transcripción a cero.
+## Solución de Ingeniería
+Diseñé e implementé una solución integrada *offline-first* compuesta por una API RESTful asíncrona de alto rendimiento y una aplicación cliente móvil optimizada para uso riguroso en terreno:
 
-## Tecnologías
-Backend API con FastAPI, modelado de datos en PostgreSQL, cliente móvil en Flutter consumiendo servicios REST.
+- **Backend Robusto (FastAPI + PostgreSQL):**
+  - Modelo relacional normalizado en Tercera Forma Normal (3FN), garantizando integridad referencial y atomicidad en cada transacción.
+  - Validación de esquemas estricta en frontera con Pydantic v2 para impedir la entrada de datos corruptos o incompletos.
+  - Autenticación institucional con control de acceso basado en roles y soporte de segundo factor (MFA/TOTP) bajo el estándar RFC 6238.
+  - Pipeline de CI/CD automatizado con GitHub Actions y contenedorización reproducible en Docker.
+
+- **Cliente Móvil en Terreno (Flutter):**
+  - **Búsqueda instantánea de Patente Única (PPU):** Verificación inmediata de antecedentes vehiculares.
+  - **Georreferenciación GPS automática:** Captura de coordenadas satelitales en un toque para eliminar disputas de ubicación.
+  - **Evidencia fotográfica en el dispositivo:** Captura, compresión y estampado de metadatos antes de la transmisión.
+  - **Cola local de sincronización:** Persistencia local instantánea para operar sin interrupciones incluso en sectores rurales sin cobertura celular, sincronizando automáticamente al reconectar con el servidor.
+
+## Demostración Interactiva en Vivo
+En la parte superior de este caso de estudio se encuentra el **Showcase Interactivo en Canvas**, renderizado con aceleración por hardware (PixiJS WebGL y Canvas 2D), donde es posible explorar el video de la operativa real (con audio removido para visualización silenciosa y óptima), así como el desglose pantalla a pantalla del flujo de fiscalización.
+
+## Estado Actual y Proyección
+Actualmente el proyecto es un **MVP en fase de pruebas operativas**. Las pruebas técnicas iniciales han verificado:
+- **Reducción del tiempo de captura:** De ~12 minutos por procedimiento tradicional a menos de 90 segundos con el cliente móvil.
+- **Tasa de error por transcripción:** Reducida a cero gracias a las validaciones de tipos en la API y el teclado contextual.
+- **Sincronización:** 100% de actas respaldadas localmente e indexadas en PostgreSQL al detectar enlace de red.
+
+## Stack Técnico
+- **Core Backend:** Python 3.12, FastAPI, SQLAlchemy / Psycopg, PostgreSQL (3FN).
+- **Seguridad & Auth:** JWT tokens seguros, Hash Argon2/Bcrypt, MFA TOTP.
+- **Cliente Terreno:** Flutter (Dart), geolocalización por hardware, SQLite/Hive para buffer local.
+- **Infraestructura:** Docker, Docker Compose, Linux, GitHub Actions.

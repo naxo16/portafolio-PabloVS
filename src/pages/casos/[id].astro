@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import FiscalisCanvasViewer from '../../components/FiscalisCanvasViewer.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -83,6 +84,12 @@ const { Content } = await render(study);
             </div>
           )}
         </header>
+
+        {study.id === 'fiscalis' && (
+          <div class="relative z-10 mb-12">
+            <FiscalisCanvasViewer />
+          </div>
+        )}
 
         <div class="markdown-content relative z-10">
           <Content />
