@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { FISCALIS_MEDIA } from '../src/data/fiscalisMedia.ts';
+import { FISCALIS_MEDIA, FISCALIS_AUDIO_SRC } from '../src/data/fiscalisMedia.ts';
 import { execFileSync } from 'node:child_process';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -55,3 +55,13 @@ test('assets: no raw or unrenamed legacy files remain in public/images', () => {
     assert.doesNotMatch(f, /^thumb_/i, 'No leftover thumbnail files in public/images');
   }
 });
+
+test('assets: AI voice narration audio track exists on disk with proper size', () => {
+  const relativePath = FISCALIS_AUDIO_SRC.replace(/^\//, '');
+  const absolutePath = path.resolve(publicDir, relativePath);
+
+  assert.ok(fs.existsSync(absolutePath), `Audio guide file must exist on disk: ${absolutePath}`);
+  const stats = fs.statSync(absolutePath);
+  assert.ok(stats.size > 10000, `Audio guide file must have valid size (was ${stats.size} bytes)`);
+});
+

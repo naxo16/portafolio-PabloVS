@@ -188,3 +188,50 @@ export function formatTime(seconds: number): string {
   const secs = Math.floor(seconds % 60);
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
+
+export interface NarrationCue {
+  start: number;
+  end: number;
+  badge: string;
+  interlocutorText: string;
+}
+
+export const FISCALIS_AUDIO_SRC = '/images/fiscalis/fiscalis-audio-guia.mp3';
+
+export const FISCALIS_NARRATION_CUES: NarrationCue[] = [
+  {
+    start: 0,
+    end: 4.5,
+    badge: '📱 Identidad Institucional',
+    interlocutorText: 'Bienvenido al MVP de Fiscalis. Iniciamos con el splash institucional de Seguridad Pública Cauquenes.'
+  },
+  {
+    start: 4.5,
+    end: 9.5,
+    badge: '🔐 Login de Prueba (admin/admin)',
+    interlocutorText: 'Portal de acceso para inspectores con credenciales de prueba admin admin y validación JWT.'
+  },
+  {
+    start: 9.5,
+    end: 15.0,
+    badge: '📋 Formulario, Patente y GPS',
+    interlocutorText: 'En el formulario operativo capturamos patente PPU, ubicación satelital GPS y evidencia in situ.'
+  },
+  {
+    start: 15.0,
+    end: 20.0,
+    badge: '⚙️ Ajustes & Doble Factor (TOTP)',
+    interlocutorText: 'Configuración dinámica de FastAPI, segundo factor TOTP (RFC 6238) y seguridad criptográfica.'
+  },
+  {
+    start: 20.0,
+    end: 24.5,
+    badge: '🔄 Sincronización Offline-First',
+    interlocutorText: 'Buffer local y sincronización offline inmediata hacia PostgreSQL en 3FN al recuperar conectividad.'
+  }
+];
+
+export function getActiveNarrationCue(seconds: number): NarrationCue | undefined {
+  return FISCALIS_NARRATION_CUES.find(cue => seconds >= cue.start && seconds < cue.end);
+}
+

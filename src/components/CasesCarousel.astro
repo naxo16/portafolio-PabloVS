@@ -1,8 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 const allCases = await getCollection('casos-estudio');
-// Ordenamos o seleccionamos algunos (los primeros 4 para el carrusel)
-const featuredCases = allCases.slice(0, 4);
+// Ordenamos colocando Fiscalis como el caso insignia #1
+const sortedCases = [...allCases].sort((a, b) => {
+  if (a.id === 'fiscalis') return -1;
+  if (b.id === 'fiscalis') return 1;
+  return 0;
+});
+const featuredCases = sortedCases.slice(0, 4);
 ---
 <div class="relative w-full max-w-5xl mx-auto h-[450px] md:h-[400px]" id="cases-carousel">
     <!-- Navigation -->
@@ -21,7 +26,7 @@ const featuredCases = allCases.slice(0, 4);
             <div class={`cases-slide absolute inset-0 flex flex-col md:flex-row rounded-2xl overflow-hidden border border-outline-variant/30 bg-surface-container-low/60 shadow-[0_0_30px_rgba(0,0,0,0.2)] transition-all duration-500 group ${index === 0 ? 'opacity-100 z-10 pointer-events-auto scale-100' : 'opacity-0 scale-95 pointer-events-none z-0'}`} data-index={index}>
                 <div class="md:w-1/2 h-48 md:h-full bg-surface-container overflow-hidden relative">
                     <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 group-hover:bg-transparent transition-colors duration-500"></div>
-                    <img alt={caseStudy.data.title} class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" src={index % 2 === 0 ? "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"}/>
+                    <img alt={caseStudy.data.title} class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" src={caseStudy.id === 'fiscalis' ? "/images/fiscalis/fiscalis-01-splash.jpg" : (index % 2 === 0 ? "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop")}/>
                 </div>
                 <div class="md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
                     <span class="font-code-sm text-primary mb-2 block">{caseStudy.data.status} • {caseStudy.data.year}</span>

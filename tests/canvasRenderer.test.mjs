@@ -5,7 +5,9 @@ import {
   getMediaById,
   filterMediaByCategory,
   calculateFitDimensions,
-  formatTime
+  formatTime,
+  FISCALIS_NARRATION_CUES,
+  getActiveNarrationCue
 } from '../src/data/fiscalisMedia.ts';
 
 test('fiscalisMedia: dataset integrity', (t) => {
@@ -78,3 +80,46 @@ test('canvasRenderer math: formatTime formatting', (t) => {
   assert.equal(formatTime(-5), '00:00');
   assert.equal(formatTime(NaN), '00:00');
 });
+
+test('fiscalisMedia: AI narration cues and active cue lookup', (t) => {
+  assert.ok(Array.isArray(FISCALIS_NARRATION_CUES));
+  assert.equal(FISCALIS_NARRATION_CUES.length, 5);
+
+  // Check timeline sequential continuity
+  for (let i = 0; i < FISCALIS_NARRATION_CUES.length; i++) {
+    const cue = FISCALIS_NARRATION_CUES[i];
+    assert.ok(cue.start >= 0);
+    assert.ok(cue.end > cue.start);
+    assert.ok(cue.badge.length > 0);
+    assert.ok(cue.interlocutorText.length > 10);
+
+    if (i > 0) {
+      assert.equal(cue.start, FISCALIS_NARRATION_CUES[i - 1].end);
+    }
+  }
+
+  // Lookup at key video moments:
+  // 1s -> splashart
+  const cue0 = getActiveNarrationCue(1.0);
+  assert.ok(cue0?.badge.includes('Identidad'));
+
+  // 6s -> login admin/admin
+  const cue6 = getActiveNarrationCue(6.0);
+  assert.ok(cue6?.interlocutorText.includes('admin admin'));
+
+  // 12s -> formulario & GPS
+  const cue12 = getActiveNarrationCue(12.0);
+  assert.ok(cue12?.interlocutorText.includes('GPS'));
+
+  // 18s -> TOTP
+  const cue18 = getActiveNarrationCue(18.0);
+  assert.ok(cue18?.interlocutorText.includes('TOTP'));
+
+  // 22s -> offline
+  const cue22 = getActiveNarrationCue(22.0);
+  assert.ok(cue22?.interlocutorText.includes('offline'));
+
+  // 99s -> undefined
+  assert.equal(getActiveNarrationCue(99), undefined);
+});
+

@@ -1,0 +1,523 @@
+---
+// FiscalisCinematicAnnouncement.astro
+// Cinematic teaser, modern popup notification, and AI Voice Narration guide for Fiscalis MVP preview
+import { FISCALIS_AUDIO_SRC } from '../data/fiscalisMedia';
+---
+
+<div id="fiscalis-cinematic-banner" class="relative w-full max-w-5xl mx-auto my-8 px-4 z-20">
+  <div 
+    id="fiscalis-banner-card"
+    class="relative rounded-2xl overflow-hidden border border-primary/30 bg-[#07090e]/90 backdrop-blur-xl shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-700"
+  >
+    <!-- Anamorphic Lens Flare Line (Top) -->
+    <div id="flare-line" class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 transform -translate-x-full transition-all duration-1000"></div>
+
+    <!-- Ambient Glow Pulse -->
+    <div id="ambient-glow" class="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-cyan-500/10 blur-[90px] pointer-events-none transition-all duration-1000"></div>
+    <div id="ambient-glow-right" class="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-emerald-500/10 blur-[90px] pointer-events-none transition-all duration-1000"></div>
+
+    <!-- Letterbox Cinematic Bars -->
+    <div class="letterbox-bar absolute top-0 left-0 right-0 h-3 bg-black/90 z-10 border-b border-white/5"></div>
+    <div class="letterbox-bar absolute bottom-0 left-0 right-0 h-3 bg-black/90 z-10 border-t border-white/5"></div>
+
+    <!-- Synced Audio Narration Element (Option B) -->
+    <audio id="cinematic-audio" src={FISCALIS_AUDIO_SRC} preload="auto"></audio>
+
+    <div class="relative z-10 p-6 md:p-8 flex flex-col lg:flex-row items-center gap-8">
+      
+      <!-- Video Teaser Container (Left) -->
+      <div class="w-full lg:w-5/12 flex-shrink-0">
+        <div 
+          id="video-frame-box"
+          class="relative rounded-xl overflow-hidden border border-outline-variant/40 bg-black shadow-2xl group transition-all duration-700 aspect-[16/9]"
+        >
+          <!-- Video Element (24s demo teaser) -->
+          <video 
+            id="cinematic-teaser-video"
+            src="/images/fiscalis/fiscalis-demo-resumen.mp4" 
+            muted 
+            playsinline 
+            loop 
+            preload="auto"
+            class="w-full h-full object-cover filter contrast-105 brightness-95 group-hover:scale-105 transition-transform duration-700"
+          ></video>
+
+          <!-- Film Grain Overlay -->
+          <div class="absolute inset-0 bg-radial from-transparent via-black/20 to-black/60 pointer-events-none mix-blend-multiply"></div>
+
+          <!-- Live REC Badge / Audio Removed Notice -->
+          <div class="absolute top-3 left-3 flex items-center gap-2 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded border border-white/10 z-10">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            <span class="font-code-sm text-[10px] uppercase tracking-widest text-rose-300 font-bold">PREVIEW READY</span>
+          </div>
+
+          <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded border border-white/10 text-[9px] font-code-sm text-cyan-300 z-10">
+            24s DEMO
+          </div>
+
+          <!-- Floating Voice Guide Pill Toggle on Video (Bottom-Left) -->
+          <button 
+            id="btn-toggle-voice"
+            type="button"
+            class="absolute bottom-3 left-3 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/80 hover:bg-cyan-950/80 border border-white/20 hover:border-cyan-400 text-white font-code-sm text-[11px] transition-all duration-300 backdrop-blur-md shadow-lg"
+            title="Activar narración con voz IA sincronizada"
+          >
+            <span id="voice-icon" class="material-symbols-outlined notranslate text-sm text-cyan-300" translate="no">volume_off</span>
+            <span id="voice-label" class="font-medium">Voz Guía IA</span>
+            <span id="voice-eq" class="hidden items-center gap-0.5 ml-1">
+              <span class="w-0.5 h-2 bg-cyan-400 animate-pulse"></span>
+              <span class="w-0.5 h-3 bg-cyan-300 animate-pulse delay-75"></span>
+              <span class="w-0.5 h-1.5 bg-cyan-400 animate-pulse delay-150"></span>
+            </span>
+          </button>
+
+          <!-- Subtitle HUD Overlay (Synchronized with speech narration) -->
+          <div 
+            id="teaser-subtitles" 
+            class="absolute bottom-12 left-3 right-3 p-2 rounded-lg bg-black/85 backdrop-blur-md border border-cyan-500/30 text-center transition-all duration-300 opacity-0 translate-y-2 pointer-events-none z-20 shadow-xl"
+          >
+            <div class="flex items-center justify-center gap-1.5 mb-0.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+              <span id="subtitle-badge" class="font-code-sm text-[10px] uppercase font-bold text-cyan-300 tracking-wider">
+                📱 Identidad Institucional
+              </span>
+            </div>
+            <p id="subtitle-text" class="font-body text-xs text-white leading-tight font-medium">
+              Bienvenido al MVP de Fiscalis. Iniciamos con el splash institucional.
+            </p>
+          </div>
+
+          <!-- Play/Pause Quick Control on Hover -->
+          <button 
+            id="btn-cinematic-play"
+            aria-label="Reproducir video"
+            class="absolute inset-0 m-auto w-12 h-12 rounded-full bg-primary/80 hover:bg-primary text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100 shadow-[0_0_20px_rgba(137,206,255,0.8)] z-10"
+          >
+            <span id="cinematic-play-icon" class="material-symbols-outlined notranslate text-2xl" translate="no">play_arrow</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cinematic Story / Pitch (Right) -->
+      <div class="w-full lg:w-7/12 flex flex-col justify-center space-y-4">
+        
+        <!-- Typewriter / Dramatic Intro -->
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span class="font-code-sm text-xs uppercase tracking-widest text-cyan-400 font-bold">
+            PROYECTO INSIGNIA BACKEND • FISCALIS
+          </span>
+        </div>
+
+        <h2 id="cinematic-headline" class="text-2xl md:text-3xl lg:text-4xl font-display font-extrabold text-white leading-tight tracking-tight">
+          Cero papel. Cero duplicidad. <br/>
+          <span id="headline-accent" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-emerald-400 transition-all duration-700">
+            Trazabilidad inmediata en terreno.
+          </span>
+        </h2>
+
+        <p class="font-body text-sm md:text-base text-on-surface-variant leading-relaxed">
+          Descubre cómo transformé una operativa municipal lenta y redundante de 72 horas en un procedimiento digital con georreferenciación satelital y persistencia asíncrona en FastAPI y PostgreSQL.
+        </p>
+
+        <!-- Feature Pills -->
+        <div class="flex flex-wrap gap-2 pt-1">
+          <span class="font-code-sm text-[11px] px-2.5 py-1 rounded-md bg-surface-container-high border border-outline-variant/30 text-on-surface">
+            FastAPI + PostgreSQL (3FN)
+          </span>
+          <span class="font-code-sm text-[11px] px-2.5 py-1 rounded-md bg-surface-container-high border border-outline-variant/30 text-on-surface">
+            Flutter Offline-First
+          </span>
+          <span class="font-code-sm text-[11px] px-2.5 py-1 rounded-md bg-surface-container-high border border-outline-variant/30 text-on-surface">
+            MFA / TOTP (RFC 6238)
+          </span>
+          <span class="font-code-sm text-[11px] px-2.5 py-1 rounded-md bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 flex items-center gap-1">
+            <span class="material-symbols-outlined notranslate text-xs" translate="no">smart_toy</span>
+            Voz Guía IA
+          </span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <a 
+            id="btn-go-preview"
+            href="/casos/fiscalis" 
+            class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-500 hover:from-white hover:to-cyan-200 text-black font-bold font-display text-sm flex items-center gap-2 transition-all duration-300 shadow-[0_0_25px_rgba(137,206,255,0.5)] hover:shadow-[0_0_35px_rgba(137,206,255,0.9)] hover:scale-105 group"
+          >
+            <span>Explorar Preview en Canvas</span>
+            <span class="material-symbols-outlined notranslate text-lg group-hover:translate-x-1 transition-transform" translate="no">arrow_forward</span>
+          </a>
+
+          <button 
+            id="btn-trigger-cinema"
+            class="px-4 py-3 rounded-xl bg-surface-container border border-outline-variant/40 hover:border-cyan-400/50 text-on-surface-variant hover:text-cyan-300 font-code-sm text-xs flex items-center gap-2 transition-all"
+            title="Activar secuencia cinemática con voz guía"
+          >
+            <span class="material-symbols-outlined notranslate text-base" translate="no">movie</span>
+            <span>Ver Modo Teaser con Voz</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modern Floating Pop-Up Modal (Tension release + Color change announcement) -->
+<div 
+  id="fiscalis-popup-dialog" 
+  class="fixed bottom-6 right-6 z-50 max-w-sm w-full mx-4 sm:mx-0 opacity-0 translate-y-8 pointer-events-none transition-all duration-500"
+  role="alertdialog"
+  aria-modal="true"
+  aria-labelledby="popup-title"
+>
+  <div 
+    id="popup-card" 
+    class="relative p-5 rounded-2xl border border-cyan-400/40 bg-[#07090e]/95 backdrop-blur-2xl shadow-[0_0_40px_rgba(14,165,233,0.3)] transition-all duration-700 overflow-hidden"
+  >
+    <!-- Top Glowing Border Shimmer -->
+    <div id="popup-glow-bar" class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-sky-300 to-emerald-400 animate-pulse"></div>
+
+    <div class="flex items-start gap-3.5 relative z-10">
+      <div 
+        id="popup-icon-box"
+        class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center flex-shrink-0 border border-cyan-500/30 transition-all duration-500"
+      >
+        <span id="popup-icon" class="material-symbols-outlined notranslate text-2xl" translate="no">rocket_launch</span>
+      </div>
+
+      <div class="flex-1 pr-4">
+        <div class="flex items-center gap-1.5 mb-1">
+          <span id="popup-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span id="popup-badge" class="font-code-sm text-[10px] uppercase tracking-wider text-cyan-300 font-bold">
+            PREVIEW LISTA
+          </span>
+        </div>
+        <h4 id="popup-title" class="font-display font-bold text-sm text-white mb-1">
+          ¡Llegaste justo a tiempo!
+        </h4>
+        <p id="popup-desc" class="font-body text-xs text-on-surface-variant leading-relaxed mb-3">
+          Llegaste justo a tiempo para ver la demo de Fiscalis. La preview interactiva del MVP está lista con voz guía inteligente para el recorrido técnico.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button 
+            id="btn-popup-voice"
+            class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-400 to-sky-500 hover:from-white hover:to-cyan-200 text-black font-bold font-code-sm text-xs flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(14,165,233,0.4)]"
+          >
+            <span class="material-symbols-outlined notranslate text-sm" translate="no">hearing</span>
+            <span id="popup-voice-text">Escuchar con Voz IA</span>
+          </button>
+          <a 
+            href="/casos/fiscalis" 
+            class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-on-surface font-code-sm text-xs flex items-center gap-1 transition-all"
+          >
+            <span>Canvas</span>
+            <span class="material-symbols-outlined notranslate text-sm" translate="no">arrow_forward</span>
+          </a>
+          <button 
+            id="btn-close-popup" 
+            class="px-2 py-1.5 rounded-lg text-on-surface-variant hover:text-white font-code-sm text-xs hover:bg-white/5 transition-colors"
+          >
+            Descartar
+          </button>
+        </div>
+      </div>
+
+      <!-- Close icon button -->
+      <button 
+        id="btn-close-popup-x" 
+        class="text-on-surface-variant hover:text-white p-1 rounded-md hover:bg-white/10 transition-colors"
+        aria-label="Cerrar notificación"
+      >
+        <span class="material-symbols-outlined notranslate text-sm" translate="no">close</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from 'gsap';
+  import confetti from 'canvas-confetti';
+  import { getActiveNarrationCue } from '../data/fiscalisMedia';
+
+  const initCinematicExperience = () => {
+    const video = document.getElementById('cinematic-teaser-video') as HTMLVideoElement;
+    const audio = document.getElementById('cinematic-audio') as HTMLAudioElement;
+    const bannerCard = document.getElementById('fiscalis-banner-card');
+    const videoBox = document.getElementById('video-frame-box');
+    const flareLine = document.getElementById('flare-line');
+    const btnPlay = document.getElementById('btn-cinematic-play');
+    const playIcon = document.getElementById('cinematic-play-icon');
+    const btnTriggerCinema = document.getElementById('btn-trigger-cinema');
+    
+    // Voice Guide Elements
+    const btnToggleVoice = document.getElementById('btn-toggle-voice');
+    const voiceIcon = document.getElementById('voice-icon');
+    const voiceLabel = document.getElementById('voice-label');
+    const voiceEq = document.getElementById('voice-eq');
+    const teaserSubtitles = document.getElementById('teaser-subtitles');
+    const subtitleBadge = document.getElementById('subtitle-badge');
+    const subtitleText = document.getElementById('subtitle-text');
+    const btnPopupVoice = document.getElementById('btn-popup-voice');
+    const popupVoiceText = document.getElementById('popup-voice-text');
+
+    // Popup Elements
+    const popupDialog = document.getElementById('fiscalis-popup-dialog');
+    const popupCard = document.getElementById('popup-card');
+    const btnClosePopup = document.getElementById('btn-close-popup');
+    const btnClosePopupX = document.getElementById('btn-close-popup-x');
+
+    if (!video || !bannerCard) return;
+
+    let voiceEnabled = false;
+
+    const setVoiceState = (enabled: boolean) => {
+      voiceEnabled = enabled;
+
+      if (voiceEnabled) {
+        if (voiceIcon) voiceIcon.textContent = 'volume_up';
+        if (voiceLabel) voiceLabel.textContent = 'Voz IA Activa';
+        if (voiceEq) {
+          voiceEq.classList.remove('hidden');
+          voiceEq.classList.add('flex');
+        }
+        if (btnToggleVoice) {
+          btnToggleVoice.classList.add('border-cyan-400', 'bg-cyan-950/90');
+        }
+        if (popupVoiceText) popupVoiceText.textContent = 'Voz IA Activa';
+        if (teaserSubtitles) {
+          teaserSubtitles.classList.remove('opacity-0', 'translate-y-2');
+          teaserSubtitles.classList.add('opacity-100', 'translate-y-0');
+        }
+
+        if (audio) {
+          audio.currentTime = video.currentTime % 20;
+          audio.play().catch(e => console.warn('[Fiscalis Audio] Autoplay deferred:', e));
+        }
+      } else {
+        if (voiceIcon) voiceIcon.textContent = 'volume_off';
+        if (voiceLabel) voiceLabel.textContent = 'Voz Guía IA';
+        if (voiceEq) {
+          voiceEq.classList.remove('flex');
+          voiceEq.classList.add('hidden');
+        }
+        if (btnToggleVoice) {
+          btnToggleVoice.classList.remove('border-cyan-400', 'bg-cyan-950/90');
+        }
+        if (popupVoiceText) popupVoiceText.textContent = 'Escuchar con Voz IA';
+        if (teaserSubtitles) {
+          teaserSubtitles.classList.remove('opacity-100', 'translate-y-0');
+          teaserSubtitles.classList.add('opacity-0', 'translate-y-2');
+        }
+
+        if (audio) {
+          audio.pause();
+        }
+      }
+    };
+
+    btnToggleVoice?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setVoiceState(!voiceEnabled);
+    });
+
+    btnPopupVoice?.addEventListener('click', () => {
+      setVoiceState(true);
+      video.play().catch(() => {});
+    });
+
+    // Synchronize video timeline with speech subtitles & audio
+    video.addEventListener('timeupdate', () => {
+      const cue = getActiveNarrationCue(video.currentTime);
+      if (cue && subtitleBadge && subtitleText) {
+        subtitleBadge.textContent = cue.badge;
+        subtitleText.textContent = cue.interlocutorText;
+      }
+
+      // Keep audio synced if active
+      if (voiceEnabled && audio && !audio.paused) {
+        const targetAudioTime = video.currentTime % 20;
+        if (Math.abs(audio.currentTime - targetAudioTime) > 0.5) {
+          audio.currentTime = targetAudioTime;
+        }
+      }
+    });
+
+    video.addEventListener('play', () => {
+      if (voiceEnabled && audio) {
+        audio.currentTime = video.currentTime % 20;
+        audio.play().catch(() => {});
+      }
+      if (playIcon) playIcon.textContent = 'pause';
+    });
+
+    video.addEventListener('pause', () => {
+      if (audio) audio.pause();
+      if (playIcon) playIcon.textContent = 'play_arrow';
+    });
+
+    video.addEventListener('ended', () => {
+      if (audio) audio.currentTime = 0;
+    });
+
+    // Autoplay teaser video safely (muted)
+    video.play().catch(() => {
+      // Browser deferred autoplay until scroll/gesture
+    });
+
+    // Play/Pause button toggle
+    btnPlay?.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    // Cinematic Intro Animation with GSAP
+    const tl = gsap.timeline({ delay: 0.5 });
+
+    // 1. Fade & Scale In Banner
+    tl.fromTo(bannerCard, 
+      { opacity: 0, scale: 0.95, y: 30 },
+      { opacity: 1, scale: 1, y: 0, duration: 1, ease: 'power3.out' }
+    );
+
+    // 2. Anamorphic lens flare sweeps across
+    if (flareLine) {
+      tl.to(flareLine, {
+        opacity: 1,
+        x: '100%',
+        duration: 1.2,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          flareLine.style.opacity = '0';
+        }
+      }, '-=0.5');
+    }
+
+    // 3. Cinematic pulse on the video box
+    if (videoBox) {
+      tl.to(videoBox, {
+        borderColor: 'rgba(137, 206, 255, 0.9)',
+        boxShadow: '0 0 35px rgba(137, 206, 255, 0.4)',
+        duration: 0.8,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power2.inOut'
+      }, '-=0.4');
+    }
+
+    // Function: Trigger Modern Pop-Up with Tension and Color Change
+    const showCinematicPopup = () => {
+      if (!popupDialog || !popupCard) return;
+
+      // Make popup visible and animate in
+      popupDialog.classList.remove('pointer-events-none');
+      gsap.fromTo(popupDialog,
+        { opacity: 0, y: 40, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.7)' }
+      );
+
+      // Color Shift 1: Tension Amber Glow
+      gsap.to(popupCard, {
+        borderColor: '#f59e0b',
+        boxShadow: '0 0 45px rgba(245, 158, 11, 0.45)',
+        duration: 0.5,
+        onComplete: () => {
+          // Color Shift 2: Release to Cyan/Emerald ("Preview Lista")
+          gsap.to(popupCard, {
+            borderColor: '#06b6d4',
+            boxShadow: '0 0 50px rgba(6, 182, 212, 0.5)',
+            duration: 0.8,
+            ease: 'power2.out'
+          });
+
+          // Change banner card color synchronously
+          gsap.to(bannerCard, {
+            borderColor: '#38bdf8',
+            boxShadow: '0 0 60px rgba(56, 189, 248, 0.3)',
+            duration: 0.8
+          });
+
+          // Modern celebratory spark
+          confetti({
+            particleCount: 35,
+            spread: 60,
+            origin: { x: 0.88, y: 0.85 },
+            colors: ['#38bdf8', '#06b6d4', '#10b981', '#ffffff']
+          });
+        }
+      });
+    };
+
+    // Close Popup Logic
+    const closePopup = () => {
+      if (!popupDialog) return;
+      gsap.to(popupDialog, {
+        opacity: 0,
+        y: 20,
+        scale: 0.95,
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => {
+          popupDialog.classList.add('pointer-events-none');
+        }
+      });
+    };
+
+    btnClosePopup?.addEventListener('click', closePopup);
+    btnClosePopupX?.addEventListener('click', closePopup);
+
+    let popupTriggered = false;
+
+    // Trigger pop-up when client scrolls to the Fiscalis MVP preview banner
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting && !popupTriggered) {
+          popupTriggered = true;
+          // Build slight cinematic tension (400ms after entering viewport) before popping up
+          setTimeout(() => {
+            showCinematicPopup();
+          }, 400);
+          observer.disconnect();
+        }
+      }
+    }, {
+      threshold: 0.25, // Appears when 25% of the preview card is in view
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    observer.observe(bannerCard);
+
+    // Manual Replay Teaser / Trigger button
+    btnTriggerCinema?.addEventListener('click', () => {
+      video.currentTime = 0;
+      if (audio) audio.currentTime = 0;
+      video.play();
+      setVoiceState(true);
+      showCinematicPopup();
+    });
+
+    // Cleanup on Astro swap
+    document.addEventListener('astro:before-swap', () => {
+      observer.disconnect();
+      if (audio) audio.pause();
+    }, { once: true });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCinematicExperience);
+  } else {
+    initCinematicExperience();
+  }
+</script>
+
+<style>
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(1000%); }
+  }
+</style>

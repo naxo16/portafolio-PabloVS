@@ -25,7 +25,7 @@ test('integration: dist contains built fiscalis case study and static assets', (
   assert.ok(html.includes('id="thumbnails-container"'), 'Must contain thumbnail container');
   assert.ok(html.includes('id="media-details-card"'), 'Must contain technical detail card');
 
-  // Verify all 10 assets are referenced in the built HTML
+  // Verify all media items are referenced in the built HTML
   for (const item of FISCALIS_MEDIA) {
     assert.ok(
       html.includes(item.id),
@@ -47,4 +47,15 @@ test('integration: dist contains built fiscalis case study and static assets', (
     const stat = fs.statSync(assetDistPath);
     assert.ok(stat.size > 1000, `Asset ${filename} must have positive byte size in dist`);
   }
+});
+
+test('integration: index contains cinematic announcement and popup dialog for Fiscalis', () => {
+  const indexHtmlPath = path.resolve(distDir, 'index.html');
+  assert.ok(fs.existsSync(indexHtmlPath), 'dist/index.html must exist');
+
+  const html = fs.readFileSync(indexHtmlPath, 'utf-8');
+  assert.ok(html.includes('id="fiscalis-cinematic-banner"'), 'Index must include cinematic banner');
+  assert.ok(html.includes('id="fiscalis-popup-dialog"'), 'Index must include popup dialog');
+  assert.ok(html.includes('id="cinematic-teaser-video"'), 'Index must include teaser video');
+  assert.ok(html.includes('fiscalis-demo-resumen.mp4'), 'Index must reference 24s demo video');
 });
