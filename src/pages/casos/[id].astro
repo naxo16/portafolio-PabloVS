@@ -76,7 +76,7 @@ const { Content } = await render(study);
                 href={study.data.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-bold hover:shadow-[0_0_25px_rgba(137,206,255,0.6)] hover:bg-white hover:text-primary-container transition-all group"
+                class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-bold hover:shadow-[0_0_25px_rgba(203,161,53,0.5)] hover:bg-white hover:text-primary-container transition-all group"
               >
                 <span class="material-symbols-outlined notranslate text-[20px]" translate="no">open_in_new</span>
                 <span>Ver vista previa en vivo ({study.data.url.replace(/^https?:\/\//, '')})</span>
@@ -121,8 +121,8 @@ const { Content } = await render(study);
   }
 
   .markdown-content blockquote {
-    border-left: 4px solid var(--color-primary, #89CEFF);
-    background: rgba(137, 206, 255, 0.05);
+    border-left: 4px solid var(--color-primary, #cba135);
+    background: rgba(203, 161, 53, 0.08);
     padding: 1.25rem 1.5rem;
     border-radius: 0 0.75rem 0.75rem 0;
     margin: 1.5rem 0 2rem 0;
@@ -130,7 +130,7 @@ const { Content } = await render(study);
 
   .markdown-content blockquote p {
     margin-bottom: 0.5rem;
-    color: var(--color-on-surface, #E2E2E2);
+    color: var(--color-on-surface, #ffffff);
     font-size: 1rem;
     line-height: 1.7;
   }
@@ -143,7 +143,7 @@ const { Content } = await render(study);
     font-family: 'Inter', sans-serif;
     font-size: 1.125rem;
     line-height: 1.8;
-    color: var(--color-on-surface-variant, #A3A3A3);
+    color: var(--color-on-surface-variant, #dcd0d5);
     margin-bottom: 1.5rem;
   }
   
@@ -156,7 +156,7 @@ const { Content } = await render(study);
   .markdown-content li {
     font-family: 'Inter', sans-serif;
     font-size: 1.125rem;
-    color: var(--color-on-surface-variant, #A3A3A3);
+    color: var(--color-on-surface-variant, #dcd0d5);
     margin-bottom: 0.75rem;
     position: relative;
     padding-left: 1.5rem;
@@ -164,19 +164,19 @@ const { Content } = await render(study);
   
   .markdown-content li::before {
     content: "•";
-    color: var(--color-primary, #89CEFF);
+    color: var(--color-primary, #cba135);
     position: absolute;
     left: 0;
     font-weight: bold;
   }
   
   .markdown-content strong {
-    color: var(--color-on-surface, #E2E2E2);
+    color: var(--color-on-surface, #ffffff);
     font-weight: 600;
   }
   
   .markdown-content a {
-    color: var(--color-primary, #89CEFF);
+    color: var(--color-primary, #cba135);
     text-decoration: underline;
     text-underline-offset: 4px;
     transition: opacity 0.2s;

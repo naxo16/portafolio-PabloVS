@@ -12,10 +12,10 @@ const featuredCases = sortedCases.slice(0, 4);
 <div class="relative w-full max-w-5xl mx-auto h-[450px] md:h-[400px]" id="cases-carousel">
     <!-- Navigation -->
     <div class="absolute top-1/2 -translate-y-1/2 w-full flex justify-between z-20 pointer-events-none px-2 -mx-2 md:mx-0">
-        <button aria-label="Caso anterior" id="cases-prev-slide" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-primary/30 bg-surface/80 backdrop-blur-md text-primary flex items-center justify-center pointer-events-auto hover:bg-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(137,206,255,0.4)] transition-all">
+        <button aria-label="Caso anterior" id="cases-prev-slide" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-primary/30 bg-surface/80 backdrop-blur-md text-primary flex items-center justify-center pointer-events-auto hover:bg-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(203,161,53,0.4)] transition-all">
             <span class="material-symbols-outlined notranslate" translate="no">chevron_left</span>
         </button>
-        <button aria-label="Siguiente caso" id="cases-next-slide" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-primary/30 bg-surface/80 backdrop-blur-md text-primary flex items-center justify-center pointer-events-auto hover:bg-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(137,206,255,0.4)] transition-all">
+        <button aria-label="Siguiente caso" id="cases-next-slide" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-primary/30 bg-surface/80 backdrop-blur-md text-primary flex items-center justify-center pointer-events-auto hover:bg-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(203,161,53,0.4)] transition-all">
             <span class="material-symbols-outlined notranslate" translate="no">chevron_right</span>
         </button>
     </div>
@@ -45,7 +45,7 @@ const featuredCases = sortedCases.slice(0, 4);
     <!-- Progress Indicators -->
     <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
         {featuredCases.map((_, index) => (
-            <div class={`cases-indicator h-1.5 rounded-full transition-all duration-300 ${index === 0 ? 'w-8 bg-primary shadow-[0_0_10px_rgba(137,206,255,0.8)]' : 'w-2 bg-outline-variant'}`}></div>
+            <div class={`cases-indicator h-1.5 rounded-full transition-all duration-300 ${index === 0 ? 'w-8 bg-primary shadow-[0_0_10px_rgba(203,161,53,0.8)]' : 'w-2 bg-outline-variant'}`}></div>
         ))}
     </div>
 </div>
@@ -74,7 +74,7 @@ const featuredCases = sortedCases.slice(0, 4);
             // Update indicators
             indicators.forEach((ind, i) => {
                 if(i === index) {
-                    gsap.to(ind, { width: 32, backgroundColor: 'var(--color-primary)', boxShadow: '0 0 10px rgba(137,206,255,0.8)', duration: 0.3 });
+                    gsap.to(ind, { width: 32, backgroundColor: 'var(--color-primary)', boxShadow: '0 0 10px rgba(203,161,53,0.8)', duration: 0.3 });
                 } else {
                     gsap.to(ind, { width: 8, backgroundColor: 'var(--color-outline-variant)', boxShadow: 'none', duration: 0.3 });
                 }

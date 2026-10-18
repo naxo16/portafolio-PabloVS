@@ -71,7 +71,7 @@
             if(!ctx) return;
             ctx.beginPath();
             ctx.arc(this.x, this.y, 1.5, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(229, 193, 88, 0.65)';
+            ctx.fillStyle = 'rgba(203, 161, 53, 0.65)';
             ctx.fill();
         }
     }
@@ -102,8 +102,8 @@
                     ctx.beginPath();
                     const alpha = 0.22 * (1 - distance / connectionDistance);
                     ctx.strokeStyle = j % 2 === 0 
-                        ? `rgba(229, 193, 88, ${alpha})` 
-                        : `rgba(184, 40, 67, ${alpha * 1.2})`;
+                        ? `rgba(203, 161, 53, ${alpha})` 
+                        : `rgba(184, 45, 70, ${alpha * 1.2})`;
                     ctx.lineWidth = 1;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);

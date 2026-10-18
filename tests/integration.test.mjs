@@ -80,3 +80,26 @@ test('integration: navbar contains animated top slogan bar, dropdowns and access
   assert.ok(html.includes('mobile-accordion-toggle'), 'Must contain mobile accordion toggle buttons');
   assert.ok(html.includes('mobile-accordion-content'), 'Must contain mobile accordion content sections');
 });
+
+test('integration: styles contain naxoresuelve palette tokens and custom scrollbars', () => {
+  const globalCssPath = path.resolve(rootDir, 'src/styles/global.css');
+  const css = fs.readFileSync(globalCssPath, 'utf-8');
+
+  // Verify naxoresuelve signature background and surfaces
+  assert.ok(css.includes('#3a3640'), 'Must include naxoresuelve velvety background #3a3640');
+  assert.ok(css.includes('#45404d'), 'Must include naxoresuelve surface #45404d');
+  assert.ok(css.includes('#423943'), 'Must include naxoresuelve card container #423943');
+
+  // Verify gold and vino tokens
+  assert.ok(css.includes('#cba135'), 'Must include naxoresuelve champagne gold #cba135');
+  assert.ok(css.includes('#f2cf6b'), 'Must include naxoresuelve gold light #f2cf6b');
+  assert.ok(css.includes('#721828'), 'Must include naxoresuelve deep vino #721828');
+  assert.ok(css.includes('#b82d46'), 'Must include naxoresuelve ruby/vino light #b82d46');
+
+  // Verify scrollbars and cyber grid
+  assert.ok(css.includes('::-webkit-scrollbar'), 'Must configure custom scrollbars');
+  assert.ok(css.includes('.cyber-grid'), 'Must include naxoresuelve cyber-grid');
+  assert.ok(css.includes('.vino-gradient-text'), 'Must include vino gradient text');
+  assert.ok(css.includes('.gold-gradient-text'), 'Must include gold gradient text');
+});
+

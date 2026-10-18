@@ -90,12 +90,12 @@ const isActive = (href: string) => {
     <!-- Top Slogan & Overlay Animation Bar (Visible when scrolled to top) -->
     <div 
       id="top-slogan-bar" 
-      class="w-full bg-gradient-to-r from-surface-container-high/95 via-tertiary-container/85 to-surface-container-high/95 border-b border-primary/25 transition-all duration-500 overflow-hidden max-h-14 opacity-100 shadow-[0_4px_20px_rgba(128,13,35,0.25)]"
+      class="w-full bg-gradient-to-r from-surface-container-high/95 via-tertiary-container/85 to-surface-container-high/95 border-b border-primary/25 transition-all duration-500 overflow-hidden max-h-14 opacity-100 shadow-[0_4px_20px_rgba(114,24,40,0.4)]"
       aria-label="Slogan y Estado Profesional"
     >
         <div class="flex items-center justify-between px-gutter py-2 max-w-container-max mx-auto text-xs">
             <div class="flex items-center gap-2.5">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface/80 border border-primary/40 text-primary font-bold text-[11px] tracking-wide uppercase shadow-[0_0_10px_rgba(229,193,88,0.2)]">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface/80 border border-primary/40 text-primary font-bold text-[11px] tracking-wide uppercase shadow-[0_0_10px_rgba(203,161,53,0.3)]">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                     Disponible Full-Time
                 </span>
@@ -134,8 +134,8 @@ const isActive = (href: string) => {
         <!-- Logo -->
         <div class="flex items-center gap-3 z-50">
             <a href="/" aria-label="Volver al inicio" class="group flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-tertiary-container to-surface-container-high flex items-center justify-center shadow-[0_0_15px_rgba(229,193,88,0.3)] border border-primary/40 group-hover:scale-105 transition-transform">
-                    <span class="font-headline-md font-extrabold text-on-primary text-base">PV</span>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#721828] to-[#cba135] flex items-center justify-center shadow-[0_0_15px_rgba(203,161,53,0.35)] border border-[#f2cf6b]/50 group-hover:scale-105 transition-transform">
+                    <span class="font-headline-md font-extrabold text-white text-base">PV</span>
                 </div>
                 <div class="flex flex-col">
                     <span class="font-headline-md text-base md:text-lg font-bold text-on-surface group-hover:text-primary transition-colors leading-tight">Pablo Valdés</span>
@@ -152,7 +152,7 @@ const isActive = (href: string) => {
                         href={item.href} 
                         class={`nav-trigger font-body-md text-xs xl:text-sm font-semibold flex items-center gap-1.5 py-1.5 px-3 rounded-xl transition-all duration-200 ${
                             isActive(item.href) 
-                                ? 'text-primary bg-primary/10 border border-primary/30 shadow-[0_0_12px_rgba(229,193,88,0.15)]' 
+                                ? 'text-primary bg-primary/10 border border-primary/30 shadow-[0_0_12px_rgba(203,161,53,0.25)]' 
                                 : 'text-on-surface-variant hover:text-primary hover:bg-surface-container/60'
                         }`}
                         aria-haspopup="true"
@@ -208,14 +208,14 @@ const isActive = (href: string) => {
             <a 
                 href="/cv-pablo-valdes.pdf" 
                 target="_blank"
-                class="bg-surface-container border border-primary/30 text-on-surface hover:border-primary hover:text-primary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(229,193,88,0.1)] hover:shadow-[0_0_18px_rgba(229,193,88,0.25)]"
+                class="bg-surface-container border border-primary/30 text-on-surface hover:border-primary hover:text-primary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(203,161,53,0.15)] hover:shadow-[0_0_18px_rgba(203,161,53,0.3)]"
             >
                 <span class="material-symbols-outlined notranslate text-[16px]" translate="no">description</span>
                 <span>CV Técnico</span>
             </a>
             <a 
                 href="mailto:pablovaldescontacto@gmail.com" 
-                class="bg-gradient-to-r from-tertiary-container to-primary text-on-primary hover:brightness-110 border border-primary/50 px-3.5 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-[0_0_20px_rgba(229,193,88,0.3)] hover:shadow-[0_0_25px_rgba(229,193,88,0.5)]"
+                class="bg-gradient-to-r from-tertiary-container to-primary text-white hover:brightness-110 border border-primary/50 px-3.5 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-[0_0_20px_rgba(203,161,53,0.3)] hover:shadow-[0_0_25px_rgba(203,161,53,0.5)]"
             >
                 <span class="material-symbols-outlined notranslate text-[16px]" translate="no">mail</span>
                 <span>Contacto</span>

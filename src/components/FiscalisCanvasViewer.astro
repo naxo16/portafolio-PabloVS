@@ -38,7 +38,7 @@ const defaultItem = FISCALIS_MEDIA[0];
 
     <!-- Category Filter Tabs -->
     <div class="flex flex-wrap gap-2 mb-6 relative z-10" role="tablist">
-      <button class="filter-tab px-4 py-1.5 rounded-lg font-code-sm text-xs transition-all bg-primary text-on-primary font-bold shadow-[0_0_15px_rgba(137,206,255,0.4)]" data-filter="all">
+      <button class="filter-tab px-4 py-1.5 rounded-lg font-code-sm text-xs transition-all bg-primary text-on-primary font-bold shadow-[0_0_15px_rgba(203,161,53,0.4)]" data-filter="all">
         Todos ({FISCALIS_MEDIA.length})
       </button>
       <button class="filter-tab px-4 py-1.5 rounded-lg font-code-sm text-xs transition-all bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" data-filter="video">
@@ -50,20 +50,20 @@ const defaultItem = FISCALIS_MEDIA[0];
     </div>
 
     <!-- Canvas Viewport Frame -->
-    <div id="canvas-container" class="relative w-full rounded-xl overflow-hidden border border-outline-variant/40 bg-[#07090e] shadow-2xl group cursor-pointer aspect-video max-h-[560px] flex items-center justify-center">
+    <div id="canvas-container" class="relative w-full rounded-xl overflow-hidden border border-outline-variant/40 bg-[#2a242c] shadow-2xl group cursor-pointer aspect-video max-h-[560px] flex items-center justify-center">
       
       <!-- HTML5 Canvas Element -->
       <canvas id="fiscalis-canvas" class="w-full h-full block select-none touch-none"></canvas>
 
       <!-- Center Big Play Button (overlay for video) -->
       <div id="canvas-play-overlay" class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[2px] transition-opacity duration-300 pointer-events-none opacity-0">
-        <div class="w-20 h-20 rounded-full bg-primary/90 text-on-primary flex items-center justify-center shadow-[0_0_30px_rgba(137,206,255,0.7)] transform group-hover:scale-110 transition-transform">
+        <div class="w-20 h-20 rounded-full bg-primary/90 text-on-primary flex items-center justify-center shadow-[0_0_30px_rgba(203,161,53,0.7)] transform group-hover:scale-110 transition-transform">
           <span class="material-symbols-outlined notranslate text-4xl" translate="no">play_arrow</span>
         </div>
       </div>
 
       <!-- Loading Spinner Overlay -->
-      <div id="canvas-loader" class="absolute inset-0 flex items-center justify-center bg-[#07090e]/80 transition-opacity duration-300 pointer-events-none opacity-0 z-20">
+      <div id="canvas-loader" class="absolute inset-0 flex items-center justify-center bg-[#2a242c]/80 transition-opacity duration-300 pointer-events-none opacity-0 z-20">
         <div class="flex flex-col items-center gap-3">
           <div class="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
           <span class="font-code-sm text-xs text-primary">Cargando frame en canvas...</span>
@@ -98,7 +98,7 @@ const defaultItem = FISCALIS_MEDIA[0];
       <!-- Action Buttons Row -->
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex flex-wrap items-center gap-3">
-          <button id="btn-play-pause" class="px-4 py-2 rounded-lg bg-primary text-on-primary font-bold font-code-sm text-xs flex items-center gap-2 hover:bg-white hover:text-primary-container transition-all shadow-[0_0_15px_rgba(137,206,255,0.4)]">
+          <button id="btn-play-pause" class="px-4 py-2 rounded-lg bg-primary text-on-primary font-bold font-code-sm text-xs flex items-center gap-2 hover:bg-white hover:text-primary-container transition-all shadow-[0_0_15px_rgba(203,161,53,0.4)]">
             <span id="play-pause-icon" class="material-symbols-outlined notranslate text-base" translate="no">play_arrow</span>
             <span id="play-pause-text">Reproducir</span>
           </button>
@@ -199,7 +199,7 @@ const defaultItem = FISCALIS_MEDIA[0];
       <div class="flex gap-3 overflow-x-auto pb-4 pt-1 snap-x scrollbar-thin thumbnails-container--fixed" id="thumbnails-container">
         {FISCALIS_MEDIA.map((item, idx) => (
           <button
-            class={`thumbnail-card flex-shrink-0 w-36 md:w-44 rounded-xl overflow-hidden border transition-all text-left group/thumb snap-start ${idx === 0 ? 'border-primary ring-2 ring-primary/40 shadow-[0_0_15px_rgba(137,206,255,0.3)] scale-[1.02]' : 'border-outline-variant/30 hover:border-primary/60 opacity-80 hover:opacity-100'}`}
+            class={`thumbnail-card flex-shrink-0 w-36 md:w-44 rounded-xl overflow-hidden border transition-all text-left group/thumb snap-start ${idx === 0 ? 'border-primary ring-2 ring-primary/40 shadow-[0_0_15px_rgba(203,161,53,0.3)] scale-[1.02]' : 'border-outline-variant/30 hover:border-primary/60 opacity-80 hover:opacity-100'}`}
             data-id={item.id}
             data-category={item.category}
             data-type={item.type}
@@ -407,7 +407,7 @@ const defaultItem = FISCALIS_MEDIA[0];
       thumbCards.forEach(c => {
         const cardId = c.getAttribute('data-id');
         if (cardId === id) {
-          c.classList.add('border-primary', 'ring-2', 'ring-primary/40', 'shadow-[0_0_15px_rgba(137,206,255,0.3)]', 'scale-[1.02]', 'opacity-100');
+          c.classList.add('border-primary', 'ring-2', 'ring-primary/40', 'shadow-[0_0_15px_rgba(203,161,53,0.3)]', 'scale-[1.02]', 'opacity-100');
           c.classList.remove('border-outline-variant/30', 'opacity-80');
           
           // Scroll strictly inside thumbnailsContainer without shifting the window or parent page
@@ -422,7 +422,7 @@ const defaultItem = FISCALIS_MEDIA[0];
             });
           }
         } else {
-          c.classList.remove('border-primary', 'ring-2', 'ring-primary/40', 'shadow-[0_0_15px_rgba(137,206,255,0.3)]', 'scale-[1.02]', 'opacity-100');
+          c.classList.remove('border-primary', 'ring-2', 'ring-primary/40', 'shadow-[0_0_15px_rgba(203,161,53,0.3)]', 'scale-[1.02]', 'opacity-100');
           c.classList.add('border-outline-variant/30', 'opacity-80');
         }
       });
@@ -509,10 +509,10 @@ const defaultItem = FISCALIS_MEDIA[0];
       tab.addEventListener('click', () => {
         const filter = tab.getAttribute('data-filter');
         filterTabs.forEach(t => {
-          t.classList.remove('bg-primary', 'text-on-primary', 'font-bold', 'shadow-[0_0_15px_rgba(137,206,255,0.4)]');
+          t.classList.remove('bg-primary', 'text-on-primary', 'font-bold', 'shadow-[0_0_15px_rgba(203,161,53,0.4)]');
           t.classList.add('bg-surface-container', 'text-on-surface-variant');
         });
-        tab.classList.add('bg-primary', 'text-on-primary', 'font-bold', 'shadow-[0_0_15px_rgba(137,206,255,0.4)]');
+        tab.classList.add('bg-primary', 'text-on-primary', 'font-bold', 'shadow-[0_0_15px_rgba(203,161,53,0.4)]');
         tab.classList.remove('bg-surface-container', 'text-on-surface-variant');
 
         thumbCards.forEach(card => {

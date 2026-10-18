@@ -1,53 +1,75 @@
 @import "tailwindcss";
 
 @theme {
-  --color-surface-container-high: #2d141d;
-  --color-secondary: #e2c1c7;
-  --color-on-background: #fdfbf7;
-  --color-surface: #14090d;
-  --color-on-secondary-container: #ffd9df;
-  --color-surface-dim: #100609;
-  --color-primary-fixed: #fcf0be;
-  --color-on-surface-variant: #e2d2d6;
-  --color-surface-container-low: #190b10;
-  --color-surface-tint: #e5c158;
-  --color-on-error-container: #ffdad6;
-  --color-surface-variant: #3a1924;
-  --color-tertiary-fixed: #ffdbdb;
-  --color-tertiary-container: #800d23;
-  --color-on-tertiary: #ffffff;
-  --color-inverse-surface: #fdfbf7;
+  /* Fondo y Superficies estilo naxoresuelve (Charcoal aterciopelado con sutil matiz platino/blanco de 25% de luminosidad) */
+  --color-background: #3a3640;
+  --color-surface: #45404d;
+  --color-surface-dim: #302c36;
+  --color-surface-bright: #504a58;
+  --color-surface-container-lowest: #25222b;
+  --color-surface-container-low: #2a242c;
+  --color-surface-container: #423943;
+  --color-surface-container-high: #4c424e;
+  --color-surface-container-highest: #595161;
+  --color-surface-variant: #484250;
+  --color-surface-tint: #cba135;
+
+  /* Texto y Contraste de alta legibilidad AAA */
+  --color-on-background: #ffffff;
+  --color-on-surface: #ffffff;
+  --color-on-surface-variant: #dcd0d5;
+  --color-inverse-surface: #f5dade;
+  --color-inverse-on-surface: #302c36;
+
+  /* Acentos Dorado / Oro Champagne de naxoresuelve (Primary) */
+  --color-primary: #cba135;
+  --color-primary-fixed: #f2cf6b;
+  --color-primary-fixed-dim: #cba135;
+  --color-primary-container: #721828;
+  --color-on-primary: #241a00;
   --color-on-primary-fixed: #241a00;
-  --color-on-tertiary-fixed-variant: #741126;
-  --color-tertiary-fixed-dim: #ffb3ba;
-  --color-tertiary: #c82a47;
-  --color-inverse-primary: #735c0b;
-  --color-error-container: #93000a;
-  --color-secondary-container: #501d29;
-  --color-on-tertiary-container: #ffebee;
-  --color-surface-bright: #3f1e29;
-  --color-on-surface: #fdfbf7;
-  --color-secondary-fixed: #fed9df;
-  --color-primary-fixed-dim: #e5c158;
-  --color-primary: #e5c158;
-  --color-on-tertiary-fixed: #40000d;
-  --color-surface-container: #1e0d14;
-  --color-surface-container-lowest: #0a0406;
-  --color-surface-container-highest: #381924;
-  --color-secondary-fixed-dim: #e2c1c7;
-  --color-on-primary: #3c2f00;
-  --color-inverse-on-surface: #381924;
-  --color-on-primary-fixed-variant: #564500;
-  --color-outline-variant: #543b43;
+  --color-on-primary-fixed-variant: #4d3800;
+  --color-on-primary-container: #f2cf6b;
+  --color-inverse-primary: #96741f;
+
+  /* Tonos Vino Tinto, Rubí y Borgoña de naxoresuelve (Tertiary) */
+  --color-tertiary: #b82d46;
+  --color-tertiary-container: #721828;
+  --color-tertiary-fixed: #ff6b85;
+  --color-tertiary-fixed-dim: #e2556e;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #ffd9df;
+  --color-on-tertiary-fixed: #4d0c17;
+  --color-on-tertiary-fixed-variant: #80182a;
+
+  /* Tonos Vino Suave / Rubí Complementario (Secondary) */
+  --color-secondary: #e2556e;
+  --color-secondary-container: #4d0c17;
+  --color-secondary-fixed: #f5dade;
+  --color-secondary-fixed-dim: #f2cfd6;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #ffd9df;
+  --color-on-secondary-fixed: #4d0c17;
+  --color-on-secondary-fixed-variant: #80182a;
+
+  /* Bordes y Delineados */
+  --color-outline: #cba135;
+  --color-outline-variant: #615362;
   --color-error: #ffb4ab;
-  --color-on-secondary-fixed: #390714;
-  --color-primary-container: #800d23;
+  --color-error-container: #93000a;
   --color-on-error: #690005;
-  --color-on-secondary-fixed-variant: #6b2f3d;
-  --color-outline: #9e824c;
-  --color-on-secondary: #42121d;
-  --color-on-primary-container: #fff4d1;
-  --color-background: #0d0608;
+  --color-on-error-container: #ffdad6;
+
+  /* Tokens semánticos naxoresuelve */
+  --color-vino: #80182a;
+  --color-vino-dark: #4d0c17;
+  --color-vino-light: #b82d46;
+  --color-vino-text: #e2556e;
+  --color-vino-text-bright: #ff6b85;
+  --color-vino-text-soft: #f2cfd6;
+  --color-gold: #cba135;
+  --color-gold-light: #f2cf6b;
+  --color-gold-dark: #96741f;
 
   --radius-sm: 0.125rem;
   --radius-DEFAULT: 0.25rem;
@@ -109,38 +131,79 @@
   body {
     background-color: var(--color-background);
     background-image: 
-      radial-gradient(ellipse 130% 60% at 50% -8%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.08) 32%, transparent 72%),
-      radial-gradient(circle at 88% 18%, rgba(128, 13, 35, 0.45) 0%, transparent 48%),
-      radial-gradient(circle at 12% 42%, rgba(229, 193, 88, 0.14) 0%, transparent 42%),
-      radial-gradient(circle at 78% 75%, rgba(103, 16, 31, 0.35) 0%, transparent 55%),
-      linear-gradient(180deg, #14080B 0%, #0D0507 45%, #070305 100%);
+      radial-gradient(ellipse 130% 60% at 50% -8%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 32%, transparent 72%),
+      radial-gradient(circle at 88% 18%, rgba(128, 24, 42, 0.35) 0%, transparent 48%),
+      radial-gradient(circle at 12% 42%, rgba(203, 161, 53, 0.12) 0%, transparent 42%),
+      radial-gradient(circle at 78% 75%, rgba(114, 24, 40, 0.28) 0%, transparent 55%),
+      linear-gradient(180deg, #3a3640 0%, #34303a 45%, #2a2630 100%);
     background-attachment: fixed;
     color: var(--color-on-background);
+  }
+
+  /* Custom Scrollbar de naxoresuelve */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #2a242c;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #721828;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9e233b;
   }
 }
 
 @layer components {
   .technical-gradient {
-    background: radial-gradient(circle at 50% 50%, rgba(229, 193, 88, 0.08) 0%, rgba(128, 13, 35, 0.09) 45%, transparent 75%);
+    background: radial-gradient(circle at 50% 50%, rgba(203, 161, 53, 0.12) 0%, rgba(184, 45, 70, 0.15) 45%, transparent 75%);
   }
   .glass-card {
-    background: rgba(30, 13, 20, 0.65);
+    background: rgba(66, 57, 67, 0.85);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(229, 193, 88, 0.16);
+    border: 1px solid rgba(203, 161, 53, 0.25);
   }
   .glass-card:hover {
-    border-color: rgba(229, 193, 88, 0.35);
+    border-color: rgba(203, 161, 53, 0.5);
+    background: rgba(76, 66, 78, 0.95);
   }
   .glass-dropdown {
-    background: rgba(22, 10, 15, 0.94);
+    background: rgba(42, 36, 44, 0.98);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(229, 193, 88, 0.25);
-    box-shadow: 0 16px 40px -10px rgba(128, 13, 35, 0.4), 0 0 20px rgba(229, 193, 88, 0.1);
+    border: 1px solid rgba(203, 161, 53, 0.45);
+    box-shadow: 0 16px 40px -10px rgba(114, 24, 40, 0.6), 0 0 20px rgba(203, 161, 53, 0.15);
   }
   .gold-glow {
-    box-shadow: 0 0 25px rgba(229, 193, 88, 0.25);
+    box-shadow: 0 0 25px rgba(203, 161, 53, 0.35);
   }
   .wine-glow {
-    box-shadow: 0 0 25px rgba(128, 13, 35, 0.4);
+    box-shadow: 0 0 25px rgba(184, 45, 70, 0.6);
+  }
+
+  /* Matrix / Cyber Grid de naxoresuelve */
+  .cyber-grid {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(184, 45, 70, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(184, 45, 70, 0.08) 1px, transparent 1px);
+  }
+
+  /* Tipografías de Gradiente de naxoresuelve */
+  .vino-gradient-text {
+    background: linear-gradient(135deg, #ff859b 0%, #e2556e 40%, #cba135 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gold-gradient-text {
+    background: linear-gradient(135deg, #f2cf6b 0%, #e2556e 50%, #cba135 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .vino-bright-text {
+    color: #ff6b85;
   }
 }
