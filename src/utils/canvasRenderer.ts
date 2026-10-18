@@ -322,12 +322,12 @@ export class FiscalisCanvasEngine {
     ctx.save();
     ctx.scale(this.dpr, this.dpr);
 
-    // 1. Solid deep cyber background
-    ctx.fillStyle = '#07090e';
+    // 1. Solid deep cyber background (Wine Obsidian)
+    ctx.fillStyle = '#0d0608';
     ctx.fillRect(0, 0, w, h);
 
     // 2. Subtle technical background grid (beneath media)
-    ctx.strokeStyle = 'rgba(26, 38, 56, 0.35)';
+    ctx.strokeStyle = 'rgba(80, 29, 41, 0.35)';
     ctx.lineWidth = 1;
     const step = 40;
     ctx.beginPath();
@@ -364,16 +364,16 @@ export class FiscalisCanvasEngine {
 
       // Ambient glow beneath media
       ctx.save();
-      ctx.shadowColor = 'rgba(137, 206, 255, 0.2)';
+      ctx.shadowColor = 'rgba(229, 193, 88, 0.22)';
       ctx.shadowBlur = 24;
 
       if (isMobile) {
         // Mobile frame mockup with rounded corners
         const radius = 18;
         this.roundRect(ctx, dims.x - 4, dims.y - 4, dims.width + 8, dims.height + 8, radius + 2);
-        ctx.fillStyle = '#111622';
+        ctx.fillStyle = '#1e0d14';
         ctx.fill();
-        ctx.strokeStyle = 'rgba(137, 206, 255, 0.4)';
+        ctx.strokeStyle = 'rgba(229, 193, 88, 0.45)';
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
@@ -394,14 +394,14 @@ export class FiscalisCanvasEngine {
 
       // 5. Tech info watermark in bottom-right corner of media
       ctx.font = '10px "JetBrains Mono", monospace';
-      ctx.fillStyle = 'rgba(137, 206, 255, 0.7)';
+      ctx.fillStyle = 'rgba(229, 193, 88, 0.75)';
       ctx.textAlign = 'right';
       const label = `${natW}x${natH} • ${current?.type === 'video' ? 'CANVAS STREAM' : 'HIGH-RES'}`;
       ctx.fillText(label, dims.x + dims.width, dims.y + dims.height + 16);
     } else {
       // Placeholder while loading
       ctx.font = '13px "JetBrains Mono", monospace';
-      ctx.fillStyle = 'rgba(137, 206, 255, 0.6)';
+      ctx.fillStyle = 'rgba(229, 193, 88, 0.65)';
       ctx.textAlign = 'center';
       ctx.fillText('CARGANDO FRAME EN CANVAS...', w / 2, h / 2);
     }
@@ -444,7 +444,7 @@ export class FiscalisCanvasEngine {
     const right = x + width + pad;
     const bottom = y + height + pad;
 
-    ctx.strokeStyle = '#89ceff';
+    ctx.strokeStyle = '#e5c158';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     // Top-Left

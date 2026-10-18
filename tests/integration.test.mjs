@@ -59,3 +59,24 @@ test('integration: index contains cinematic announcement and popup dialog for Fi
   assert.ok(html.includes('id="cinematic-teaser-video"'), 'Index must include teaser video');
   assert.ok(html.includes('fiscalis-demo-resumen.mp4'), 'Index must reference 24s demo video');
 });
+
+test('integration: navbar contains animated top slogan bar, dropdowns and accessibility markup', () => {
+  const indexHtmlPath = path.resolve(distDir, 'index.html');
+  const html = fs.readFileSync(indexHtmlPath, 'utf-8');
+
+  // Verify top slogan bar
+  assert.ok(html.includes('id="top-slogan-bar"'), 'Header must contain top-slogan-bar');
+  assert.ok(html.includes('Disponible Full-Time'), 'Slogan bar must display availability badge');
+  assert.ok(html.includes('Pablo Valdés Sandoval'), 'Slogan bar must display formal name');
+
+  // Verify desktop dropdown navigation
+  assert.ok(html.includes('nav-dropdown-wrapper'), 'Must contain dropdown wrapper containers');
+  assert.ok(html.includes('dropdown-menu'), 'Must contain dropdown menu elements');
+  assert.ok(html.includes('aria-haspopup="true"'), 'Triggers must include aria-haspopup for accessibility');
+  assert.ok(html.includes('role="menu"'), 'Dropdowns must include role="menu"');
+  assert.ok(html.includes('role="menuitem"'), 'Dropdown items must include role="menuitem"');
+
+  // Verify mobile accordion
+  assert.ok(html.includes('mobile-accordion-toggle'), 'Must contain mobile accordion toggle buttons');
+  assert.ok(html.includes('mobile-accordion-content'), 'Must contain mobile accordion content sections');
+});

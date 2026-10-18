@@ -1,53 +1,53 @@
 @import "tailwindcss";
 
 @theme {
-  --color-surface-container-high: #222a3d;
-  --color-secondary: #c4c7c9;
-  --color-on-background: #dae2fd;
-  --color-surface: #0b1326;
-  --color-on-secondary-container: #b6b9bb;
-  --color-surface-dim: #0b1326;
-  --color-primary-fixed: #c9e6ff;
-  --color-on-surface-variant: #bec8d2;
-  --color-surface-container-low: #131b2e;
-  --color-surface-tint: #89ceff;
+  --color-surface-container-high: #2d141d;
+  --color-secondary: #e2c1c7;
+  --color-on-background: #fdfbf7;
+  --color-surface: #14090d;
+  --color-on-secondary-container: #ffd9df;
+  --color-surface-dim: #100609;
+  --color-primary-fixed: #fcf0be;
+  --color-on-surface-variant: #e2d2d6;
+  --color-surface-container-low: #190b10;
+  --color-surface-tint: #e5c158;
   --color-on-error-container: #ffdad6;
-  --color-surface-variant: #2d3449;
-  --color-tertiary-fixed: #ffdcbd;
-  --color-tertiary-container: #de8712;
-  --color-on-tertiary: #492900;
-  --color-inverse-surface: #dae2fd;
-  --color-on-primary-fixed: #001e2f;
-  --color-on-tertiary-fixed-variant: #693c00;
-  --color-tertiary-fixed-dim: #ffb86e;
-  --color-tertiary: #ffb86e;
-  --color-inverse-primary: #006591;
+  --color-surface-variant: #3a1924;
+  --color-tertiary-fixed: #ffdbdb;
+  --color-tertiary-container: #800d23;
+  --color-on-tertiary: #ffffff;
+  --color-inverse-surface: #fdfbf7;
+  --color-on-primary-fixed: #241a00;
+  --color-on-tertiary-fixed-variant: #741126;
+  --color-tertiary-fixed-dim: #ffb3ba;
+  --color-tertiary: #c82a47;
+  --color-inverse-primary: #735c0b;
   --color-error-container: #93000a;
-  --color-secondary-container: #464a4b;
-  --color-on-tertiary-container: #4d2b00;
-  --color-surface-bright: #31394d;
-  --color-on-surface: #dae2fd;
-  --color-secondary-fixed: #e0e3e5;
-  --color-primary-fixed-dim: #89ceff;
-  --color-primary: #89ceff;
-  --color-on-tertiary-fixed: #2c1600;
-  --color-surface-container: #171f33;
-  --color-surface-container-lowest: #060e20;
-  --color-surface-container-highest: #2d3449;
-  --color-secondary-fixed-dim: #c4c7c9;
-  --color-on-primary: #00344d;
-  --color-inverse-on-surface: #283044;
-  --color-on-primary-fixed-variant: #004c6e;
-  --color-outline-variant: #3e4850;
+  --color-secondary-container: #501d29;
+  --color-on-tertiary-container: #ffebee;
+  --color-surface-bright: #3f1e29;
+  --color-on-surface: #fdfbf7;
+  --color-secondary-fixed: #fed9df;
+  --color-primary-fixed-dim: #e5c158;
+  --color-primary: #e5c158;
+  --color-on-tertiary-fixed: #40000d;
+  --color-surface-container: #1e0d14;
+  --color-surface-container-lowest: #0a0406;
+  --color-surface-container-highest: #381924;
+  --color-secondary-fixed-dim: #e2c1c7;
+  --color-on-primary: #3c2f00;
+  --color-inverse-on-surface: #381924;
+  --color-on-primary-fixed-variant: #564500;
+  --color-outline-variant: #543b43;
   --color-error: #ffb4ab;
-  --color-on-secondary-fixed: #191c1e;
-  --color-primary-container: #0ea5e9;
+  --color-on-secondary-fixed: #390714;
+  --color-primary-container: #800d23;
   --color-on-error: #690005;
-  --color-on-secondary-fixed-variant: #444749;
-  --color-outline: #88929b;
-  --color-on-secondary: #2d3133;
-  --color-on-primary-container: #003751;
-  --color-background: #0b1326;
+  --color-on-secondary-fixed-variant: #6b2f3d;
+  --color-outline: #9e824c;
+  --color-on-secondary: #42121d;
+  --color-on-primary-container: #fff4d1;
+  --color-background: #0d0608;
 
   --radius-sm: 0.125rem;
   --radius-DEFAULT: 0.25rem;
@@ -108,17 +108,39 @@
   }
   body {
     background-color: var(--color-background);
+    background-image: 
+      radial-gradient(ellipse 130% 60% at 50% -8%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.08) 32%, transparent 72%),
+      radial-gradient(circle at 88% 18%, rgba(128, 13, 35, 0.45) 0%, transparent 48%),
+      radial-gradient(circle at 12% 42%, rgba(229, 193, 88, 0.14) 0%, transparent 42%),
+      radial-gradient(circle at 78% 75%, rgba(103, 16, 31, 0.35) 0%, transparent 55%),
+      linear-gradient(180deg, #14080B 0%, #0D0507 45%, #070305 100%);
+    background-attachment: fixed;
     color: var(--color-on-background);
   }
 }
 
 @layer components {
   .technical-gradient {
-    background: radial-gradient(circle at 50% 50%, rgba(137, 206, 255, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(229, 193, 88, 0.08) 0%, rgba(128, 13, 35, 0.09) 45%, transparent 75%);
   }
   .glass-card {
-    background: rgba(34, 42, 61, 0.4);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(30, 13, 20, 0.65);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(229, 193, 88, 0.16);
+  }
+  .glass-card:hover {
+    border-color: rgba(229, 193, 88, 0.35);
+  }
+  .glass-dropdown {
+    background: rgba(22, 10, 15, 0.94);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(229, 193, 88, 0.25);
+    box-shadow: 0 16px 40px -10px rgba(128, 13, 35, 0.4), 0 0 20px rgba(229, 193, 88, 0.1);
+  }
+  .gold-glow {
+    box-shadow: 0 0 25px rgba(229, 193, 88, 0.25);
+  }
+  .wine-glow {
+    box-shadow: 0 0 25px rgba(128, 13, 35, 0.4);
   }
 }

@@ -1,124 +1,299 @@
 ---
+import '@floating-ui/dom';
+
 const currentPath = Astro.url.pathname;
 
-const mainLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/casos', label: 'Casos de Estudio' },
-  { href: '/metodologia', label: 'Metodología' },
-];
+interface SubItem {
+  href: string;
+  label: string;
+  description: string;
+  icon: string;
+  isExternal?: boolean;
+}
 
-const careerLink = { href: '/career', label: 'Perfil Profesional' };
+interface NavItem {
+  id: string;
+  href: string;
+  label: string;
+  icon?: string;
+  subitems: SubItem[];
+}
+
+const navItems: NavItem[] = [
+  {
+    id: 'nav-inicio',
+    href: '/',
+    label: 'Inicio',
+    subitems: [
+      { href: '/#hero', label: 'Presentación', description: 'Perfil analítico y posicionamiento backend', icon: 'person' },
+      { href: '/#fiscalis-cinematic-banner', label: 'Fiscalis MVP', description: 'Showcase interactivo en canvas WebGL', icon: 'smart_display' },
+      { href: '/#stack', label: 'Stack Backend & Linux', description: 'Python, FastAPI, PostgreSQL, Docker', icon: 'terminal' },
+      { href: '/#metricas', label: 'Métricas de Ingeniería', description: 'Rigor técnico, cobertura y Core Web Vitals', icon: 'monitoring' }
+    ]
+  },
+  {
+    id: 'nav-casos',
+    href: '/casos',
+    label: 'Casos de Estudio',
+    subitems: [
+      { href: '/casos', label: 'Ver Todos los Proyectos', description: 'Catálogo de ingeniería y sistemas desarrollados', icon: 'folder_open' },
+      { href: '/casos/fiscalis', label: 'Fiscalis MVP', description: 'API FastAPI + Flutter + PostgreSQL 3FN en terreno', icon: 'verified' },
+      { href: '/casos/vina-gran-hidalgo-erp', label: 'Viña Gran Hidalgo ERP', description: 'Trazabilidad vitivinícola lote a botella', icon: 'dataset' },
+      { href: '/casos/jpvs-web', label: 'JPVS Web', description: 'Landing de alta conversión en producción (jpvs.cl)', icon: 'rocket_launch' },
+      { href: '/casos/del-valle-construcciones-landing', label: 'Del Valle Construcciones', description: 'Presencia digital operativa de alto rendimiento', icon: 'apartment' }
+    ]
+  },
+  {
+    id: 'nav-metodologia',
+    href: '/metodologia',
+    label: 'Metodología',
+    subitems: [
+      { href: '/metodologia', label: 'Ciclo SDLC de 6 Fases', description: 'Del levantamiento analítico al despliegue', icon: 'account_tree' },
+      { href: '/metodologia#solid', label: 'Arquitectura Limpia & SOLID', description: 'Dominio aislado e inversión de dependencias', icon: 'architecture' },
+      { href: '/metodologia#defensive', label: 'Programación Defensiva', description: 'Validación en frontera y tipos estrictos', icon: 'security' }
+    ]
+  },
+  {
+    id: 'nav-career',
+    href: '/career',
+    label: 'Perfil Profesional',
+    icon: 'badge',
+    subitems: [
+      { href: '/career', label: 'Fact Sheet Técnico', description: 'Datos clave, disponibilidad y competencias', icon: 'badge' },
+      { href: '/career#quick-evidence', label: 'Evidencia en 30s', description: 'Fiscalis: Problema, arquitectura y resultados', icon: 'timer' },
+      { href: '/career#stack-hierarchy', label: 'Stack Jerarquizado', description: 'Core Backend, DevOps y Frontend', icon: 'layers' },
+      { href: '/career#education', label: 'Formación y Título', description: 'Analista Programador y certificaciones', icon: 'school' }
+    ]
+  },
+  {
+    id: 'nav-contacto',
+    href: 'mailto:pablovaldescontacto@gmail.com',
+    label: 'Contacto & Redes',
+    icon: 'alternate_email',
+    subitems: [
+      { href: 'mailto:pablovaldescontacto@gmail.com', label: 'Enviar Correo Directo', description: 'pablovaldescontacto@gmail.com', icon: 'mail' },
+      { href: '/cv-pablo-valdes.pdf', label: 'Descargar CV Técnico', description: 'Currículum formal actualizado en PDF', icon: 'description', isExternal: true },
+      { href: 'https://www.linkedin.com/in/pablo-vald%C3%A9s-7a4445430/', label: 'LinkedIn', description: 'Perfil profesional y trayectoria', icon: 'share', isExternal: true },
+      { href: 'https://github.com/naxo16', label: 'GitHub (naxo16)', description: 'Repositorios y código fuente auditable', icon: 'code', isExternal: true }
+    ]
+  }
+];
 
 const isActive = (href: string) => {
   if (href === '/') return currentPath === '/';
+  if (href.startsWith('mailto:')) return false;
   return currentPath.startsWith(href);
 };
 ---
-<header class="fixed top-0 w-full z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant/10 transition-all duration-300" id="main-header">
-    <nav class="flex justify-between items-center px-gutter h-20 max-w-container-max mx-auto relative">
-        <div class="flex items-center gap-2 z-50">
-            <a href="/" aria-label="Volver al inicio" class="font-headline-md text-headline-md font-bold text-on-surface hover:text-primary transition-colors">Pablo Valdés</a>
-        </div>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-8">
-            {mainLinks.map((link) => (
+
+<header class="fixed top-0 w-full z-40 border-b border-primary/20 backdrop-blur-xl bg-surface/90 transition-all duration-300" id="main-header">
+    <!-- Top Slogan & Overlay Animation Bar (Visible when scrolled to top) -->
+    <div 
+      id="top-slogan-bar" 
+      class="w-full bg-gradient-to-r from-surface-container-high/95 via-tertiary-container/85 to-surface-container-high/95 border-b border-primary/25 transition-all duration-500 overflow-hidden max-h-14 opacity-100 shadow-[0_4px_20px_rgba(128,13,35,0.25)]"
+      aria-label="Slogan y Estado Profesional"
+    >
+        <div class="flex items-center justify-between px-gutter py-2 max-w-container-max mx-auto text-xs">
+            <div class="flex items-center gap-2.5">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface/80 border border-primary/40 text-primary font-bold text-[11px] tracking-wide uppercase shadow-[0_0_10px_rgba(229,193,88,0.2)]">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Disponible Full-Time
+                </span>
+                <span class="hidden sm:inline-block text-primary/30">|</span>
+                <div class="hidden sm:flex items-center gap-1.5 text-on-surface">
+                    <span class="font-bold text-on-surface text-[12px] tracking-tight">
+                        Pablo Valdés Sandoval
+                    </span>
+                    <span class="text-on-surface-variant font-medium text-[12px]">
+                        — Backend Developer Junior
+                    </span>
+                    <span class="px-1.5 py-0.2 rounded bg-primary/10 border border-primary/20 text-primary font-mono text-[11px] font-bold">
+                        Python · FastAPI · PostgreSQL
+                    </span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex items-center gap-1 text-[11px] font-semibold text-primary">
+                    <span class="material-symbols-outlined text-[15px] notranslate" translate="no">verified</span>
+                    <span>Ingeniería sin humo</span>
+                </div>
                 <a 
-                    href={link.href} 
-                    class={`font-body-md text-body-md transition-colors duration-200 ${
-                        isActive(link.href) 
-                            ? 'text-primary font-bold border-b-2 border-primary pb-1' 
-                            : 'text-on-surface-variant font-medium hover:text-primary'
-                    }`}
+                    href="mailto:pablovaldescontacto@gmail.com" 
+                    class="bg-primary/20 hover:bg-primary hover:text-on-primary text-primary border border-primary/40 px-2.5 py-1 rounded-md font-bold text-[11px] transition-all flex items-center gap-1"
                 >
-                    {link.label}
+                    <span>Contratar</span>
+                    <span class="material-symbols-outlined text-[13px] notranslate" translate="no">arrow_forward</span>
                 </a>
-            ))}
-            <div class="h-6 w-px bg-outline-variant/30"></div>
-            <a 
-                href={careerLink.href} 
-                class={`font-body-md text-body-md transition-all duration-200 flex items-center gap-2 ${
-                    isActive(careerLink.href) 
-                        ? 'text-primary font-bold border-b-2 border-primary pb-1' 
-                        : 'text-primary/80 font-medium hover:text-primary'
-                }`}
-            >
-                <span class="material-symbols-outlined notranslate text-[18px]" translate="no">badge</span>
-                {careerLink.label}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <nav class="flex justify-between items-center px-gutter h-16 md:h-18 max-w-container-max mx-auto relative transition-all duration-300" id="main-nav">
+        <!-- Logo -->
+        <div class="flex items-center gap-3 z-50">
+            <a href="/" aria-label="Volver al inicio" class="group flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary via-tertiary-container to-surface-container-high flex items-center justify-center shadow-[0_0_15px_rgba(229,193,88,0.3)] border border-primary/40 group-hover:scale-105 transition-transform">
+                    <span class="font-headline-md font-extrabold text-on-primary text-base">PV</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-headline-md text-base md:text-lg font-bold text-on-surface group-hover:text-primary transition-colors leading-tight">Pablo Valdés</span>
+                    <span class="text-[10px] text-primary/80 font-mono tracking-wider uppercase font-semibold">Backend Engineer</span>
+                </div>
             </a>
         </div>
-        <div class="hidden md:flex items-center gap-3">
+        
+        <!-- Desktop Menu with Dropdowns -->
+        <div class="hidden lg:flex items-center gap-1 xl:gap-2">
+            {navItems.map((item) => (
+                <div class="nav-dropdown-wrapper relative" data-dropdown-id={item.id}>
+                    <a 
+                        href={item.href} 
+                        class={`nav-trigger font-body-md text-xs xl:text-sm font-semibold flex items-center gap-1.5 py-1.5 px-3 rounded-xl transition-all duration-200 ${
+                            isActive(item.href) 
+                                ? 'text-primary bg-primary/10 border border-primary/30 shadow-[0_0_12px_rgba(229,193,88,0.15)]' 
+                                : 'text-on-surface-variant hover:text-primary hover:bg-surface-container/60'
+                        }`}
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        id={`trigger-${item.id}`}
+                    >
+                        {item.icon && <span class="material-symbols-outlined text-[16px] notranslate" translate="no">{item.icon}</span>}
+                        <span>{item.label}</span>
+                        <span class="material-symbols-outlined text-[16px] transition-transform duration-200 chevron-icon opacity-70 group-hover:opacity-100" translate="no">expand_more</span>
+                    </a>
+
+                    <!-- Floating Dropdown Content -->
+                    <div 
+                        class="dropdown-menu fixed hidden z-50 w-72 glass-dropdown rounded-2xl p-2 transition-all duration-200 opacity-0 translate-y-2 pointer-events-none"
+                        role="menu"
+                        aria-labelledby={`trigger-${item.id}`}
+                        id={`menu-${item.id}`}
+                    >
+                        <div class="px-3 py-1.5 border-b border-primary/15 mb-1.5 flex items-center justify-between">
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-primary">{item.label}</span>
+                            <span class="text-[10px] text-on-surface-variant font-mono">Pablo Valdés</span>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            {item.subitems.map((sub) => (
+                                <a 
+                                    href={sub.href}
+                                    target={sub.isExternal ? "_blank" : undefined}
+                                    rel={sub.isExternal ? "noopener noreferrer" : undefined}
+                                    class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-primary/10 hover:border hover:border-primary/25 transition-all text-left group/sub"
+                                    role="menuitem"
+                                >
+                                    <div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary border border-primary/20 shrink-0 group-hover/sub:border-primary group-hover/sub:bg-primary/20 group-hover/sub:scale-105 transition-all">
+                                        <span class="material-symbols-outlined text-[16px] notranslate" translate="no">{sub.icon}</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="text-xs font-semibold text-on-surface group-hover/sub:text-primary transition-colors flex items-center gap-1 truncate">
+                                            {sub.label}
+                                            {sub.isExternal && <span class="material-symbols-outlined text-[12px] opacity-60">open_in_new</span>}
+                                        </div>
+                                        <div class="text-[10.5px] text-on-surface-variant line-clamp-1 leading-snug">{sub.description}</div>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <!-- Desktop Action Buttons -->
+        <div class="hidden md:flex items-center gap-2.5">
             <div class="gtranslate_wrapper"></div>
             <a 
                 href="/cv-pablo-valdes.pdf" 
                 target="_blank"
-                class="bg-surface-container border border-outline-variant/40 text-on-surface hover:border-primary/50 hover:text-primary px-3.5 py-2 rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all"
+                class="bg-surface-container border border-primary/30 text-on-surface hover:border-primary hover:text-primary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(229,193,88,0.1)] hover:shadow-[0_0_18px_rgba(229,193,88,0.25)]"
             >
-                <span class="material-symbols-outlined notranslate text-[18px]" translate="no">description</span>
-                CV
+                <span class="material-symbols-outlined notranslate text-[16px]" translate="no">description</span>
+                <span>CV Técnico</span>
             </a>
             <a 
                 href="mailto:pablovaldescontacto@gmail.com" 
-                class="bg-primary/10 border border-primary/30 text-primary hover:bg-primary hover:text-on-primary px-3.5 py-2 rounded-xl text-sm font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(137,206,255,0.15)] hover:shadow-[0_0_20px_rgba(137,206,255,0.4)]"
+                class="bg-gradient-to-r from-tertiary-container to-primary text-on-primary hover:brightness-110 border border-primary/50 px-3.5 py-1.5 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-[0_0_20px_rgba(229,193,88,0.3)] hover:shadow-[0_0_25px_rgba(229,193,88,0.5)]"
             >
-                <span class="material-symbols-outlined notranslate text-[18px]" translate="no">mail</span>
-                Correo
+                <span class="material-symbols-outlined notranslate text-[16px]" translate="no">mail</span>
+                <span>Contacto</span>
             </a>
         </div>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 z-[60] relative focus:outline-none" aria-label="Abrir menú">
-            <span class="w-6 h-0.5 bg-on-surface transition-all duration-300 rounded-full block absolute origin-center transform -translate-y-2"></span>
-            <span class="w-6 h-0.5 bg-on-surface transition-all duration-300 rounded-full block absolute origin-center transform"></span>
-            <span class="w-6 h-0.5 bg-on-surface transition-all duration-300 rounded-full block absolute origin-center transform translate-y-2"></span>
+        <button id="mobile-menu-btn" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 z-[60] relative focus:outline-none" aria-label="Abrir menú">
+            <span class="w-6 h-0.5 bg-primary transition-all duration-300 rounded-full block absolute origin-center transform -translate-y-2"></span>
+            <span class="w-6 h-0.5 bg-primary transition-all duration-300 rounded-full block absolute origin-center transform"></span>
+            <span class="w-6 h-0.5 bg-primary transition-all duration-300 rounded-full block absolute origin-center transform translate-y-2"></span>
         </button>
     </nav>
 </header>
 
-<!-- Overlay for Sidebar -->
-<div id="mobile-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-50 md:hidden"></div>
+<!-- Overlay for Mobile Sidebar -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 z-50 lg:hidden"></div>
 
-<!-- Mobile Sidebar -->
-<div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-[80%] max-w-sm bg-surface-container-high/95 backdrop-blur-xl border-l border-outline-variant/10 shadow-2xl transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] z-[55] flex flex-col md:hidden">
-    <div class="flex flex-col pt-24 px-8 gap-6 h-full overflow-y-auto pb-8">
-        {mainLinks.map((link) => (
-            <a 
-                href={link.href} 
-                class={`font-body-md text-xl transition-colors duration-200 ${
-                    isActive(link.href) 
-                        ? 'text-primary font-bold' 
-                        : 'text-on-surface-variant hover:text-primary'
-                }`}
-            >
-                {link.label}
-            </a>
+<!-- Mobile Sidebar with Accordion Menus -->
+<div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-surface-container-high/98 backdrop-blur-2xl border-l border-primary/20 shadow-2xl transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] z-[55] flex flex-col lg:hidden">
+    <div class="flex flex-col pt-20 px-6 gap-4 h-full overflow-y-auto pb-8">
+        <!-- Top status in mobile -->
+        <div class="p-3 rounded-xl bg-surface border border-primary/25 flex items-center gap-2 mb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <div class="flex flex-col">
+                <span class="text-xs font-bold text-primary uppercase tracking-wide">Disponible Full-Time</span>
+                <span class="text-[11px] text-on-surface-variant">Remoto para Chile y el Extranjero</span>
+            </div>
+        </div>
+
+        {navItems.map((item) => (
+            <div class="mobile-accordion-item border-b border-primary/10 pb-3">
+                <div class="flex items-center justify-between">
+                    <a 
+                        href={item.href}
+                        class={`font-body-md text-base font-bold transition-colors ${
+                            isActive(item.href) ? 'text-primary' : 'text-on-surface hover:text-primary'
+                        }`}
+                    >
+                        {item.label}
+                    </a>
+                    <button 
+                        class="mobile-accordion-toggle p-1.5 rounded-lg text-primary hover:bg-primary/10 focus:outline-none"
+                        aria-label={`Desplegar submenú de ${item.label}`}
+                    >
+                        <span class="material-symbols-outlined text-[20px] transition-transform duration-200 mobile-chevron" translate="no">expand_more</span>
+                    </button>
+                </div>
+                <div class="mobile-accordion-content hidden mt-2 flex flex-col gap-1.5 pl-3 border-l-2 border-primary/20">
+                    {item.subitems.map((sub) => (
+                        <a 
+                            href={sub.href}
+                            target={sub.isExternal ? "_blank" : undefined}
+                            rel={sub.isExternal ? "noopener noreferrer" : undefined}
+                            class="py-1.5 text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2"
+                        >
+                            <span class="material-symbols-outlined text-[15px] text-primary/70 notranslate" translate="no">{sub.icon}</span>
+                            <span>{sub.label}</span>
+                        </a>
+                    ))}
+                </div>
+            </div>
         ))}
-        <div class="h-px w-full bg-outline-variant/30 my-2"></div>
-        <a 
-            href={careerLink.href} 
-            class={`font-body-md text-xl transition-colors duration-200 flex items-center gap-2 ${
-                isActive(careerLink.href) 
-                    ? 'text-primary font-bold' 
-                    : 'text-primary/80 hover:text-primary'
-            }`}
-        >
-            <span class="material-symbols-outlined notranslate" translate="no">badge</span>
-            {careerLink.label}
-        </a>
-        <div class="mt-4 flex flex-col gap-3">
+
+        <div class="mt-4 flex flex-col gap-2.5">
             <a 
                 href="/cv-pablo-valdes.pdf" 
                 target="_blank"
-                class="w-full text-center bg-surface-container-highest border border-primary/40 text-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2"
+                class="w-full text-center bg-surface-container border border-primary/50 text-primary py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(229,193,88,0.15)]"
             >
-                <span class="material-symbols-outlined notranslate text-[20px]" translate="no">description</span>
-                Descargar CV
+                <span class="material-symbols-outlined notranslate text-[18px]" translate="no">description</span>
+                Descargar CV Técnico (PDF)
             </a>
             <a 
                 href="mailto:pablovaldescontacto@gmail.com" 
-                class="w-full text-center bg-primary text-on-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(137,206,255,0.4)]"
+                class="w-full text-center bg-gradient-to-r from-tertiary-container to-primary text-on-primary py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(229,193,88,0.3)]"
             >
-                <span class="material-symbols-outlined notranslate text-[20px]" translate="no">mail</span>
+                <span class="material-symbols-outlined notranslate text-[18px]" translate="no">mail</span>
                 Enviar Correo
             </a>
             <div class="gtranslate_wrapper flex justify-center mt-2"></div>
@@ -127,49 +302,191 @@ const isActive = (href: string) => {
 </div>
 
 <script>
-    // Header Scroll behavior
-    window.addEventListener('scroll', () => {
-        const header = document.getElementById('main-header');
-        if (header) {
-            if (window.scrollY > 20) {
-                header.classList.add('h-16');
-                header.querySelector('nav')?.classList.remove('h-20');
-                header.querySelector('nav')?.classList.add('h-16');
-            } else {
-                header.classList.remove('h-16');
-                header.querySelector('nav')?.classList.add('h-20');
-                header.querySelector('nav')?.classList.remove('h-16');
+    import { computePosition, offset, flip, shift } from '@floating-ui/dom';
+    import gsap from 'gsap';
+
+    // 1. TOP SLOGAN ANIMATION ON SCROLL
+    const sloganBar = document.getElementById('top-slogan-bar');
+    const mainHeader = document.getElementById('main-header');
+    let isAtTop = true;
+
+    const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY <= 15) {
+            if (!isAtTop) {
+                isAtTop = true;
+                if (sloganBar) {
+                    sloganBar.classList.remove('max-h-0', 'opacity-0', '-translate-y-4');
+                    sloganBar.classList.add('max-h-14', 'opacity-100', 'translate-y-0');
+                    gsap.fromTo(sloganBar, 
+                        { filter: 'brightness(1.5)', scale: 0.99 },
+                        { filter: 'brightness(1)', scale: 1, duration: 0.4, ease: 'power2.out' }
+                    );
+                }
+                if (mainHeader) {
+                    mainHeader.classList.remove('shadow-2xl');
+                }
             }
+        } else {
+            if (isAtTop) {
+                isAtTop = false;
+                if (sloganBar) {
+                    sloganBar.classList.remove('max-h-14', 'opacity-100', 'translate-y-0');
+                    sloganBar.classList.add('max-h-0', 'opacity-0', '-translate-y-4');
+                }
+                if (mainHeader) {
+                    mainHeader.classList.add('shadow-2xl');
+                }
+            }
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    // 2. FLOATING-UI DROPDOWNS FOR DESKTOP MENU
+    const wrappers = document.querySelectorAll<HTMLElement>('.nav-dropdown-wrapper');
+
+    wrappers.forEach((wrapper) => {
+        const trigger = wrapper.querySelector<HTMLElement>('.nav-trigger');
+        const menu = wrapper.querySelector<HTMLElement>('.dropdown-menu');
+        const chevron = wrapper.querySelector<HTMLElement>('.chevron-icon');
+        let closeTimer: ReturnType<typeof setTimeout> | null = null;
+
+        if (!trigger || !menu) return;
+
+        const updatePosition = async () => {
+            const { x, y } = await computePosition(trigger, menu, {
+                placement: 'bottom-start',
+                middleware: [
+                    offset(8),
+                    flip(),
+                    shift({ padding: 12 })
+                ]
+            });
+
+            menu.style.left = `${x}px`;
+            menu.style.top = `${y}px`;
+        };
+
+        const openMenu = () => {
+            if (closeTimer) {
+                clearTimeout(closeTimer);
+                closeTimer = null;
+            }
+
+            // Close other open menus
+            wrappers.forEach((otherWrapper) => {
+                if (otherWrapper !== wrapper) {
+                    const otherMenu = otherWrapper.querySelector<HTMLElement>('.dropdown-menu');
+                    const otherTrigger = otherWrapper.querySelector<HTMLElement>('.nav-trigger');
+                    const otherChevron = otherWrapper.querySelector<HTMLElement>('.chevron-icon');
+                    if (otherMenu) {
+                        otherMenu.classList.add('hidden', 'opacity-0', 'translate-y-2', 'pointer-events-none');
+                        otherMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    }
+                    if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+                    if (otherChevron) otherChevron.classList.remove('rotate-180');
+                }
+            });
+
+            menu.classList.remove('hidden');
+            updatePosition().then(() => {
+                requestAnimationFrame(() => {
+                    menu.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+                    menu.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    trigger.setAttribute('aria-expanded', 'true');
+                    if (chevron) chevron.classList.add('rotate-180');
+                });
+            });
+        };
+
+        const closeMenu = () => {
+            closeTimer = setTimeout(() => {
+                menu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                menu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+                trigger.setAttribute('aria-expanded', 'false');
+                if (chevron) chevron.classList.remove('rotate-180');
+                setTimeout(() => {
+                    if (menu.classList.contains('opacity-0')) {
+                        menu.classList.add('hidden');
+                    }
+                }, 200);
+            }, 120);
+        };
+
+        // Hover events
+        wrapper.addEventListener('mouseenter', openMenu);
+        wrapper.addEventListener('mouseleave', closeMenu);
+        menu.addEventListener('mouseenter', openMenu);
+        menu.addEventListener('mouseleave', closeMenu);
+
+        // Keyboard & focus events
+        trigger.addEventListener('focus', openMenu);
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'Enter') {
+                e.preventDefault();
+                openMenu();
+                const firstLink = menu.querySelector<HTMLAnchorElement>('a');
+                firstLink?.focus();
+            } else if (e.key === 'Escape') {
+                closeMenu();
+                trigger.focus();
+            }
+        });
+
+        menu.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMenu();
+                trigger.focus();
+            }
+        });
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (!target.closest('.nav-dropdown-wrapper')) {
+            wrappers.forEach((w) => {
+                const menu = w.querySelector<HTMLElement>('.dropdown-menu');
+                const trigger = w.querySelector<HTMLElement>('.nav-trigger');
+                const chevron = w.querySelector<HTMLElement>('.chevron-icon');
+                if (menu) {
+                    menu.classList.add('hidden', 'opacity-0', 'translate-y-2', 'pointer-events-none');
+                    menu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                }
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                if (chevron) chevron.classList.remove('rotate-180');
+            });
         }
     });
 
-    // Mobile Menu Toggle
+    // 3. MOBILE MENU AND ACCORDION TOGGLE
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const mobileSidebar = document.getElementById('mobile-sidebar');
     const mobileOverlay = document.getElementById('mobile-overlay');
     const lines = mobileBtn?.querySelectorAll('span');
-    let isMenuOpen = false;
+    let isMobileMenuOpen = false;
 
-    const toggleMenu = () => {
-        isMenuOpen = !isMenuOpen;
+    const toggleMobileMenu = () => {
+        isMobileMenuOpen = !isMobileMenuOpen;
         
-        if (isMenuOpen) {
+        if (isMobileMenuOpen) {
             mobileSidebar?.classList.remove('translate-x-full');
             mobileOverlay?.classList.remove('opacity-0', 'pointer-events-none');
-            // Animate hamburger to X
-            if(lines && lines.length === 3) {
+            if (lines && lines.length === 3) {
                 lines[0].classList.add('translate-y-0', 'rotate-45');
                 lines[0].classList.remove('-translate-y-2');
                 lines[1].classList.add('opacity-0');
                 lines[2].classList.add('translate-y-0', '-rotate-45');
                 lines[2].classList.remove('translate-y-2');
             }
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
         } else {
             mobileSidebar?.classList.add('translate-x-full');
             mobileOverlay?.classList.add('opacity-0', 'pointer-events-none');
-            // Animate X to hamburger
-            if(lines && lines.length === 3) {
+            if (lines && lines.length === 3) {
                 lines[0].classList.remove('translate-y-0', 'rotate-45');
                 lines[0].classList.add('-translate-y-2');
                 lines[1].classList.remove('opacity-0');
@@ -180,14 +497,36 @@ const isActive = (href: string) => {
         }
     };
 
-    mobileBtn?.addEventListener('click', toggleMenu);
-    mobileOverlay?.addEventListener('click', toggleMenu);
+    mobileBtn?.addEventListener('click', toggleMobileMenu);
+    mobileOverlay?.addEventListener('click', toggleMobileMenu);
 
-    // Close menu when clicking a link
+    // Mobile Accordion functionality
+    const accordionToggles = document.querySelectorAll('.mobile-accordion-toggle');
+    accordionToggles.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const parent = btn.closest('.mobile-accordion-item');
+            const content = parent?.querySelector('.mobile-accordion-content');
+            const chevron = btn.querySelector('.mobile-chevron');
+            
+            if (content) {
+                const isHidden = content.classList.contains('hidden');
+                if (isHidden) {
+                    content.classList.remove('hidden');
+                    chevron?.classList.add('rotate-180');
+                } else {
+                    content.classList.add('hidden');
+                    chevron?.classList.remove('rotate-180');
+                }
+            }
+        });
+    });
+
+    // Close mobile menu when clicking any navigation link
     const mobileLinks = mobileSidebar?.querySelectorAll('a');
-    mobileLinks?.forEach(link => {
+    mobileLinks?.forEach((link) => {
         link.addEventListener('click', () => {
-            if (isMenuOpen) toggleMenu();
+            if (isMobileMenuOpen) toggleMobileMenu();
         });
     });
 </script>
