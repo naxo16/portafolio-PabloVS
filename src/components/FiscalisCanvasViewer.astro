@@ -157,7 +157,7 @@ const defaultItem = FISCALIS_MEDIA[0];
     <audio id="canvas-audio" src={FISCALIS_AUDIO_SRC} preload="auto"></audio>
 
     <!-- Technical Details Card (Synchronized with active media) -->
-    <div id="media-details-card" class="mt-6 p-6 rounded-xl bg-surface-container-low/80 border border-outline-variant/20 relative z-10 transition-all">
+    <div id="media-details-card" class="mt-6 p-6 rounded-xl bg-surface-container-low/80 border border-outline-variant/20 relative z-10 transition-all container--fixed min-h-[220px]">
       <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
         <h3 id="detail-title" class="text-lg md:text-xl font-display font-bold text-on-surface">
           {defaultItem.title}
@@ -186,7 +186,7 @@ const defaultItem = FISCALIS_MEDIA[0];
     </div>
 
     <!-- Thumbnails Filmstrip Carousel -->
-    <div class="mt-8 relative z-10">
+    <div class="mt-8 relative z-10 thumbnails-section--fixed">
       <div class="flex items-center justify-between mb-3">
         <span class="font-code-sm text-xs uppercase tracking-wider text-on-surface-variant font-bold">
           Galería de Recursos Renderizados en Canvas
@@ -196,7 +196,7 @@ const defaultItem = FISCALIS_MEDIA[0];
         </span>
       </div>
 
-      <div class="flex gap-3 overflow-x-auto pb-4 pt-1 snap-x scrollbar-thin" id="thumbnails-container">
+      <div class="flex gap-3 overflow-x-auto pb-4 pt-1 snap-x scrollbar-thin thumbnails-container--fixed" id="thumbnails-container">
         {FISCALIS_MEDIA.map((item, idx) => (
           <button
             class={`thumbnail-card flex-shrink-0 w-36 md:w-44 rounded-xl overflow-hidden border transition-all text-left group/thumb snap-start ${idx === 0 ? 'border-primary ring-2 ring-primary/40 shadow-[0_0_15px_rgba(137,206,255,0.3)] scale-[1.02]' : 'border-outline-variant/30 hover:border-primary/60 opacity-80 hover:opacity-100'}`}
@@ -403,12 +403,24 @@ const defaultItem = FISCALIS_MEDIA[0];
       currentMediaId = id;
 
       // Update thumbnails UI
+      const thumbsContainer = document.getElementById('thumbnails-container');
       thumbCards.forEach(c => {
         const cardId = c.getAttribute('data-id');
         if (cardId === id) {
           c.classList.add('border-primary', 'ring-2', 'ring-primary/40', 'shadow-[0_0_15px_rgba(137,206,255,0.3)]', 'scale-[1.02]', 'opacity-100');
           c.classList.remove('border-outline-variant/30', 'opacity-80');
-          c.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          
+          // Scroll strictly inside thumbnailsContainer without shifting the window or parent page
+          if (thumbsContainer) {
+            const cardElem = c as HTMLElement;
+            const containerWidth = thumbsContainer.clientWidth;
+            const cardLeft = cardElem.offsetLeft;
+            const cardWidth = cardElem.offsetWidth;
+            thumbsContainer.scrollTo({
+              left: cardLeft - (containerWidth / 2) + (cardWidth / 2),
+              behavior: 'smooth'
+            });
+          }
         } else {
           c.classList.remove('border-primary', 'ring-2', 'ring-primary/40', 'shadow-[0_0_15px_rgba(137,206,255,0.3)]', 'scale-[1.02]', 'opacity-100');
           c.classList.add('border-outline-variant/30', 'opacity-80');
@@ -576,6 +588,32 @@ const defaultItem = FISCALIS_MEDIA[0];
 </script>
 
 <style>
+  /* Container Rules & Containment (container--fixed) */
+  .fiscalis-canvas-viewer,
+  .viewer-container--fixed {
+    max-width: 100%;
+    overflow-x: clip;
+    contain: layout inline-size;
+  }
+
+  .container--fixed,
+  #media-details-card {
+    min-height: 220px;
+    contain: layout;
+  }
+
+  .thumbnails-container--fixed,
+  #thumbnails-container {
+    max-width: 100%;
+    overscroll-behavior-x: contain;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .thumbnail-card {
+    flex-shrink: 0;
+  }
+
   /* Custom thin scrollbar for thumbnails */
   .scrollbar-thin::-webkit-scrollbar {
     height: 6px;
