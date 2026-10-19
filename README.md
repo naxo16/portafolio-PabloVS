@@ -55,6 +55,12 @@ Compilar para producción:
 npm run build
 ```
 
+Ejecutar suite de pruebas automatizadas:
+
+```bash
+npm test
+```
+
 Vista previa local:
 
 ```bash
