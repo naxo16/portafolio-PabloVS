@@ -1,6 +1,6 @@
 ---
 title: "Fiscalis"
-description: "Digitalización de la fiscalización municipal y recolección de datos en terreno mediante un sistema móvil integrado para erradicar la redundancia operativa."
+description: "Reducción del tiempo de captura de inspecciones en más del 85 % y eliminación de errores de transcripción, mejorando la eficiencia operativa de la fiscalización municipal."
 year: 2026
 status: "MVP en Pruebas"
 role: "Arquitectura Backend y Desarrollo End-to-End"

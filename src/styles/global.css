@@ -206,4 +206,66 @@
   .vino-bright-text {
     color: #ff6b85;
   }
+
+  /* Modos de Accesibilidad Universal */
+  html.font-size-lg {
+    font-size: 115%;
+  }
+
+  html.font-size-xl {
+    font-size: 130%;
+  }
+
+  html.high-contrast {
+    filter: contrast(125%);
+  }
+
+  html.high-contrast body {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  html.high-contrast .glass-card,
+  html.high-contrast .glass-dropdown,
+  html.high-contrast .a11y-section,
+  html.high-contrast .a11y-panel {
+    background: #050505 !important;
+    border-color: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  html.high-contrast a,
+  html.high-contrast button {
+    text-decoration-thickness: 2px;
+  }
+
+  html.high-contrast p,
+  html.high-contrast span {
+    color: #ffffff !important;
+  }
+
+  html.high-contrast .text-primary,
+  html.high-contrast .vino-gradient-text,
+  html.high-contrast .gold-gradient-text {
+    color: #ffd700 !important;
+    -webkit-text-fill-color: #ffd700 !important;
+  }
+
+  /* Reducción de Animaciones */
+  html.reduce-motion *,
+  html.reduce-motion *::before,
+  html.reduce-motion *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Tipografía Hiper-Legible */
+  html.font-dyslexic {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important;
+    letter-spacing: 0.04em !important;
+    word-spacing: 0.08em !important;
+    line-height: 1.8 !important;
+  }
 }

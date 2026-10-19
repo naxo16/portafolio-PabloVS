@@ -103,3 +103,26 @@ test('integration: styles contain naxoresuelve palette tokens and custom scrollb
   assert.ok(css.includes('.gold-gradient-text'), 'Must include gold gradient text');
 });
 
+test('integration: accessibility and text-to-speech module are present in built output', () => {
+  const indexHtmlPath = path.resolve(distDir, 'index.html');
+  const html = fs.readFileSync(indexHtmlPath, 'utf-8');
+
+  // Verify skip to main content link for screen readers and keyboard users
+  assert.ok(html.includes('id="skip-to-main"'), 'Must contain skip-to-main link');
+  assert.ok(html.includes('href="#main"'), 'Skip link must point to #main');
+
+  // Verify floating accessibility widget and speech synthesis controls
+  assert.ok(html.includes('id="accessibility-widget"'), 'Must contain accessibility-widget');
+  assert.ok(html.includes('id="a11y-toggle-btn"'), 'Must contain accessibility toggle button');
+  assert.ok(html.includes('id="a11y-panel"'), 'Must contain accessibility dialog panel');
+  assert.ok(html.includes('id="a11y-tts-play"'), 'Must contain TTS play button');
+  assert.ok(html.includes('id="a11y-tts-pause"'), 'Must contain TTS pause button');
+  assert.ok(html.includes('id="a11y-tts-stop"'), 'Must contain TTS stop button');
+  assert.ok(html.includes('id="a11y-tts-status"'), 'Must contain live region status for screen readers');
+
+  // Verify visual accessibility settings (contrast, motion, font-size)
+  assert.ok(html.includes('id="a11y-toggle-contrast"'), 'Must contain contrast toggle switch');
+  assert.ok(html.includes('id="a11y-toggle-motion"'), 'Must contain motion reduction toggle switch');
+  assert.ok(html.includes('id="a11y-toggle-dyslexic"'), 'Must contain readable font toggle switch');
+});
+

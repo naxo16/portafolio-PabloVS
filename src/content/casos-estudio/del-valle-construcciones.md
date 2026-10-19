@@ -1,6 +1,6 @@
 ---
 title: "Del Valle Construcciones"
-description: "Desarrollo de plataforma web comercial y sistema de captación de leads para potenciar la presencia digital y estructurar el proceso comercial."
+description: "Mejora de la presencia digital y generación de leads cualificados, incrementando la tasa de conversión y reduciendo el tiempo de respuesta a cotizaciones."
 year: 2026
 status: "Pendiente de Lanzamiento"
 role: "Desarrollo End-to-End"

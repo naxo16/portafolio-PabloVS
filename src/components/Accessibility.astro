@@ -1,0 +1,804 @@
+---
+// Componente de Accesibilidad Universal y Lectura en Voz Alta (Text-to-Speech)
+// Diseñado con estándares WCAG 2.1 AA/AAA, navegación por teclado, controles accesibles y Web Speech API.
+---
+
+<!-- Skip Link: Primer elemento navegable con Tab para usuarios con teclado y lectores de pantalla -->
+<a href="#main" id="skip-to-main" class="skip-link">
+  Saltar al contenido principal (Enter)
+</a>
+
+<!-- Widget Flotante de Accesibilidad -->
+<div id="accessibility-widget" class="fixed bottom-4 left-4 z-50 notranslate" translate="no">
+  <!-- Botón Activador del Panel -->
+  <button
+    id="a11y-toggle-btn"
+    type="button"
+    class="a11y-floating-btn"
+    aria-expanded="false"
+    aria-controls="a11y-panel"
+    aria-label="Abrir menú de accesibilidad y lectura por voz (Alt + A)"
+    title="Accesibilidad y Lectura en Voz Alta (Alt + A)"
+  >
+    <span class="material-symbols-outlined text-[24px]" aria-hidden="true">accessibility_new</span>
+    <span class="sr-only">Opciones de Accesibilidad y Lectura en Voz Alta</span>
+    <!-- Indicador de Lectura Activa -->
+    <span id="a11y-reading-pulse" class="a11y-badge-pulse hidden" aria-hidden="true"></span>
+  </button>
+
+  <!-- Panel Desplegable de Accesibilidad -->
+  <div
+    id="a11y-panel"
+    class="a11y-panel hidden"
+    role="dialog"
+    aria-modal="false"
+    aria-label="Opciones de Accesibilidad y Lectura por Voz"
+  >
+    <!-- Encabezado del Panel -->
+    <div class="a11y-panel-header">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-[20px]" aria-hidden="true">tune</span>
+        <h2 class="font-display font-semibold text-white text-[15px] tracking-wide">Accesibilidad & Voz</h2>
+      </div>
+      <button
+        id="a11y-close-btn"
+        type="button"
+        class="a11y-icon-btn"
+        aria-label="Cerrar panel de accesibilidad (Escape)"
+      >
+        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">close</span>
+      </button>
+    </div>
+
+    <!-- Contenido del Panel -->
+    <div class="p-3.5 space-y-4 max-h-[75vh] overflow-y-auto">
+      
+      <!-- SECCIÓN 1: LECTOR EN VOZ ALTA (SPEECH SYNTHESIS) -->
+      <section class="a11y-section" aria-labelledby="a11y-tts-heading">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">record_voice_over</span>
+            <h3 id="a11y-tts-heading" class="text-xs font-semibold uppercase tracking-wider text-primary">
+              Lectura en Voz Alta
+            </h3>
+          </div>
+          <span class="text-[10px] text-on-surface-variant font-mono">Alt + L</span>
+        </div>
+
+        <p class="text-[12px] text-on-surface-variant mb-2.5 leading-snug">
+          Escucha el contenido principal estructurado de esta página sin distracciones visuales.
+        </p>
+
+        <!-- Controles de Reproducción -->
+        <div class="grid grid-cols-3 gap-1.5 mb-2">
+          <button
+            id="a11y-tts-play"
+            type="button"
+            class="a11y-btn a11y-btn-primary flex items-center justify-center gap-1"
+            aria-label="Reproducir lectura en voz alta"
+          >
+            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">play_arrow</span>
+            <span>Leer</span>
+          </button>
+          
+          <button
+            id="a11y-tts-pause"
+            type="button"
+            class="a11y-btn a11y-btn-secondary flex items-center justify-center gap-1"
+            aria-label="Pausar o reanudar lectura"
+            disabled
+          >
+            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">pause</span>
+            <span>Pausar</span>
+          </button>
+
+          <button
+            id="a11y-tts-stop"
+            type="button"
+            class="a11y-btn a11y-btn-secondary flex items-center justify-center gap-1"
+            aria-label="Detener lectura"
+            disabled
+          >
+            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">stop</span>
+            <span>Detener</span>
+          </button>
+        </div>
+
+        <!-- Velocidad de Voz -->
+        <div class="flex items-center justify-between pt-1">
+          <label for="a11y-tts-rate" class="text-[11px] text-on-surface-variant">Velocidad:</label>
+          <div class="inline-flex rounded-md border border-outline-variant/40 bg-surface-container-lowest p-0.5" role="group" aria-label="Velocidad de lectura">
+            <button type="button" class="a11y-rate-btn active" data-rate="1" aria-label="Velocidad normal">1.0x</button>
+            <button type="button" class="a11y-rate-btn" data-rate="1.25" aria-label="Velocidad rápida">1.25x</button>
+            <button type="button" class="a11y-rate-btn" data-rate="0.85" aria-label="Velocidad pausada">0.85x</button>
+          </div>
+        </div>
+
+        <!-- Estado de Voz Accesible (Live Region) -->
+        <div
+          id="a11y-tts-status"
+          class="mt-2 text-[11px] text-primary/90 bg-primary/10 rounded px-2 py-1 flex items-center gap-1.5"
+          role="status"
+          aria-live="polite"
+        >
+          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">info</span>
+          <span id="a11y-tts-status-text">Lector de voz listo para usar.</span>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: AJUSTES VISUALES Y DE LECTURA -->
+      <section class="a11y-section" aria-labelledby="a11y-visual-heading">
+        <div class="flex items-center gap-1.5 mb-2">
+          <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">visibility</span>
+          <h3 id="a11y-visual-heading" class="text-xs font-semibold uppercase tracking-wider text-primary">
+            Ajustes Visuales
+          </h3>
+        </div>
+
+        <!-- Tamaño de Fuente -->
+        <div class="flex items-center justify-between mb-2 pb-2 border-b border-outline-variant/20">
+          <span class="text-[12px] text-white">Tamaño de texto:</span>
+          <div class="inline-flex rounded-md border border-outline-variant/40 bg-surface-container-lowest p-0.5" role="group" aria-label="Cambiar tamaño de texto">
+            <button id="a11y-font-sm" type="button" class="a11y-opt-btn" aria-label="Tamaño normal de texto">A</button>
+            <button id="a11y-font-md" type="button" class="a11y-opt-btn" aria-label="Aumentar texto 15%">A+</button>
+            <button id="a11y-font-lg" type="button" class="a11y-opt-btn" aria-label="Aumentar texto 30%">A++</button>
+          </div>
+        </div>
+
+        <!-- Alto Contraste -->
+        <div class="flex items-center justify-between mb-2 pb-2 border-b border-outline-variant/20">
+          <div>
+            <span class="text-[12px] text-white block">Alto Contraste</span>
+            <span class="text-[10px] text-on-surface-variant block">Máximo contraste y bordes nítidos</span>
+          </div>
+          <button
+            id="a11y-toggle-contrast"
+            type="button"
+            class="a11y-switch"
+            role="switch"
+            aria-checked="false"
+            aria-label="Activar o desactivar modo de alto contraste"
+          >
+            <span class="a11y-switch-thumb" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <!-- Reducción de Animaciones -->
+        <div class="flex items-center justify-between mb-2 pb-2 border-b border-outline-variant/20">
+          <div>
+            <span class="text-[12px] text-white block">Pausar Animaciones</span>
+            <span class="text-[10px] text-on-surface-variant block">Reduce movimiento y transiciones</span>
+          </div>
+          <button
+            id="a11y-toggle-motion"
+            type="button"
+            class="a11y-switch"
+            role="switch"
+            aria-checked="false"
+            aria-label="Pausar o reanudar animaciones visuales"
+          >
+            <span class="a11y-switch-thumb" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <!-- Fuente de Fácil Lectura -->
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-[12px] text-white block">Fuente Hiper-Legible</span>
+            <span class="text-[10px] text-on-surface-variant block">Mayor interlineado y claridad</span>
+          </div>
+          <button
+            id="a11y-toggle-dyslexic"
+            type="button"
+            class="a11y-switch"
+            role="switch"
+            aria-checked="false"
+            aria-label="Activar o desactivar tipografía hiper-legible"
+          >
+            <span class="a11y-switch-thumb" aria-hidden="true"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: ATAJOS Y RESTABLECER -->
+      <div class="flex items-center justify-between pt-1">
+        <button
+          id="a11y-reset-btn"
+          type="button"
+          class="text-[11px] text-on-surface-variant hover:text-white underline transition-colors"
+          aria-label="Restablecer opciones predeterminadas de accesibilidad"
+        >
+          Restablecer opciones
+        </button>
+        <span class="text-[10px] text-on-surface-variant font-mono">Esc para salir</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Skip Link Accesible */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    background: #cba135;
+    color: #241a00;
+    font-weight: 700;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    z-index: 99999;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    transition: top 0.2s ease-in-out;
+    outline: none;
+  }
+  .skip-link:focus {
+    top: 1rem;
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  /* Botón Flotante */
+  .a11y-floating-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    background: #2a242c;
+    border: 1px solid rgba(203, 161, 53, 0.45);
+    color: #cba135;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 15px rgba(203, 161, 53, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .a11y-floating-btn:hover {
+    background: #423943;
+    color: #ffffff;
+    border-color: #cba135;
+    transform: scale(1.05);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(203, 161, 53, 0.4);
+  }
+  .a11y-floating-btn:focus-visible {
+    outline: 3px solid #cba135;
+    outline-offset: 3px;
+  }
+
+  /* Pulso indicador de lectura */
+  .a11y-badge-pulse {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  /* Panel Desplegable */
+  .a11y-panel {
+    position: absolute;
+    bottom: 58px;
+    left: 0;
+    width: 330px;
+    max-width: calc(100vw - 2rem);
+    background: rgba(37, 34, 43, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(203, 161, 53, 0.35);
+    border-radius: 0.85rem;
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(203, 161, 53, 0.15);
+    color: #ffffff;
+    overflow: hidden;
+  }
+
+  .a11y-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(203, 161, 53, 0.2);
+    background: rgba(42, 36, 44, 0.85);
+  }
+
+  .a11y-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 0.375rem;
+    border: none;
+    background: transparent;
+    color: #dcd0d5;
+    cursor: pointer;
+  }
+  .a11y-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+  .a11y-icon-btn:focus-visible {
+    outline: 2px solid #cba135;
+  }
+
+  .a11y-section {
+    background: rgba(42, 36, 44, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .a11y-btn {
+    padding: 0.45rem 0.5rem;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .a11y-btn:focus-visible {
+    outline: 2px solid #cba135;
+    outline-offset: 1px;
+  }
+  .a11y-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .a11y-btn-primary {
+    background: #cba135;
+    color: #241a00;
+  }
+  .a11y-btn-primary:not(:disabled):hover {
+    background: #f2cf6b;
+  }
+
+  .a11y-btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .a11y-btn-secondary:not(:disabled):hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: #cba135;
+  }
+
+  .a11y-rate-btn,
+  .a11y-opt-btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 11px;
+    font-family: inherit;
+    border: none;
+    background: transparent;
+    color: #dcd0d5;
+    cursor: pointer;
+    border-radius: 0.25rem;
+  }
+  .a11y-rate-btn.active,
+  .a11y-opt-btn.active {
+    background: #cba135;
+    color: #241a00;
+    font-weight: 700;
+  }
+  .a11y-rate-btn:focus-visible,
+  .a11y-opt-btn:focus-visible {
+    outline: 2px solid #cba135;
+  }
+
+  /* Switch accesible */
+  .a11y-switch {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    transition: background 0.2s ease;
+  }
+  .a11y-switch[aria-checked="true"] {
+    background: #10b981;
+  }
+  .a11y-switch:focus-visible {
+    outline: 2px solid #cba135;
+    outline-offset: 2px;
+  }
+  .a11y-switch-thumb {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+  }
+  .a11y-switch[aria-checked="true"] .a11y-switch-thumb {
+    transform: translateX(16px);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
+
+<script>
+  // Módulo de Accesibilidad y Lectura en Voz Alta (Vanilla JS / Web Speech API)
+  (() => {
+    // Referencias DOM
+    const toggleBtn = document.getElementById('a11y-toggle-btn');
+    const closeBtn = document.getElementById('a11y-close-btn');
+    const panel = document.getElementById('a11y-panel');
+    const readingPulse = document.getElementById('a11y-reading-pulse');
+    const playBtn = document.getElementById('a11y-tts-play') as HTMLButtonElement | null;
+    const pauseBtn = document.getElementById('a11y-tts-pause') as HTMLButtonElement | null;
+    const stopBtn = document.getElementById('a11y-tts-stop') as HTMLButtonElement | null;
+    const statusText = document.getElementById('a11y-tts-status-text');
+    const rateBtns = document.querySelectorAll('.a11y-rate-btn');
+    const fontSm = document.getElementById('a11y-font-sm');
+    const fontMd = document.getElementById('a11y-font-md');
+    const fontLg = document.getElementById('a11y-font-lg');
+    const contrastSwitch = document.getElementById('a11y-toggle-contrast');
+    const motionSwitch = document.getElementById('a11y-toggle-motion');
+    const dyslexicSwitch = document.getElementById('a11y-toggle-dyslexic');
+    const resetBtn = document.getElementById('a11y-reset-btn');
+
+    // Estado TTS
+    let isPlaying = false;
+    let isPaused = false;
+    let speechRate = 1.0;
+    let speechQueue: string[] = [];
+    let currentUtteranceIndex = 0;
+    let voices: SpeechSynthesisVoice[] = [];
+
+    // Cargar voces disponibles
+    const loadVoices = () => {
+      if ('speechSynthesis' in window) {
+        voices = window.speechSynthesis.getVoices();
+      }
+    };
+    if ('speechSynthesis' in window) {
+      loadVoices();
+      if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+      }
+    }
+
+    // Toggle Panel
+    const togglePanel = (forceState?: boolean) => {
+      if (!panel || !toggleBtn) return;
+      const isCurrentlyOpen = !panel.classList.contains('hidden');
+      const shouldOpen = forceState !== undefined ? forceState : !isCurrentlyOpen;
+
+      if (shouldOpen) {
+        panel.classList.remove('hidden');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        playBtn?.focus();
+      } else {
+        panel.classList.add('hidden');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    toggleBtn?.addEventListener('click', () => togglePanel());
+    closeBtn?.addEventListener('click', () => togglePanel(false));
+
+    // Atajos de teclado globales
+    window.addEventListener('keydown', (e: KeyboardEvent) => {
+      // Alt + A: Abrir/Cerrar panel de accesibilidad
+      if (e.altKey && (e.key === 'a' || e.key === 'A')) {
+        e.preventDefault();
+        togglePanel();
+      }
+      // Alt + L: Reproducir / Pausar lectura
+      if (e.altKey && (e.key === 'l' || e.key === 'L')) {
+        e.preventDefault();
+        if (isPlaying) {
+          togglePause();
+        } else {
+          startSpeech();
+        }
+      }
+      // Escape: Cerrar panel si está abierto
+      if (e.key === 'Escape' && panel && !panel.classList.contains('hidden')) {
+        togglePanel(false);
+        toggleBtn?.focus();
+      }
+    });
+
+    // Asegurar que el elemento principal tenga id="main" y tabindex="-1" para Skip Link
+    const mainEl = document.querySelector('main');
+    if (mainEl) {
+      if (!mainEl.id) mainEl.id = 'main';
+      if (!mainEl.hasAttribute('tabindex')) mainEl.setAttribute('tabindex', '-1');
+    }
+
+    // Extraer contenido legible estructurado
+    const extractReadableText = (): string[] => {
+      const target = document.querySelector('main') || document.body;
+      const chunks: string[] = [];
+
+      // Incluir título de la página
+      const pageTitle = document.title ? `Página: ${document.title.split('|')[0].trim()}.` : '';
+      if (pageTitle) chunks.push(pageTitle);
+
+      // Recorrer elementos clave (h1, h2, h3, p, li)
+      const elements = target.querySelectorAll('h1, h2, h3, h4, p, li, blockquote');
+      elements.forEach((el) => {
+        // Ignorar elementos ocultos o dentro de widgets de navegación/traducción
+        if (
+          el.closest('#accessibility-widget') ||
+          el.closest('.gtranslate_wrapper') ||
+          el.getAttribute('aria-hidden') === 'true'
+        ) {
+          return;
+        }
+
+        const text = (el as HTMLElement).innerText?.trim();
+        if (text && text.length > 2) {
+          chunks.push(text);
+        }
+      });
+
+      return chunks;
+    };
+
+    // Actualizar estado UI del lector
+    const updateTTSUI = (state: 'idle' | 'playing' | 'paused') => {
+      if (!playBtn || !pauseBtn || !stopBtn || !statusText || !readingPulse) return;
+
+      if (state === 'playing') {
+        isPlaying = true;
+        isPaused = false;
+        playBtn.disabled = true;
+        pauseBtn.disabled = false;
+        stopBtn.disabled = false;
+        readingPulse.classList.remove('hidden');
+        statusText.innerText = 'Leyendo contenido...';
+      } else if (state === 'paused') {
+        isPlaying = true;
+        isPaused = true;
+        playBtn.disabled = true;
+        pauseBtn.disabled = false;
+        stopBtn.disabled = false;
+        readingPulse.classList.remove('hidden');
+        statusText.innerText = 'Lectura en pausa.';
+      } else {
+        isPlaying = false;
+        isPaused = false;
+        playBtn.disabled = false;
+        pauseBtn.disabled = true;
+        stopBtn.disabled = true;
+        readingPulse.classList.add('hidden');
+        statusText.innerText = 'Lector listo para usar.';
+      }
+    };
+
+    // Reproducir siguiente bloque
+    const speakNextChunk = () => {
+      if (!('speechSynthesis' in window)) return;
+      if (currentUtteranceIndex >= speechQueue.length) {
+        stopSpeech();
+        if (statusText) statusText.innerText = 'Lectura finalizada.';
+        return;
+      }
+
+      const text = speechQueue[currentUtteranceIndex];
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = speechRate;
+      utterance.lang = 'es-ES';
+
+      // Buscar voz óptima en español
+      if (voices.length > 0) {
+        const esVoice = voices.find(v => v.lang.startsWith('es-CL') || v.lang.startsWith('es-ES') || v.lang.startsWith('es'));
+        if (esVoice) utterance.voice = esVoice;
+      }
+
+      utterance.onend = () => {
+        if (isPlaying && !isPaused) {
+          currentUtteranceIndex++;
+          speakNextChunk();
+        }
+      };
+
+      utterance.onerror = (e) => {
+        if (e.error !== 'canceled' && e.error !== 'interrupted') {
+          console.warn('Speech error:', e);
+        }
+        stopSpeech();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    };
+
+    // Iniciar Lectura
+    const startSpeech = () => {
+      if (!('speechSynthesis' in window)) {
+        if (statusText) statusText.innerText = 'Tu navegador no soporta síntesis de voz.';
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      speechQueue = extractReadableText();
+      currentUtteranceIndex = 0;
+
+      if (speechQueue.length === 0) {
+        if (statusText) statusText.innerText = 'No se encontró contenido legible.';
+        return;
+      }
+
+      updateTTSUI('playing');
+      speakNextChunk();
+    };
+
+    // Pausar / Reanudar Lectura
+    const togglePause = () => {
+      if (!('speechSynthesis' in window)) return;
+
+      if (isPaused) {
+        window.speechSynthesis.resume();
+        updateTTSUI('playing');
+      } else {
+        window.speechSynthesis.pause();
+        updateTTSUI('paused');
+      }
+    };
+
+    // Detener Lectura
+    const stopSpeech = () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      updateTTSUI('idle');
+      currentUtteranceIndex = 0;
+      speechQueue = [];
+    };
+
+    playBtn?.addEventListener('click', startSpeech);
+    pauseBtn?.addEventListener('click', togglePause);
+    stopBtn?.addEventListener('click', stopSpeech);
+
+    // Cancelar voz al salir o navegar
+    window.addEventListener('beforeunload', () => {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    });
+
+    // Selector de velocidad
+    rateBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const rate = parseFloat(target.getAttribute('data-rate') || '1');
+        speechRate = rate;
+        rateBtns.forEach(b => b.classList.remove('active'));
+        target.classList.add('active');
+
+        // Si se está reproduciendo, reiniciar el fragmento con la nueva velocidad
+        if (isPlaying && !isPaused) {
+          window.speechSynthesis.cancel();
+          speakNextChunk();
+        }
+      });
+    });
+
+    // AJUSTES VISUALES: Tamaño de fuente
+    const setFontSize = (size: 'normal' | 'lg' | 'xl') => {
+      document.documentElement.classList.remove('font-size-lg', 'font-size-xl');
+      fontSm?.classList.remove('active');
+      fontMd?.classList.remove('active');
+      fontLg?.classList.remove('active');
+
+      if (size === 'lg') {
+        document.documentElement.classList.add('font-size-lg');
+        fontMd?.classList.add('active');
+        localStorage.setItem('a11y_font_size', 'lg');
+      } else if (size === 'xl') {
+        document.documentElement.classList.add('font-size-xl');
+        fontLg?.classList.add('active');
+        localStorage.setItem('a11y_font_size', 'xl');
+      } else {
+        fontSm?.classList.add('active');
+        localStorage.setItem('a11y_font_size', 'normal');
+      }
+    };
+
+    fontSm?.addEventListener('click', () => setFontSize('normal'));
+    fontMd?.addEventListener('click', () => setFontSize('lg'));
+    fontLg?.addEventListener('click', () => setFontSize('xl'));
+
+    // Alto Contraste
+    const setHighContrast = (enable: boolean) => {
+      if (enable) {
+        document.documentElement.classList.add('high-contrast');
+        contrastSwitch?.setAttribute('aria-checked', 'true');
+        localStorage.setItem('a11y_high_contrast', 'true');
+      } else {
+        document.documentElement.classList.remove('high-contrast');
+        contrastSwitch?.setAttribute('aria-checked', 'false');
+        localStorage.setItem('a11y_high_contrast', 'false');
+      }
+    };
+
+    contrastSwitch?.addEventListener('click', () => {
+      const isChecked = contrastSwitch.getAttribute('aria-checked') === 'true';
+      setHighContrast(!isChecked);
+    });
+
+    // Pausar Animaciones (Reduce Motion)
+    const setReduceMotion = (enable: boolean) => {
+      if (enable) {
+        document.documentElement.classList.add('reduce-motion');
+        motionSwitch?.setAttribute('aria-checked', 'true');
+        localStorage.setItem('a11y_reduce_motion', 'true');
+      } else {
+        document.documentElement.classList.remove('reduce-motion');
+        motionSwitch?.setAttribute('aria-checked', 'false');
+        localStorage.setItem('a11y_reduce_motion', 'false');
+      }
+    };
+
+    motionSwitch?.addEventListener('click', () => {
+      const isChecked = motionSwitch.getAttribute('aria-checked') === 'true';
+      setReduceMotion(!isChecked);
+    });
+
+    // Tipografía Hiper-Legible
+    const setDyslexicFont = (enable: boolean) => {
+      if (enable) {
+        document.documentElement.classList.add('font-dyslexic');
+        dyslexicSwitch?.setAttribute('aria-checked', 'true');
+        localStorage.setItem('a11y_font_dyslexic', 'true');
+      } else {
+        document.documentElement.classList.remove('font-dyslexic');
+        dyslexicSwitch?.setAttribute('aria-checked', 'false');
+        localStorage.setItem('a11y_font_dyslexic', 'false');
+      }
+    };
+
+    dyslexicSwitch?.addEventListener('click', () => {
+      const isChecked = dyslexicSwitch.getAttribute('aria-checked') === 'true';
+      setDyslexicFont(!isChecked);
+    });
+
+    // Restablecer Opciones
+    resetBtn?.addEventListener('click', () => {
+      setFontSize('normal');
+      setHighContrast(false);
+      setReduceMotion(false);
+      setDyslexicFont(false);
+      stopSpeech();
+      localStorage.removeItem('a11y_font_size');
+      localStorage.removeItem('a11y_high_contrast');
+      localStorage.removeItem('a11y_reduce_motion');
+      localStorage.removeItem('a11y_font_dyslexic');
+    });
+
+    // Cargar preferencias guardadas
+    const savedFontSize = localStorage.getItem('a11y_font_size');
+    if (savedFontSize === 'lg' || savedFontSize === 'xl') setFontSize(savedFontSize);
+    else fontSm?.classList.add('active');
+
+    if (localStorage.getItem('a11y_high_contrast') === 'true') setHighContrast(true);
+    if (localStorage.getItem('a11y_reduce_motion') === 'true') setReduceMotion(true);
+    if (localStorage.getItem('a11y_font_dyslexic') === 'true') setDyslexicFont(true);
+  })();
+</script>

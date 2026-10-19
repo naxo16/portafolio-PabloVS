@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import CyberBackground from '../components/CyberBackground.astro';
 import CustomCursor from '../components/CustomCursor.astro';
+import Accessibility from '../components/Accessibility.astro';
 
 interface Props {
   title: string;
@@ -94,6 +95,7 @@ const ogImageUrl = new URL(image, Astro.site || Astro.url);
     })} />
   </head>
   <body class="font-body-md text-body-md overflow-x-hidden antialiased selection:bg-[#80182a] selection:text-[#f2cf6b] cursor-default">
+    <Accessibility />
     <CyberBackground />
     <CustomCursor />
     <slot />
