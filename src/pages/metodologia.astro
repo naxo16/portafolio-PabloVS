@@ -76,7 +76,7 @@ import Footer from '../components/Footer.astro';
         </div>
 
         <!-- Step 4 -->
-        <div class="relative pl-8 md:pl-16 animate-on-scroll group">
+        <div id="solid" class="relative pl-8 md:pl-16 animate-on-scroll group scroll-mt-28 md:scroll-mt-32">
           <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full bg-surface border-2 border-primary flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_15px_var(--color-primary)]">
             <span class="font-code-sm text-xs font-bold text-primary">04</span>
           </div>
@@ -86,11 +86,22 @@ import Footer from '../components/Footer.astro';
             </div>
             <div class="flex items-center gap-3 mb-4 relative z-10">
               <span class="material-symbols-outlined notranslate text-primary text-3xl" translate="no">code_blocks</span>
-              <h2 class="font-headline-md text-2xl text-on-surface">Desarrollo e Ingeniería</h2>
+              <h2 class="font-headline-md text-2xl text-on-surface">Desarrollo, SOLID y Arquitectura Limpia</h2>
             </div>
-            <p class="text-on-surface-variant text-body-md leading-relaxed relative z-10">
-              Construyo la solución aplicando rigor técnico y buenas prácticas de ingeniería de software. Utilizo principios SOLID, metodologías de Clean Code, Arquitectura Limpia y paradigmas de desarrollo seguro desde el diseño (Secure by Design).
+            <p class="text-on-surface-variant text-body-md leading-relaxed relative z-10 mb-4">
+              Construyo la solución aplicando rigor técnico y buenas prácticas de ingeniería de software. Utilizo principios SOLID, metodologías de Clean Code, Arquitectura Limpia con dominio desacoplado y separación de responsabilidades.
             </p>
+
+            <!-- Callout: Programación Defensiva -->
+            <div id="defensive" class="relative z-10 mt-6 p-4 rounded-xl bg-surface-container-high/60 border border-primary/30 scroll-mt-28 md:scroll-mt-32">
+              <div class="flex items-center gap-2 mb-2 text-primary font-bold text-sm">
+                <span class="material-symbols-outlined text-[18px]" translate="no">security</span>
+                Programación Defensiva & Validación en Frontera
+              </div>
+              <p class="text-xs text-on-surface-variant leading-relaxed">
+                Tipado estricto en Python (Pydantic v2) y TypeScript, manejo proactivo de valores nulos o cadenas vacías, aislamiento de desbordamientos CSS y políticas de seguridad estrictas (RFC 6238 TOTP, JWT seguro).
+              </p>
+            </div>
           </div>
         </div>
 

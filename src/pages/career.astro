@@ -85,7 +85,7 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- Evidence & Real Projects Section (Demuestra en 30 segundos) -->
-    <section class="py-section-gap px-gutter bg-surface-container-low border-b border-outline-variant/10 animate-on-scroll">
+    <section id="quick-evidence" class="py-section-gap px-gutter bg-surface-container-low border-b border-outline-variant/10 animate-on-scroll scroll-mt-28 md:scroll-mt-32">
         <div class="max-w-container-max mx-auto">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="font-code-sm text-code-sm text-primary uppercase tracking-widest mb-3 inline-block">Evidencia de Ingeniería en 30 Segundos</span>
@@ -232,7 +232,7 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- Stack Tecnológico Estructurado -->
-    <section class="py-section-gap px-gutter bg-surface-container-lowest animate-on-scroll border-b border-outline-variant/10">
+    <section id="stack-hierarchy" class="py-section-gap px-gutter bg-surface-container-lowest animate-on-scroll border-b border-outline-variant/10 scroll-mt-28 md:scroll-mt-32">
         <div class="max-w-container-max mx-auto">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="font-code-sm text-code-sm text-primary uppercase tracking-widest mb-3 inline-block">Habilidades Técnicas Jerarquizadas</span>
@@ -377,6 +377,77 @@ import Footer from '../components/Footer.astro';
                     <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">
                         En dos años pasé de cero conocimientos técnicos a construir APIs asíncronas, modelar bases de datos y desplegar sistemas reales a producción. Estudio la documentación oficial, adopto buenas prácticas y aplico retroalimentación técnica de inmediato.
                     </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formación Académica & Credenciales -->
+    <section id="education" class="py-section-gap px-gutter bg-surface-container-low animate-on-scroll border-b border-outline-variant/10 scroll-mt-28 md:scroll-mt-32">
+        <div class="max-w-container-max mx-auto max-w-4xl">
+            <div class="text-center mb-12">
+                <span class="font-code-sm text-code-sm text-primary uppercase tracking-widest mb-3 inline-block">Formación y Título</span>
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-4">Credenciales Académicas y Especialización</h2>
+                <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    Formación formal orientada al análisis sistémico, modelado relacional y desarrollo seguro de software:
+                </p>
+            </div>
+
+            <div class="glass-card p-8 md:p-10 rounded-3xl border border-primary/30 relative overflow-hidden shadow-[0_0_30px_rgba(203,161,53,0.12)]">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-outline-variant/20">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary font-code-sm text-xs font-bold uppercase mb-2">
+                            <span class="material-symbols-outlined text-[14px]" translate="no">verified</span>
+                            Título Técnico de Nivel Superior
+                        </div>
+                        <h3 class="font-display font-bold text-2xl text-on-surface">
+                            Analista Programador
+                        </h3>
+                        <p class="text-on-surface-variant text-base mt-1 flex items-center gap-1.5 font-body">
+                            <span class="material-symbols-outlined text-primary text-[18px]" translate="no">school</span>
+                            Centro de Formación Técnica San Agustín (Sede Cauquenes)
+                        </p>
+                    </div>
+                    <div class="text-left md:text-right">
+                        <span class="font-code-sm text-xs text-primary bg-surface-container-high px-3 py-1.5 rounded-lg border border-primary/20 block md:inline-block">
+                            2024 — 2026 · Egreso & Título en Trámite
+                        </span>
+                        <span class="text-[11px] text-on-surface-variant block mt-1 font-mono">
+                            Certificado Oficial N° 056-2026
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
+                    <div class="p-4 rounded-xl bg-surface-container-highest/60 border border-outline-variant/30">
+                        <div class="flex items-center gap-2 text-primary font-bold text-sm mb-1.5">
+                            <span class="material-symbols-outlined text-[18px]" translate="no">account_tree</span>
+                            Análisis de Sistemas
+                        </div>
+                        <p class="text-xs text-on-surface-variant leading-relaxed">
+                            Levantamiento formal de requerimientos, diagramación UML, diseño modular y modelado de reglas de negocio.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-surface-container-highest/60 border border-outline-variant/30">
+                        <div class="flex items-center gap-2 text-primary font-bold text-sm mb-1.5">
+                            <span class="material-symbols-outlined text-[18px]" translate="no">database</span>
+                            Modelado Relacional
+                        </div>
+                        <p class="text-xs text-on-surface-variant leading-relaxed">
+                            Diseño de bases de datos relacionales en 3FN (PostgreSQL / MySQL), integridad referencial y consultas optimizadas.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-surface-container-highest/60 border border-outline-variant/30">
+                        <div class="flex items-center gap-2 text-primary font-bold text-sm mb-1.5">
+                            <span class="material-symbols-outlined text-[18px]" translate="no">security</span>
+                            Arquitectura y Seguridad
+                        </div>
+                        <p class="text-xs text-on-surface-variant leading-relaxed">
+                            Principios SOLID, validación en frontera, control de acceso basado en roles (RBAC) y desarrollo defensivo.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

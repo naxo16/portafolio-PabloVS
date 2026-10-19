@@ -126,3 +126,24 @@ test('integration: accessibility and text-to-speech module are present in built 
   assert.ok(html.includes('id="a11y-toggle-dyslexic"'), 'Must contain readable font toggle switch');
 });
 
+test('integration: navbar deep anchors resolve to valid targets across pages', () => {
+  // Check index anchors
+  const indexHtml = fs.readFileSync(path.resolve(distDir, 'index.html'), 'utf-8');
+  assert.ok(indexHtml.includes('id="hero"'), 'index.html must contain id="hero"');
+  assert.ok(indexHtml.includes('id="stack"'), 'index.html must contain id="stack"');
+  assert.ok(indexHtml.includes('id="metricas"'), 'index.html must contain id="metricas"');
+  assert.ok(indexHtml.includes('id="fiscalis-cinematic-banner"'), 'index.html must contain id="fiscalis-cinematic-banner"');
+
+  // Check career anchors
+  const careerHtml = fs.readFileSync(path.resolve(distDir, 'career/index.html'), 'utf-8');
+  assert.ok(careerHtml.includes('id="quick-evidence"'), 'career/index.html must contain id="quick-evidence"');
+  assert.ok(careerHtml.includes('id="stack-hierarchy"'), 'career/index.html must contain id="stack-hierarchy"');
+  assert.ok(careerHtml.includes('id="education"'), 'career/index.html must contain id="education"');
+
+  // Check metodologia anchors
+  const metodologiaHtml = fs.readFileSync(path.resolve(distDir, 'metodologia/index.html'), 'utf-8');
+  assert.ok(metodologiaHtml.includes('id="solid"'), 'metodologia/index.html must contain id="solid"');
+  assert.ok(metodologiaHtml.includes('id="defensive"'), 'metodologia/index.html must contain id="defensive"');
+});
+
+
