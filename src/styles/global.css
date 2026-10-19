@@ -120,6 +120,14 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Fallback de Accesibilidad: si el navegador no tiene JavaScript activo, el contenido es visible de inmediato */
+  @media (scripting: none) {
+    .animate-on-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
 }
 
 @layer base {
@@ -252,6 +260,17 @@
   }
 
   /* Reducción de Animaciones */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   html.reduce-motion *,
   html.reduce-motion *::before,
   html.reduce-motion *::after {
@@ -267,5 +286,15 @@
     letter-spacing: 0.04em !important;
     word-spacing: 0.08em !important;
     line-height: 1.8 !important;
+  }
+
+  /* Indicador de Foco Accesible Global (WCAG 2.4.7 / 2.4.11) */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #cba135 !important;
+    outline-offset: 3px !important;
   }
 }

@@ -190,7 +190,12 @@ const isActive = (href: string) => {
                                     <div class="flex-1 min-w-0">
                                         <div class="text-xs font-semibold text-on-surface group-hover/sub:text-primary transition-colors flex items-center gap-1 truncate">
                                             {sub.label}
-                                            {sub.isExternal && <span class="material-symbols-outlined text-[12px] opacity-60">open_in_new</span>}
+                                            {sub.isExternal && (
+                                                <span class="inline-flex items-center">
+                                                    <span class="material-symbols-outlined text-[12px] opacity-60 notranslate" translate="no" aria-hidden="true">open_in_new</span>
+                                                    <span class="sr-only">(se abre en nueva pestaña)</span>
+                                                </span>
+                                            )}
                                         </div>
                                         <div class="text-[10.5px] text-on-surface-variant line-clamp-1 leading-snug">{sub.description}</div>
                                     </div>
@@ -209,9 +214,11 @@ const isActive = (href: string) => {
                 href="/cv-pablo-valdes.pdf" 
                 target="_blank"
                 class="bg-surface-container border border-primary/30 text-on-surface hover:border-primary hover:text-primary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(203,161,53,0.15)] hover:shadow-[0_0_18px_rgba(203,161,53,0.3)]"
+                aria-label="Descargar CV Técnico de Pablo Valdés en PDF (abre en nueva pestaña)"
             >
-                <span class="material-symbols-outlined notranslate text-[16px]" translate="no">description</span>
+                <span class="material-symbols-outlined notranslate text-[16px]" translate="no" aria-hidden="true">description</span>
                 <span>CV Técnico</span>
+                <span class="sr-only">(abre en nueva pestaña)</span>
             </a>
             <a 
                 href="mailto:pablovaldescontacto@gmail.com" 
@@ -223,7 +230,13 @@ const isActive = (href: string) => {
         </div>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 z-[60] relative focus:outline-none" aria-label="Abrir menú">
+        <button 
+            id="mobile-menu-btn" 
+            class="lg:hidden flex flex-col justify-center items-center w-10 h-10 z-[60] relative focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded-lg" 
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="mobile-sidebar"
+        >
             <span class="w-6 h-0.5 bg-primary transition-all duration-300 rounded-full block absolute origin-center transform -translate-y-2"></span>
             <span class="w-6 h-0.5 bg-primary transition-all duration-300 rounded-full block absolute origin-center transform"></span>
             <span class="w-6 h-0.5 bg-primary transition-all duration-300 rounded-full block absolute origin-center transform translate-y-2"></span>
@@ -258,13 +271,15 @@ const isActive = (href: string) => {
                         {item.label}
                     </a>
                     <button 
-                        class="mobile-accordion-toggle p-1.5 rounded-lg text-primary hover:bg-primary/10 focus:outline-none"
+                        class="mobile-accordion-toggle p-1.5 rounded-lg text-primary hover:bg-primary/10 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
                         aria-label={`Desplegar submenú de ${item.label}`}
+                        aria-expanded="false"
+                        aria-controls={`mobile-menu-${item.id}`}
                     >
                         <span class="material-symbols-outlined text-[20px] transition-transform duration-200 mobile-chevron" translate="no">expand_more</span>
                     </button>
                 </div>
-                <div class="mobile-accordion-content hidden mt-2 flex flex-col gap-1.5 pl-3 border-l-2 border-primary/20">
+                <div id={`mobile-menu-${item.id}`} class="mobile-accordion-content hidden mt-2 flex flex-col gap-1.5 pl-3 border-l-2 border-primary/20">
                     {item.subitems.map((sub) => (
                         <a 
                             href={sub.href}
@@ -471,6 +486,8 @@ const isActive = (href: string) => {
 
     const toggleMobileMenu = () => {
         isMobileMenuOpen = !isMobileMenuOpen;
+        mobileBtn?.setAttribute('aria-expanded', isMobileMenuOpen ? 'true' : 'false');
+        mobileBtn?.setAttribute('aria-label', isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú');
         
         if (isMobileMenuOpen) {
             mobileSidebar?.classList.remove('translate-x-full');
@@ -483,6 +500,9 @@ const isActive = (href: string) => {
                 lines[2].classList.remove('translate-y-2');
             }
             document.body.style.overflow = 'hidden';
+            // Enfocar primer enlace navegable del sidebar
+            const firstLink = mobileSidebar?.querySelector<HTMLAnchorElement>('a');
+            firstLink?.focus();
         } else {
             mobileSidebar?.classList.add('translate-x-full');
             mobileOverlay?.classList.add('opacity-0', 'pointer-events-none');
@@ -500,6 +520,14 @@ const isActive = (href: string) => {
     mobileBtn?.addEventListener('click', toggleMobileMenu);
     mobileOverlay?.addEventListener('click', toggleMobileMenu);
 
+    // Escape para cerrar menú móvil
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isMobileMenuOpen) {
+            toggleMobileMenu();
+            mobileBtn?.focus();
+        }
+    });
+
     // Mobile Accordion functionality
     const accordionToggles = document.querySelectorAll('.mobile-accordion-toggle');
     accordionToggles.forEach((btn) => {
@@ -514,9 +542,11 @@ const isActive = (href: string) => {
                 if (isHidden) {
                     content.classList.remove('hidden');
                     chevron?.classList.add('rotate-180');
+                    btn.setAttribute('aria-expanded', 'true');
                 } else {
                     content.classList.add('hidden');
                     chevron?.classList.remove('rotate-180');
+                    btn.setAttribute('aria-expanded', 'false');
                 }
             }
         });

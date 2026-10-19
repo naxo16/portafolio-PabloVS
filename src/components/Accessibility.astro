@@ -9,7 +9,7 @@
 </a>
 
 <!-- Widget Flotante de Accesibilidad -->
-<div id="accessibility-widget" class="fixed bottom-4 left-4 z-50 notranslate" translate="no">
+<aside id="accessibility-widget" class="fixed bottom-4 left-4 z-50 notranslate" translate="no" aria-label="Herramientas de accesibilidad y lectura por voz">
   <!-- Botón Activador del Panel -->
   <button
     id="a11y-toggle-btn"
@@ -124,6 +124,12 @@
           <span class="material-symbols-outlined text-[14px]" aria-hidden="true">info</span>
           <span id="a11y-tts-status-text">Lector de voz listo para usar.</span>
         </div>
+
+        <!-- Nota técnica accesible para lectores de pantalla -->
+        <div class="mt-2.5 p-2 rounded bg-surface-container-high/60 border border-outline-variant/30 text-[11px] text-on-surface-variant leading-relaxed">
+          <span class="font-semibold text-primary block mb-0.5">💡 Para usuarios con lector de pantalla:</span>
+          Si ya estás utilizando NVDA, VoiceOver, TalkBack o JAWS, no requieres activar esta función para evitar voces superpuestas.
+        </div>
       </section>
 
       <!-- SECCIÓN 2: AJUSTES VISUALES Y DE LECTURA -->
@@ -215,7 +221,7 @@
 
     </div>
   </div>
-</div>
+</aside>
 
 <style>
   /* Skip Link Accesible */

@@ -93,6 +93,16 @@ const ogImageUrl = new URL(image, Astro.site || Astro.url);
         }
       }
     })} />
+
+    <!-- Fallback de Accesibilidad sin JavaScript -->
+    <noscript>
+      <style>
+        .animate-on-scroll {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body class="font-body-md text-body-md overflow-x-hidden antialiased selection:bg-[#80182a] selection:text-[#f2cf6b] cursor-default">
     <Accessibility />
